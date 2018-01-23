@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration  
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+
+<configuration>
+	<typeAliases>
+		<!-- <typeAlias type="org.miao.test.User" alias="user"/> -->
+		<!-- 批量指定别名  ，mybatis自动扫描包下的po类，为类名首字母大小写都可以 -->
+		<!-- <package name="org.miao.test"/> -->
+	</typeAliases>
+</configuration>

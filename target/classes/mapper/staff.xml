@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miao.dao.StaffDao">
+    <resultMap id="staffMap" type="com.miao.model.Staff">
+        <id column="staff_id" jdbcType="INTEGER" property="staffId" />
+        <result column="staff_account" jdbcType="VARCHAR" property="staffAccount" />
+        <result column="staff_password" jdbcType="VARCHAR" property="staffPassword" />
+        <result column="staff_status" jdbcType="VARCHAR" property="staffStatus" />
+    </resultMap>
+
+    <sql id="staff_column">
+        staff_id, staff_account, staff_password, staff_status
+    </sql>
+
+    <insert id="save" parameterType="com.miao.model.Staff">
+        insert into staff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="staffAccount != null">
+                staff_account,
+            </if>
+            <if test="staffPassword != null">
+                staff_password,
+            </if>
+            <if test="staffStatus != null">
+                staff_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="staffAccount != null">
+                #{staffAccount},
+            </if>
+            <if test="staffPassword != null">
+                #{staffPassword},
+            </if>
+            <if test="staffStatus != null">
+                #{staffStatus},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="removeById" parameterType="int">
+        delete from staff
+        <where>
+            staff_id = #{staffId}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="com.miao.model.Staff">
+        update staff
+        <set>
+            <if test="staffAccount != null">
+                staff_account = #{staffAccount},
+            </if>
+            <if test="staffPassword != null">
+                staff_password = #{staffPassword},
+            </if>
+            <if test="staffStatus != null">
+                staff_status = #{staffStatus},
+            </if>
+        </set>
+        <where>
+            staff_id = #{staffId}
+        </where>
+    </update>
+
+    <select id="getById" parameterType="int" resultMap="staffMap">
+        select
+        <include refid="staff_column" />
+        from staff
+        <where>
+            staff_id = #{staffId}
+        </where>
+    </select>
+
+    <select id="loadAll" parameterType="map" resultMap="staffMap">
+        select
+        <include refid="staff_column" />
+        from staff limit #{start}, #{end}
+    </select>
+</mapper>

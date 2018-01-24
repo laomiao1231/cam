@@ -47,7 +47,7 @@ public class BaseDaoImpl<T> extends SqlSessionDaoSupport implements BaseDao<T> {
         return this.getSqlSession().selectOne(getNameSpace()+GET_BY_ID, Id);
     }
 
-    public List<T> loadAll(Map<String, String> params) {
+    public List<T> loadAll(Map<String, Integer> params) {
         return this.getSqlSession().selectList(getNameSpace()+LOAD_ALL, params);
     }
 }

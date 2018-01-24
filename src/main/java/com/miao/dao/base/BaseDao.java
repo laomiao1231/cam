@@ -8,5 +8,5 @@ public interface BaseDao<T> {
     void removeById(Integer Id);
     void update(T t);
     T getById(Integer Id);
-    List<T> loadAll(Map<String,String> params);
+    List<T> loadAll(Map<String,Integer> params);
 }

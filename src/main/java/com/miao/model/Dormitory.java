@@ -3,7 +3,7 @@ package com.miao.model;
 public class Dormitory {
     private Integer dormitoryId;
     private String dormitoryCode; //宿舍编号
-    private String dormitoryBuliding; //所在楼宇
+    private String dormitoryBuilding; //所在楼宇
     private Integer dormitoryPersonnel; //实际人数
     private Integer dormitoryFull; //满员
 
@@ -23,12 +23,12 @@ public class Dormitory {
         this.dormitoryCode = dormitoryCode;
     }
 
-    public String getDormitoryBuliding() {
-        return dormitoryBuliding;
+    public String getDormitoryBuilding() {
+        return dormitoryBuilding;
     }
 
-    public void setDormitoryBuliding(String dormitoryBuliding) {
-        this.dormitoryBuliding = dormitoryBuliding;
+    public void setDormitoryBuilding(String dormitoryBuilding) {
+        this.dormitoryBuilding = dormitoryBuilding;
     }
 
     public Integer getDormitoryPersonnel() {

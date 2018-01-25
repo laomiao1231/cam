@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m.dao.DormitoryDao">
+    <resultMap id="dormitoryMap" type="com.m.dto.DormitoryDto">
+        <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+        <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
+        <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
+        <result column="dormitory_personnel" jdbcType="INTEGER" property="dormitoryPersonnel" />
+        <result column="dormitory_full" jdbcType="INTEGER" property="dormitoryFull" />
+        <association column="staffId" property="staff" javaType="com.m.model.Staff">
+            <result column="staff_account" jdbcType="VARCHAR" property="staffAccount" />
+        </association>
+    </resultMap>
+
+    <sql id="dormitory_column">
+        dormitory_id, dormitory_code, dormitory_building, dormitory_personnel, dormitory_full
+    </sql>
+
+    <insert id="save" parameterType="com.m.model.Dormitory">
+        insert into dormitory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dormitoryCode != null">
+                dormitory_code,
+            </if>
+            <if test="dormitoryBuilding != null">
+                dormitory_building,
+            </if>
+            <if test="dormitoryPersonnel != null">
+                dormitory_personnel,
+            </if>
+            <if test="dormitoryFull != null">
+                dormitory_full,
+            </if>
+            <if test="dormitoryStaffId != null">
+                staffId
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dormitoryCode != null">
+                #{dormitoryCode},
+            </if>
+            <if test="dormitoryBuilding != null">
+                #{dormitoryBuilding},
+            </if>
+            <if test="dormitoryPersonnel != null">
+                #{dormitoryPersonnel},
+            </if>
+            <if test="dormitoryFull != null">
+                #{dormitoryFull},
+            </if>
+            <if test="dormitoryStaffId != null">
+                #{dormitoryStaffId},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="removeById" parameterType="int">
+        delete from dormitory
+        <where>
+            dormitory_id = #{dormitoryId}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="com.m.model.Dormitory">
+        update dormitory
+        <set>
+            <if test="dormitoryCode != null">
+                dormitory_code = #{dormitoryCode},
+            </if>
+            <if test="dormitoryBuilding != null">
+                dormitory_building = #{dormitoryBuilding},
+            </if>
+            <if test="dormitoryPersonnel != null">
+                dormitory_personnel = #{dormitoryPersonnel},
+            </if>
+            <if test="dormitoryFull != null">
+                dormitory_full = #{dormitoryFull},
+            </if>
+        </set>
+    </update>
+    
+    <select id="getById" parameterType="int" resultMap="dormitoryMap">
+        select
+        <include refid="dormitory_column" />
+        from dormitory
+        <where>
+            dormitory_id = #{dormitoryId}
+        </where>
+    </select>
+    
+    <select id="loadAll" parameterType="map" resultMap="dormitoryMap">
+        select
+        <include refid="dormitory_column" />
+        from dormitory limit #{start}, #{end}
+    </select>
+</mapper>

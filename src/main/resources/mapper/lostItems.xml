@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m.dao.LostItemsDao">
+    <resultMap id="lostItemsMap" type="com.m.model.LostItems">
+        <id column="lost_items_id" jdbcType="INTEGER" property="lostItemsId" />
+        <result column="lost_items_date" jdbcType="DATE" property="lostItemsDate" />
+        <result column="lost_items_describe" jdbcType="VARCHAR" property="lostItemsDescribe" />
+        <result column="lost_items_status" jdbcType="INTEGER" property="lostItemsStatus" />
+    </resultMap>
+
+    <sql id="lostItems_column">
+        lost_items_id, lost_items_date, lost_items_describe, lost_items_status
+    </sql>
+
+    <insert id="save" parameterType="com.m.model.LostItems">
+        insert into lost_items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lostItemsDate != null">
+                lost_items_date,
+            </if>
+            <if test="lostItemsDescribe != null">
+                lost_items_describe,
+            </if>
+            <if test="lostItemsStatus != null">
+                lost_items_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lostItemsDate != null">
+                #{lostItemsDate},
+            </if>
+            <if test="lostItemsDescribe != null">
+                #{lostItemsDescribe},
+            </if>
+            <if test="lostItemsStatus != null">
+                #{lostItemsStatus},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="removeById" parameterType="int">
+        delete from lost_items
+        <where>
+            lost_items_id = #{lostItemsId}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="com.m.model.LostItems">
+        update lost_items
+        <set>
+            <if test="lostItemsDate != null">
+                lost_items_date = #{lostItemsDate},
+            </if>
+            <if test="lostItemsDescribe != null">
+                lost_items_describe = #{lostItemsDescribe},
+            </if>
+            <if test="lostItemsStatus != null">
+                lost_items_status = #{lostItemsStatus},
+            </if>
+        </set>
+        <where>
+            lost_items_id = #{lostItemsId}
+        </where>
+    </update>
+
+    <select id="getById" parameterType="int" resultMap="lostItemsMap">
+        select
+        <include refid="lostItems_column" />
+        from lost_items where lost_items_id = #{lostItemsId}
+    </select>
+
+    <select id="loadAll" parameterType="map" resultMap="lostItemsMap">
+        select
+        <include refid="lostItems_column" />
+        from lost_items limit #{start}, #{end}
+    </select>
+</mapper>

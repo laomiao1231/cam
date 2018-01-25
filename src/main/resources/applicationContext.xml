@@ -14,7 +14,7 @@
     http://www.springframework.org/schema/context/spring-context-4.3.xsd "
     >  
     
-	<context:component-scan base-package="com.miao" >
+	<context:component-scan base-package="com.m" >
    	<context:exclude-filter type="annotation" 
   		 expression="org.springframework.stereotype.Controller"/> 
   	</context:component-scan>
@@ -41,7 +41,7 @@
 	指定扫描的包名 
 		如果扫描多个包，每个包中间使用半角逗号分隔
 	
-	<property name="basePackage" value="org.miao.mapper"/>
+	<property name="basePackage" value="org.m.mapper"/>
 	<property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"/>
 </bean> -->
 

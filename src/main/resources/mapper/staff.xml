@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.miao.dao.StaffDao">
-    <resultMap id="staffMap" type="com.miao.model.Staff">
+<mapper namespace="com.m.dao.StaffDao">
+    <resultMap id="staffMap" type="com.m.model.Staff">
         <id column="staff_id" jdbcType="INTEGER" property="staffId" />
         <result column="staff_account" jdbcType="VARCHAR" property="staffAccount" />
         <result column="staff_password" jdbcType="VARCHAR" property="staffPassword" />
@@ -14,7 +14,7 @@
         staff_id, staff_account, staff_password, staff_status
     </sql>
 
-    <insert id="save" parameterType="com.miao.model.Staff">
+    <insert id="save" parameterType="com.m.model.Staff">
         insert into staff
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="staffAccount != null">
@@ -47,7 +47,7 @@
         </where>
     </delete>
 
-    <update id="update" parameterType="com.miao.model.Staff">
+    <update id="update" parameterType="com.m.model.Staff">
         update staff
         <set>
             <if test="staffAccount != null">

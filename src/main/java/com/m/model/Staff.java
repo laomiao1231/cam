@@ -4,6 +4,9 @@ public class Staff {
     private Integer staffId;
     private String staffAccount;
     private String staffPassword;
+    private String staffName;
+    private Integer staffSex;
+    private Integer staffAge;
     private Integer staffStatus;
 
     public Integer getStaffId() {
@@ -28,6 +31,30 @@ public class Staff {
 
     public void setStaffPassword(String staffPassword) {
         this.staffPassword = staffPassword;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public Integer getStaffSex() {
+        return staffSex;
+    }
+
+    public void setStaffSex(Integer staffSex) {
+        this.staffSex = staffSex;
+    }
+
+    public Integer getStaffAge() {
+        return staffAge;
+    }
+
+    public void setStaffAge(Integer staffAge) {
+        this.staffAge = staffAge;
     }
 
     public Integer getStaffStatus() {

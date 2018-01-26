@@ -23,6 +23,9 @@ public class StaffController {
     public String saveStaff(Staff staff) {
         staff.setStaffAccount("300164");
         staff.setStaffPassword("123456");
+        staff.setStaffName("mm");
+        staff.setStaffSex(0);
+        staff.setStaffAge(35);
         staff.setStaffStatus(0);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
@@ -69,6 +72,9 @@ public class StaffController {
         staff.setStaffId(Id);
         staff.setStaffAccount("300188");
         staff.setStaffPassword("123456");
+        staff.setStaffName("mcf");
+        staff.setStaffSex(0);
+        staff.setStaffAge(35);
         staff.setStaffStatus(1);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();

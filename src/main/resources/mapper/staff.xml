@@ -8,10 +8,13 @@
         <result column="staff_account" jdbcType="VARCHAR" property="staffAccount" />
         <result column="staff_password" jdbcType="VARCHAR" property="staffPassword" />
         <result column="staff_status" jdbcType="VARCHAR" property="staffStatus" />
+        <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
+        <result column="staff_sex" jdbcType="INTEGER" property="staffSex" />
+        <result column="staff_age" jdbcType="INTEGER" property="staffAge" />
     </resultMap>
 
     <sql id="staff_column">
-        staff_id, staff_account, staff_password, staff_status
+        staff_id, staff_account, staff_password, staff_name, staff_sex, staff_age, staff_status
     </sql>
 
     <insert id="save" parameterType="com.m.model.Staff">
@@ -26,6 +29,15 @@
             <if test="staffStatus != null">
                 staff_status,
             </if>
+            <if test="staffName != null">
+                staff_name,
+            </if>
+            <if test="staffSex != null">
+                staff_sex,
+            </if>
+            <if test="staffAge != null">
+                staff_age,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="staffAccount != null">
@@ -36,6 +48,15 @@
             </if>
             <if test="staffStatus != null">
                 #{staffStatus},
+            </if>
+            <if test="staffName != null">
+                #{staffName},
+            </if>
+            <if test="staffSex != null">
+                #{staffSex},
+            </if>
+            <if test="staffAge != null">
+                #{staffAge},
             </if>
         </trim>
     </insert>
@@ -58,6 +79,15 @@
             </if>
             <if test="staffStatus != null">
                 staff_status = #{staffStatus},
+            </if>
+            <if test="staffName != null">
+                staff_name = #{staffName},
+            </if>
+            <if test="staffSex != null">
+                staff_sex = #{staffSex},
+            </if>
+            <if test="staffAge != null">
+                staff_age = #{staffAge},
             </if>
         </set>
         <where>

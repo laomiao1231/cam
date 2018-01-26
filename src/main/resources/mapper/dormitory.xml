@@ -9,8 +9,8 @@
         <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
         <result column="dormitory_personnel" jdbcType="INTEGER" property="dormitoryPersonnel" />
         <result column="dormitory_full" jdbcType="INTEGER" property="dormitoryFull" />
-        <association column="staffId" property="staff" javaType="com.m.model.Staff">
-            <result column="staff_account" jdbcType="VARCHAR" property="staffAccount" />
+        <association column="staff_id" property="staff" javaType="com.m.model.Staff">
+            <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
         </association>
     </resultMap>
 
@@ -83,8 +83,8 @@
     
     <select id="getById" parameterType="int" resultMap="dormitoryMap">
         select
-        <include refid="dormitory_column" />
-        from dormitory
+        dorm.*, s.staff_name
+        from dormitory dorm left join staff s using(staff_id)
         <where>
             dormitory_id = #{dormitoryId}
         </where>

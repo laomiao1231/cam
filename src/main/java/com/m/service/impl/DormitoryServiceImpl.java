@@ -15,6 +15,7 @@ import java.util.Map;
 public class DormitoryServiceImpl extends BaseServiceImpl<Dormitory> implements DormitoryService {
     @Autowired
     private DormitoryDao dormitoryDao;
+
     @Override
     public DormitoryDto getDormitoryManageById(Integer Id) {
         return this.dormitoryDao.getDormitoryManageById(Id);
@@ -24,5 +25,10 @@ public class DormitoryServiceImpl extends BaseServiceImpl<Dormitory> implements 
     public List<DormitoryDto> loadAllDormitory(Map<String,Integer> map) {
         List<DormitoryDto> dormitoryDtoList = this.dormitoryDao.loadAllDormitory(map);
         return dormitoryDtoList;
+    }
+
+    @Override
+    public Integer getDormitoryPersonnel(Integer dormId) {
+        return this.dormitoryDao.getDormitoryPersonnel(dormId);
     }
 }

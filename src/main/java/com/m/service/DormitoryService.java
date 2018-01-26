@@ -10,4 +10,5 @@ import java.util.Map;
 public interface DormitoryService extends BaseService<Dormitory> {
     DormitoryDto getDormitoryManageById(Integer Id);
     List<DormitoryDto> loadAllDormitory(Map<String,Integer> map);
+    Integer getDormitoryPersonnel(Integer dormId);
 }

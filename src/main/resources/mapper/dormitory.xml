@@ -95,4 +95,11 @@
         <include refid="dormitory_column" />
         from dormitory limit #{start}, #{end}
     </select>
+    
+    <select id="getPersonnel" parameterType="int" resultType="int">
+        select
+        (select count(*) from student where dormitory_id = dorm.dormitory_id) as personnel
+        from dormitory dorm
+        where dorm.dormitory_id = #{dormId}
+    </select>
 </mapper>

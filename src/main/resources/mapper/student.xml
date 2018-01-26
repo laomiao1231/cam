@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m.dao.StudentDao">
+    <resultMap id="studentMap" type="com.m.dto.StudentDto">
+        <id column="student_id" jdbcType="INTEGER" property="studentId" />
+        <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+        <result column="student_age" jdbcType="INTEGER" property="studentAge" />
+        <result column="student_sex" jdbcType="INTEGER" property="studentSex" />
+        <result column="student_account" jdbcType="VARCHAR" property="studentAccount" />
+        <result column="student_password" jdbcType="VARCHAR" property="studentPassword" />
+        <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
+        <association column="dormitory_id" property="dormitory" javaType="com.m.model.Dormitory">
+            <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
+            <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
+        </association>
+    </resultMap>
+
+    <sql id="student_column">
+        student_id, student_name, student_age, student_sex, student_account, student_password, student_major
+    </sql>
+
+    <insert id="save" parameterType="com.m.model.Student">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentName != null">
+                student_name,
+            </if>
+            <if test="dormId != null">
+                dormitory_id,
+            </if>
+            <if test="studentAge != null">
+                student_age,
+            </if>
+            <if test="studentSex != null">
+                student_sex,
+            </if>
+            <if test="studentAccount != null">
+                student_account,
+            </if>
+            <if test="studentPassword != null">
+                student_password,
+            </if>
+            <if test="studentMajor != null">
+                student_major,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentName != null">
+                #{studentName},
+            </if>
+            <if test="dormId != null">
+                #{dormId},
+            </if>
+            <if test="studentAge != null">
+                #{studentAge},
+            </if>
+            <if test="studentSex != null">
+                #{studentSex},
+            </if>
+            <if test="studentAccount != null">
+                #{studentAccount},
+            </if>
+            <if test="studentPassword != null">
+                #{studentPassword},
+            </if>
+            <if test="studentMajor != null">
+                #{studentMajor},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="removeById" parameterType="int">
+        delete from student
+        <where>
+            student_id = #{studentId}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="com.m.model.Student">
+        update student
+        <set>
+            <if test="studentName != null">
+                student_name = #{studentName},
+            </if>
+            <if test="dormId != null">
+                dormitory_id = #{dormId},
+            </if>
+            <if test="studentAge != null">
+                student_age = #{studentAge},
+            </if>
+            <if test="studentSex != null">
+                student_sex = #{studentSex},
+            </if>
+            <if test="studentAccount != null">
+                student_account = #{studentAccount},
+            </if>
+            <if test="studentPassword != null">
+                student_password = #{studentPassword},
+            </if>
+            <if test="studentMajor != null">
+                student_major = #{studentMajor},
+            </if>
+        </set>
+        <where>
+            student_id= #{studentId}
+        </where>
+    </update>
+
+    <select id="loadAll" parameterType="map" resultMap="studentMap">
+        select
+        stu.*, dorm.dormitory_code, dorm.dormitory_building
+        from student stu left join dormitory dorm using(dormitory_id)
+        limit #{start}, #{end}
+    </select>
+</mapper>

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.m.dao.DormitoryDao">
-    <resultMap id="dormitoryMap" type="com.m.dto.DormitoryDto">
+    <resultMap id="dormitoryDtoMap" type="com.m.dto.DormitoryDto">
         <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
         <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
         <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
@@ -12,6 +12,17 @@
         <association column="staff_id" property="staff" javaType="com.m.model.Staff">
             <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
         </association>
+    </resultMap>
+
+    <resultMap id="dorm_stu_Map" type="com.m.dto.DormitoryDto">
+        <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
+        <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
+        <collection property="studentList" ofType="com.m.model.Student">
+            <id column="student_id" jdbcType="INTEGER" property="studentId" />
+            <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+            <result column="student_sex" jdbcType="INTEGER" property="studentSex" />
+            <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
+        </collection>
     </resultMap>
 
     <sql id="dormitory_column">
@@ -81,7 +92,7 @@
         </set>
     </update>
     
-    <select id="getById" parameterType="int" resultMap="dormitoryMap">
+    <select id="getById" parameterType="int" resultMap="dormitoryDtoMap">
         select
         dorm.*, s.staff_name
         from dormitory dorm left join staff s using(staff_id)
@@ -90,7 +101,7 @@
         </where>
     </select>
     
-    <select id="loadAll" parameterType="map" resultMap="dormitoryMap">
+    <select id="loadAll" parameterType="map" resultMap="dormitoryDtoMap">
         select
         <include refid="dormitory_column" />
         from dormitory limit #{start}, #{end}
@@ -101,5 +112,16 @@
         (select count(*) from student where dormitory_id = dorm.dormitory_id) as personnel
         from dormitory dorm
         where dorm.dormitory_id = #{dormId}
+    </select>
+    
+    <select id="getFull" parameterType="int" resultType="int">
+        select dormitory_full from dormitory where dormitory_id= #{dormId};
+    </select>
+    
+    <select id="getPersonnelDetail" parameterType="int" resultMap="dorm_stu_Map">
+        select
+        stu.student_name, stu.student_major, stu.student_sex, dorm.dormitory_code, dorm.dormitory_building
+        from dormitory dorm left join student stu using(dormitory_id)
+        where dorm.dormitory_id = #{dromId};
     </select>
 </mapper>

@@ -1,6 +1,9 @@
 package com.m.dto;
 
 import com.m.model.Staff;
+import com.m.model.Student;
+
+import java.util.List;
 
 public class DormitoryDto {
     private Integer dormitoryId;
@@ -9,6 +12,7 @@ public class DormitoryDto {
     private Integer dormitoryPersonnel; //实际人数
     private Integer dormitoryFull; //满员
     private Staff staff;
+    private List<Student> studentList;
 
     public Integer getDormitoryId() {
         return dormitoryId;
@@ -56,5 +60,13 @@ public class DormitoryDto {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 }

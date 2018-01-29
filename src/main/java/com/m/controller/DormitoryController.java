@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m.dto.DormitoryDto;
 import com.m.model.Dormitory;
+import com.m.model.Student;
 import com.m.service.DormitoryService;
+import com.m.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class DormitoryController {
     @Autowired
     private DormitoryService dormitoryService;
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
@@ -111,5 +115,43 @@ public class DormitoryController {
         map.put("end", end);
         List<DormitoryDto> dormitoryDtoList = this.dormitoryService.loadAllDormitory(map);
         return dormitoryDtoList;
+    }
+
+    @RequestMapping(value = "/allot", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String allotDormitory(){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = new HashMap<>();
+        String string = null;
+        Student student = new Student();
+        student.setStudentId(2);
+        Integer dormId = 2;
+        Integer personnel = this.dormitoryService.getDormitoryPersonnel(dormId);
+        Integer full = this.dormitoryService.getDormitoryFull(dormId);
+        if(full > personnel) {
+            student.setDormId(dormId);
+            try {
+                this.studentService.update(student);
+                map.put("status", "200");
+            }catch (Exception e){
+                map.put("status", "400");
+            }
+        } else {
+            map.put("status", "∏√Àﬁ…·“—¬˙‘±");
+        }
+        try {
+            string = mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
+    @RequestMapping(value = "/getPersonnelDetail", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public DormitoryDto getDormitoryPersonnelDetail() {
+        Integer dormId = 2;
+        DormitoryDto dormitoryDto = this.dormitoryService.getDormitoryPersonnelDetail(dormId);
+        return dormitoryDto;
     }
 }

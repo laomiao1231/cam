@@ -14,34 +14,37 @@
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util.xsd">
 
-<context:component-scan base-package="com.m" use-default-filters="false" >
-	<context:include-filter type="annotation" 
-	expression="org.springframework.stereotype.Controller"/> 
-</context:component-scan>
+	<context:component-scan base-package="com.m" use-default-filters="false" >
+		<context:include-filter type="annotation"
+		expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 
-<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>  
-    <property name="prefix" value="/WEB-INF/view/"/>  
-    <property name="suffix" value=""/>  
-</bean>
-<mvc:default-servlet-handler/>
-<mvc:annotation-driven>
-	<!--json 去除空值-->
-	<mvc:message-converters register-defaults="true">
-		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-			<property name="objectMapper">
-				<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-					<property name="dateFormat">
-						<bean class="java.text.SimpleDateFormat">
-							<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-						</bean>
-					</property>
-					<property name="serializationInclusion">
-						<util:constant static-field="com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL" />
-					</property>
-				</bean>
-			</property>
-		</bean>
-	</mvc:message-converters>
-</mvc:annotation-driven>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=""/>
+	</bean>
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven>
+		<!--json 去除空值-->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8"/>
+			</bean>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+						<property name="serializationInclusion">
+							<util:constant static-field="com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL" />
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 </beans>

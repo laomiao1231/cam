@@ -31,4 +31,14 @@ public class DormitoryServiceImpl extends BaseServiceImpl<Dormitory> implements 
     public Integer getDormitoryPersonnel(Integer dormId) {
         return this.dormitoryDao.getDormitoryPersonnel(dormId);
     }
+
+    @Override
+    public Integer getDormitoryFull(Integer dormId) {
+        return this.dormitoryDao.getDormitoryFull(dormId);
+    }
+
+    @Override
+    public DormitoryDto getDormitoryPersonnelDetail(Integer dormId) {
+        return this.dormitoryDao.getDormitoryPersonnelDetail(dormId);
+    }
 }

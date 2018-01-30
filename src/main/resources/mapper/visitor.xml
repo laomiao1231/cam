@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m.dao.VisitorDao">
+    <resultMap id="visitorMap" type="com.m.model.Visitor">
+        <id column="visitor_id" jdbcType="INTEGER" property="visitorId" />
+        <result column="visitor_company" jdbcType="VARCHAR" property="visitorCompany" />
+        <result column="visitor_date" jdbcType="TIMESTAMP" property="visitorDate" />
+        <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+        <result column="staff_id" jdbcType="INTEGER" property="staffId" />
+    </resultMap>
+
+    <sql id="visitor_column">
+        visitor_id, visitor_name, visitor_company, visitor_date, staff_id
+    </sql>
+
+    <insert id="save" parameterType="com.m.model.Visitor">
+        insert into visitor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="visitorName != null">
+                visitor_name,
+            </if>
+            <if test="visitorCompany != null">
+                visitor_company,
+            </if>
+            <if test="visitorDate != null">
+                visitor_date,
+            </if>
+            <if test="staffId != null">
+                staff_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="visitorName != null">
+                #{visitorName},
+            </if>
+            <if test="visitorCompany != null">
+                #{visitorCompany},
+            </if>
+            <if test="visitorDate != null">
+                #{visitorDate},
+            </if>
+            <if test="staffId != null">
+                #{staffId},
+            </if>
+        </trim>
+    </insert>
+    
+    <delete id="removeById" parameterType="int">
+        delete
+        from visitor
+        <where>
+            visitor_id = #{visitorId}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="com.m.model.Visitor">
+        update visitor
+        <set>
+            <if test="visitorName != null">
+                visitor_name = #{visitorName},
+            </if>
+            <if test="visitorCompany != null">
+                visitor_company = #{visitorCompany},
+            </if>
+            <if test="visitorDate != null">
+                visitor_date = #{visitorDate},
+            </if>
+            <if test="staffId != null">
+                staff_id = #{staffId},
+            </if>
+        </set>
+        <where>
+            visitor_id = #{visitorId}
+        </where>
+    </update>
+
+    <select id="loadAll" parameterType="map" resultMap="visitorMap">
+        select
+        <include refid="visitor_column" />
+        from visitor limit #{start}, #{end}
+    </select>
+</mapper>

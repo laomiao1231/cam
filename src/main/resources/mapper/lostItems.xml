@@ -5,7 +5,7 @@
 <mapper namespace="com.m.dao.LostItemsDao">
     <resultMap id="lostItemsMap" type="com.m.model.LostItems">
         <id column="lost_items_id" jdbcType="INTEGER" property="lostItemsId" />
-        <result column="lost_items_date" jdbcType="DATE" property="lostItemsDate" />
+        <result column="lost_items_date" jdbcType="TIMESTAMP" property="lostItemsDate" />
         <result column="lost_items_describe" jdbcType="VARCHAR" property="lostItemsDescribe" />
         <result column="lost_items_status" jdbcType="INTEGER" property="lostItemsStatus" />
     </resultMap>

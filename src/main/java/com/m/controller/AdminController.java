@@ -68,10 +68,8 @@ public class AdminController {
     @ResponseBody
     public String updateAdmin(@PathVariable("Id") Integer Id, Admin admin) {
         admin.setAdminId(Id);
-        admin.setAdminAccount("141528");
-        admin.setAdminPassword("123456");
+        admin.setAdminPassword("121318");
         admin.setAdminPower(2);
-        admin.setAdminStatus(1);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -110,6 +108,54 @@ public class AdminController {
         return adminList;
     }
 
+    @RequestMapping(value = "/enable/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String enableAdmin(@PathVariable("Id") Integer Id) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.changeStatus(Id, 1);
+            map.put("status",200);
+        }catch (Exception e){
+            map.put("status",400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
+
+    @RequestMapping(value = "/disable/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String disableAdmin(@PathVariable("Id") Integer Id) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.changeStatus(Id, 0);
+            map.put("status",200);
+        }catch (Exception e){
+            map.put("status",400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
+
+    private void changeStatus(Integer Id, Integer state) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Id", Id);
+        map.put("state", state);
+        this.adminService.changeAdminStatus(map);
+    }
     @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public String loginAdmin(Admin admin) {

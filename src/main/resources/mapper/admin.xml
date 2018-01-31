@@ -57,22 +57,22 @@
     <update id="update" parameterType="com.m.model.Admin">
         update admin
         <set>
-            <if test="adminAccount != null">
-                admin_account = #{adminAccount},
-            </if>
             <if test="adminPassword != null">
                 admin_password = #{adminPassword},
             </if>
             <if test="adminPower != null">
                 admin_power = #{adminPower},
             </if>
-            <if test="adminStatus != null">
-                admin_status = #{adminStatus},
-            </if>
         </set>
         <where>
             admin_id = #{adminId}
         </where>
+    </update>
+
+    <update id="changeStatus" parameterType="map">
+        update admin
+        set admin_status = #{state}
+        where admin_id = #{Id}
     </update>
 
     <select id="getById" parameterType="int" resultMap="adminMap">

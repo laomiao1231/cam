@@ -10,4 +10,5 @@ import java.util.Map;
 public interface StudentDao extends BaseDao<Student> {
     List<StudentDto> loadStudentDetail(Map<String,Integer> map);
     Student getStudentByAccount(String Account);
+    void changeStudentPassword(Student student);
 }

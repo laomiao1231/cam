@@ -73,7 +73,6 @@ public class StudentController {
     public String updateStudent(@PathVariable("Id") Integer Id, Student student){
         student.setStudentId(Id);
         student.setDormId(2);
-        student.setStudentAccount("1415925080");
         student.setStudentPassword("121318");
         student.setStudentMajor("RJ");
         student.setStudentName("mxf");
@@ -84,6 +83,29 @@ public class StudentController {
         String string = null;
         try {
             this.studentService.update(student);
+            map.put("status", 200);
+        }catch (Exception e){
+            map.put("status", 400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
+
+    @RequestMapping(value = "/changePassword/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String changeStudentPassword(@PathVariable("Id") Integer Id, Student student) {
+        student.setStudentId(Id);
+        student.setStudentPassword("121212");
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try {
+            this.studentService.changeStudentPassword(student);
             map.put("status", 200);
         }catch (Exception e){
             map.put("status", 400);

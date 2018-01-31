@@ -99,9 +99,6 @@
             <if test="studentSex != null">
                 student_sex = #{studentSex},
             </if>
-            <if test="studentAccount != null">
-                student_account = #{studentAccount},
-            </if>
             <if test="studentPassword != null">
                 student_password = #{studentPassword},
             </if>
@@ -112,6 +109,12 @@
         <where>
             student_id= #{studentId}
         </where>
+    </update>
+
+    <update id="changePassword" parameterType="com.m.model.Student">
+        update student
+        set student_password = #{studentPassword}
+        where student_id = #{studentId}
     </update>
 
     <select id="loadAll" parameterType="map" resultMap="studentDetailMap">

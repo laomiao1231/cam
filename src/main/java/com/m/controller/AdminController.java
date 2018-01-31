@@ -109,4 +109,28 @@ public class AdminController {
         List<Admin> adminList = this.adminService.loadAll(map);
         return adminList;
     }
+
+    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String loginAdmin(Admin admin) {
+        admin.setAdminAccount("141525");
+        admin.setAdminPassword("123456");
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.adminService.getAdminByAccount(admin);
+            map.put("status", 200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("status", 400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
 }

@@ -15,8 +15,15 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
         this.setNameSpace("com.m.dao.StudentDao");
     }
 
+    protected static final String GET_BY_ACCOUNT = ".getByAccount";
+
     @Override
     public List<StudentDto> loadStudentDetail(Map<String, Integer> map) {
         return this.getSqlSession().selectList(this.getNameSpace()+LOAD_ALL, map);
+    }
+
+    @Override
+    public Student getStudentByAccount(String Account) {
+        return this.getSqlSession().selectOne(this.getNameSpace()+GET_BY_ACCOUNT, Account);
     }
 }

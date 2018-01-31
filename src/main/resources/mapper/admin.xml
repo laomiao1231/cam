@@ -86,4 +86,12 @@
         <include refid="admin_column" />
         from admin limit #{start}, #{end}
     </select>
+    
+    <select id="getByAccount" parameterType="java.lang.String" resultMap="adminMap">
+        select admin_account, admin_password, admin_power, admin_status
+        from admin
+        <where>
+            admin_account = #{Account}
+        </where>
+    </select>
 </mapper>

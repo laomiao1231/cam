@@ -1,5 +1,6 @@
 package com.m.service.impl;
 
+import com.m.dao.AdminDao;
 import com.m.model.Admin;
 import com.m.service.AdminService;
 import com.m.service.impl.base.BaseServiceImpl;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
     @Autowired
     private EncodeUtil encodeUtil;
+    @Autowired
+    private AdminDao adminDao;
 
     @Override
     public void save(Admin admin) {
@@ -20,5 +23,21 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
             e.printStackTrace();
         }
         super.save(admin);
+    }
+
+    @Override
+    public Admin getAdminByAccount(Admin admin) throws Exception{
+        Admin adn = this.adminDao.getAdminByAccount(admin.getAdminAccount());
+        admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminAccount(), admin.getAdminPassword()));
+        if(adn == null) {
+            throw new Exception("账户不存在");
+        }
+        if(adn.getAdminStatus() == 0) {
+            throw new Exception("账户已锁定");
+        }
+        if(!adn.getAdminPassword().equals(admin.getAdminPassword())) {
+            throw new Exception("账户或密码错误");
+        }
+        return adn;
     }
 }

@@ -109,4 +109,27 @@ public class StudentController {
         List<StudentDto> studentDtoList = this.studentService.loadStudentDetail(map);
         return studentDtoList;
     }
+
+    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String loginStudent(Student student) {
+        student.setStudentAccount("1415925080");
+        student.setStudentPassword("123456");
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try {
+            this.studentService.getStudentByAccount(student);
+            map.put("status", 200);
+        } catch (Exception e) {
+            map.put("status", 400);
+        } finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
 }

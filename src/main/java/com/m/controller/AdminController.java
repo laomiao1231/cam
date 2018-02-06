@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,26 +158,43 @@ public class AdminController {
         map.put("state", state);
         this.adminService.changeAdminStatus(map);
     }
-    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String loginAdmin(Admin admin) {
-        admin.setAdminAccount("141525");
-        admin.setAdminPassword("123456");
+    public String loginAdmin(@RequestBody Admin admin, HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("***********"+admin.getAdminAccount());
         ObjectMapper mapper = new ObjectMapper();
-        Map<String,Integer> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         String string = null;
         try{
-            this.adminService.getAdminByAccount(admin);
+            Admin adn = this.adminService.getAdminByAccount(admin);
+            request.getSession().setAttribute("admin", adn);
             map.put("status", 200);
         } catch (Exception e) {
-            e.printStackTrace();
-            map.put("status", 400);
+            response.setStatus(400);
+            map.put("message", e.getMessage());
         }finally {
             try {
                 string = mapper.writeValueAsString(map);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+        }
+        return string;
+    }
+
+    @RequestMapping(value = "/logout", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String logoutAdmin(HttpServletRequest request) {
+        request.getSession().removeAttribute("admin");
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        map.put("status", 200);
+        String string = null;
+        try {
+            string = mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
         return string;
     }

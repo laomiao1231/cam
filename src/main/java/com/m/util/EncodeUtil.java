@@ -7,11 +7,11 @@ import java.security.MessageDigest;
 @Component
 public class EncodeUtil {
     private char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-    public String md5Encode(Integer salt,String text) throws Exception{
+    public String md5Encode(String salt,String text) throws Exception{
         //创建消息摘要对象
         MessageDigest md = MessageDigest.getInstance("MD5");
         //将盐数据传入消息摘要对象
-        md.update(salt.byteValue());
+        md.update(salt.getBytes());
         //将口令的数据传给消息摘要对象
         md.update(text.getBytes("UTF-8"));
         //生成输入口令的消息摘要

@@ -20,7 +20,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public void save(Admin admin) {
         try {
-            admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminId(), admin.getAdminPassword()));
+            admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminAccount(), admin.getAdminPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public void update(Admin admin) {
         try {
-            admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminId(), admin.getAdminPassword()));
+            admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminAccount(), admin.getAdminPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public Admin getAdminByAccount(Admin admin) throws Exception{
         Admin adn = this.adminDao.getAdminByAccount(admin.getAdminAccount());
-        admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminId(), admin.getAdminPassword()));
+        admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminAccount(), admin.getAdminPassword()));
         if(adn == null) {
             throw new Exception("’Àªß≤ª¥Ê‘⁄");
         }

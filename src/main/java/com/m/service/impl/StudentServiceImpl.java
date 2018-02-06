@@ -27,7 +27,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     @Override
     public void save(Student student) {
         try {
-            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentId(), student.getStudentPassword()));
+            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,7 +37,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     @Override
     public void update(Student student) {
         try {
-            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentId(), student.getStudentPassword()));
+            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     @Override
     public Student getStudentByAccount(Student student) throws Exception {
         Student stu = this.studentDao.getStudentByAccount(student.getStudentAccount());
-        student.setStudentPassword(encodeUtil.md5Encode(student.getStudentId(), student.getStudentPassword()));
+        student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
         if(stu == null) {
             throw new Exception("’Àªß≤ª¥Ê‘⁄");
         }
@@ -60,7 +60,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     @Override
     public void changeStudentPassword(Student student) {
         try {
-            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentId(), student.getStudentPassword()));
+            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }

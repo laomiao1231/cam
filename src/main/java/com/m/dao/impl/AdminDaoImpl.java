@@ -16,6 +16,7 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao{
 
     protected static final String GET_BY_ACCOUNT = ".getByAccount";
     protected static final String CHANGE_STATUS = ".changeStatus";
+    protected static final String GET_COUNT = ".getCount";
 
     @Override
     public Admin getAdminByAccount(String Account) {
@@ -25,5 +26,10 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao{
     @Override
     public void changeAdminStatus(Map<String, Integer> map) {
         this.getSqlSession().update(this.getNameSpace()+CHANGE_STATUS, map);
+    }
+
+    @Override
+    public Integer getAdminCount() {
+        return this.getSqlSession().selectOne(this.getNameSpace()+GET_COUNT);
     }
 }

@@ -8,4 +8,5 @@ import java.util.Map;
 public interface AdminService extends BaseService<Admin> {
     Admin getAdminByAccount(Admin admin) throws Exception;
     void changeAdminStatus(Map<String,Integer> map);
+    Integer getAdminCount();
 }

@@ -8,4 +8,5 @@ import java.util.Map;
 public interface AdminDao extends BaseDao<Admin> {
     Admin getAdminByAccount(String Account);
     void changeAdminStatus(Map<String,Integer> map);
+    Integer getAdminCount();
 }

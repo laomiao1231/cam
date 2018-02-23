@@ -57,4 +57,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public void changeAdminStatus(Map<String, Integer> map) {
         this.adminDao.changeAdminStatus(map);
     }
+
+    @Override
+    public Integer getAdminCount() {
+        return this.adminDao.getAdminCount();
+    }
 }

@@ -94,4 +94,10 @@
             admin_account = #{Account}
         </where>
     </select>
+
+    <select id="getCount" resultType="int">
+        select count(admin_id)
+        from admin
+        where 1 = 1
+    </select>
 </mapper>

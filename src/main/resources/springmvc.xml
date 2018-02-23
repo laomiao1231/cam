@@ -47,10 +47,11 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	<mvc:interceptors>
+	<!--访问拦截-->
+	<!--<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<bean class="com.m.interceptor.AdminLoginInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors>-->
 </beans>

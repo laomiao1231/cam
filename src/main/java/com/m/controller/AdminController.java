@@ -23,11 +23,19 @@ public class AdminController {
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public String saveAdmin(Admin admin) {
-        admin.setAdminAccount("141525");
-        admin.setAdminPassword("123456");
-        admin.setAdminPower(1);
-        admin.setAdminStatus(0);
-        ObjectMapper mapper = new ObjectMapper();
+        Integer account = 141526;
+        for(int i = 0;i<10;i++) {
+            String AdminAccount = String.valueOf(account);
+            admin.setAdminAccount(AdminAccount);
+            admin.setAdminPassword("123456");
+            admin.setAdminPower(1);
+            admin.setAdminStatus(0);
+            this.adminService.save(admin);
+            account++;
+        }
+
+        return "la";
+        /*ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
         try{
@@ -42,7 +50,7 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
-        return string;
+        return string;*/
     }
 
     @RequestMapping(value = "/remove/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
@@ -66,12 +74,10 @@ public class AdminController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String updateAdmin(@PathVariable("Id") Integer Id, Admin admin) {
+    public String updateAdmin(@PathVariable("Id") Integer Id, @RequestBody Admin admin) {
         admin.setAdminId(Id);
-        admin.setAdminPassword("121318");
-        admin.setAdminPower(2);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -95,6 +101,13 @@ public class AdminController {
     public Admin getAdminById(@PathVariable("Id") Integer Id) {
         Admin admin = this.adminService.getById(Id);
         return admin;
+    }
+
+    @RequestMapping(value = "/getCount", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getAdminCount() {
+        Integer adminCount = this.adminService.getAdminCount();
+        return adminCount;
     }
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)

@@ -20,22 +20,10 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String saveAdmin(Admin admin) {
-        Integer account = 141526;
-        for(int i = 0;i<10;i++) {
-            String AdminAccount = String.valueOf(account);
-            admin.setAdminAccount(AdminAccount);
-            admin.setAdminPassword("123456");
-            admin.setAdminPower(1);
-            admin.setAdminStatus(0);
-            this.adminService.save(admin);
-            account++;
-        }
-
-        return "la";
-        /*ObjectMapper mapper = new ObjectMapper();
+    public String saveAdmin(@RequestBody Admin admin) {
+        ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
         try{
@@ -50,7 +38,7 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
-        return string;*/
+        return string;
     }
 
     @RequestMapping(value = "/remove/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)

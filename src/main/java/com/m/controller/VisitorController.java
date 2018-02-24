@@ -91,7 +91,7 @@ public class VisitorController {
         return string;
     }
 
-    @RequestMapping(value = "loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public List<Visitor> loadAllVisitor(@RequestParam("pageNumber") Integer pageNumber,
                                         @RequestParam("pageSize") Integer pageSize) {
@@ -102,5 +102,12 @@ public class VisitorController {
         map.put("end", end);
         List<Visitor> visitorList = this.visitorService.loadAll(map);
         return visitorList;
+    }
+
+    @RequestMapping(value = "/getCount", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getCount() {
+        Integer count = this.visitorService.getVisitorCount();
+        return count;
     }
 }

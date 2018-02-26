@@ -22,7 +22,7 @@ public class VisitorController {
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public String saveVisitor(Visitor visitor) {
-        visitor.setStaffId(3);
+        visitor.setStaffId(4);
         visitor.setVisitorName("mxf");
         visitor.setVisitorCompany("sie");
         visitor.setVisitorDate(new Date());

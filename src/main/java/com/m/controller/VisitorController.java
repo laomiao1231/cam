@@ -19,13 +19,11 @@ public class VisitorController {
     @Autowired
     private VisitorService visitorService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String saveVisitor(Visitor visitor) {
-        visitor.setStaffId(4);
-        visitor.setVisitorName("mxf");
-        visitor.setVisitorCompany("sie");
-        visitor.setVisitorDate(new Date());
+    public String saveVisitor(@RequestBody Visitor visitor) {
+        System.out.println("**************");
+        System.out.println(visitor);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -65,14 +63,10 @@ public class VisitorController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String updateVisitor(@PathVariable("Id") Integer Id, Visitor visitor) {
+    public String updateVisitor(@PathVariable("Id") Integer Id, @RequestBody Visitor visitor) {
         visitor.setVisitorId(Id);
-        visitor.setStaffId(2);
-        visitor.setVisitorName("mm");
-        visitor.setVisitorCompany("sie");
-        visitor.setVisitorDate(new Date());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -89,6 +83,13 @@ public class VisitorController {
             }
         }
         return string;
+    }
+
+    @RequestMapping(value = "/get/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public Visitor getVisitorById(@PathVariable("Id") Integer Id) {
+        Visitor visitor = this.visitorService.getById(Id);
+        return visitor;
     }
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)

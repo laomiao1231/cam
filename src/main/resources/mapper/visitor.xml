@@ -76,6 +76,13 @@
         </where>
     </update>
 
+    <select id="getById" parameterType="int" resultMap="visitorMap">
+        select
+        <include refid="visitor_column" />
+        from visitor
+        where visitor_id = #{visitorId}
+    </select>
+
     <select id="loadAll" parameterType="map" resultMap="visitorMap">
         select
         <include refid="visitor_column" />

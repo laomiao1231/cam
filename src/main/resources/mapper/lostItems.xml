@@ -76,4 +76,11 @@
         <include refid="lostItems_column" />
         from lost_items limit #{start}, #{end}
     </select>
+
+    <select id="getByKey" parameterType="java.lang.String" resultMap="lostItemsMap">
+        select
+        <include refid="lostItems_column" />
+        from lost_items
+        where lost_items_describe like "%"#{lost_itms_describe}"%"
+    </select>
 </mapper>

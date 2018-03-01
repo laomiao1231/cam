@@ -1,3 +1,5 @@
 *.iml
 *.idea
+*.jpg
+*.jpeg
 /target/

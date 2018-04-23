@@ -90,8 +90,8 @@
             <if test="studentName != null">
                 student_name = #{studentName},
             </if>
-            <if test="dormId != null">
-                dormitory_id = #{dormId},
+            <if test="dormitoryId != null">
+                dormitory_id = #{dormitoryId},
             </if>
             <if test="studentAge != null">
                 student_age = #{studentAge},

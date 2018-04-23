@@ -104,6 +104,15 @@
         </where>
     </select>
 
+    <select id="getByAccount" parameterType="java.lang.String" resultMap="staffMap">
+        select
+        <include refid="staff_column" />
+        from student
+        <where>
+            staff_account = #{staffAccount}
+        </where>
+    </select>
+
     <select id="loadAll" parameterType="map" resultMap="staffMap">
         select
         <include refid="staff_column" />

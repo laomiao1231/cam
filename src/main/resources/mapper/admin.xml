@@ -88,7 +88,8 @@
     </select>
     
     <select id="getByAccount" parameterType="java.lang.String" resultMap="adminMap">
-        select admin_account, admin_password, admin_power, admin_status
+        select
+        <include refid="admin_column" />
         from admin
         <where>
             admin_account = #{Account}

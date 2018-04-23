@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class AdminLoginInterceptor implements HandlerInterceptor {
     /**
-     * HandlerÖ´ÐÐÍê³ÉÖ®ºóµ÷ÓÃÕâ¸ö·½·¨
+     * HandlerÖ´ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception exc)
@@ -22,30 +22,30 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     }
 
     /**
-     * HandlerÖ´ÐÐÖ®ºó£¬ModelAndView·µ»ØÖ®Ç°µ÷ÓÃÕâ¸ö·½·¨
+     * HandlerÖ´ï¿½ï¿½Ö®ï¿½ï¿½ModelAndViewï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
                            Object handler, ModelAndView modelAndView) throws Exception {
     }
 
     /**
-     * HandlerÖ´ÐÐÖ®Ç°µ÷ÓÃÕâ¸ö·½·¨
+     * HandlerÖ´ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
-        //»ñÈ¡ÇëÇóµÄURL
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½URL
         String url = request.getRequestURI();
-        //URL:loginÊÇ¹«¿ªµÄ;Õâ¸ödemoÊÇ³ýÁËlogin.jspÊÇ¿ÉÒÔ¹«¿ª·ÃÎÊµÄ£¬ÆäËüµÄURL¶¼½øÐÐÀ¹½Ø¿ØÖÆ
+        //URL:loginï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½;ï¿½ï¿½ï¿½demoï¿½Ç³ï¿½ï¿½ï¿½user-login.jspï¿½Ç¿ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÊµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½URLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½
         if(url.indexOf("admin/login")>=0){
             return true;
         }
-        //»ñÈ¡Session
+        //ï¿½ï¿½È¡Session
         HttpSession session = request.getSession();
         Admin admin = (Admin)session.getAttribute("admin");
         if(admin != null){
             return true;
         }
-        //²»·ûºÏÌõ¼þ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         try{

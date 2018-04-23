@@ -129,7 +129,6 @@ public class DormitoryController {
         Integer personnel = this.dormitoryService.getDormitoryPersonnel(dormId);
         Integer full = this.dormitoryService.getDormitoryFull(dormId);
         if(full > personnel) {
-            student.setDormId(dormId);
             try {
                 this.studentService.update(student);
                 map.put("status", "200");
@@ -137,7 +136,7 @@ public class DormitoryController {
                 map.put("status", "400");
             }
         } else {
-            map.put("status", "¸ÃËŞÉáÒÑÂúÔ±");
+            map.put("status", "è¯¥å®¿èˆå·²æ»¡å‘˜");
         }
         try {
             string = mapper.writeValueAsString(map);

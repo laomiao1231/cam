@@ -6,13 +6,9 @@ import com.m.model.News;
 import com.m.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/news")
@@ -45,6 +41,73 @@ public class NewsController {
 
     @RequestMapping(value = "/remove/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public String removeNewsById()
+    public String removeNewsById(@PathVariable("Id") Integer Id) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.newsService.removeById(Id);
+            map.put("status", 200);
+        }catch (Exception e){
+            map.put("status", 400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return string;
+    }
 
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String updateNews(@PathVariable("Id") Integer Id, News news) {
+        news.setNewsId(Id);
+        news.setNewsTitle("update");
+        news.setNewsContent("this is a update");
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.newsService.update(news);
+            map.put("status", 200);
+        }catch (Exception e){
+            map.put("status", 400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return string;
+    }
+
+    @RequestMapping(value = "/get/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public News getNewsById(@PathVariable("Id") Integer Id) {
+        News news = this.newsService.getById(Id);
+        return news;
+    }
+
+    @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    public String loadAllNews(@RequestParam("pageNumber") Integer pageNumber,
+                                  @RequestParam("pageSize") Integer pageSize, Map<String,Object> result) {
+        Map<String, Integer> map = new HashMap<>();
+        Integer start = (pageNumber-1)*pageSize;
+        Integer end = pageSize;
+        map.put("start", start);
+        map.put("end", end);
+        List<News> newsList = this.newsService.loadAll(map);
+        result.put("newsList", newsList);
+        return "news/news_list";
+    }
+
+    @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8",method = RequestMethod.GET)
+    @ResponseBody
+    public List<News> getNewsByKey(@RequestParam("keyWord") String keyWord) {
+        List<News> newsList = this.newsService.getByKey(keyWord);
+        return newsList;
+    }
 }

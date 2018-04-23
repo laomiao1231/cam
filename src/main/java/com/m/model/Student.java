@@ -2,13 +2,15 @@ package com.m.model;
 
 public class Student {
     private Integer studentId;
-    private Integer dormId;
     private String studentAccount;
     private String studentPassword;
     private String studentName;
     private Integer studentSex;
     private Integer studentAge;
     private String studentMajor;
+    private Integer dormitoryId;
+    private String studentClass;
+    private Integer studentStatus;
 
     public Integer getStudentId() {
         return studentId;
@@ -16,14 +18,6 @@ public class Student {
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
-    }
-
-    public Integer getDormId() {
-        return dormId;
-    }
-
-    public void setDormId(Integer dormId) {
-        this.dormId = dormId;
     }
 
     public String getStudentAccount() {
@@ -72,5 +66,29 @@ public class Student {
 
     public void setStudentMajor(String studentMajor) {
         this.studentMajor = studentMajor;
+    }
+
+    public Integer getDormitoryId() {
+        return dormitoryId;
+    }
+
+    public void setDormitoryId(Integer dormitoryId) {
+        this.dormitoryId = dormitoryId;
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public Integer getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(Integer studentStatus) {
+        this.studentStatus = studentStatus;
     }
 }

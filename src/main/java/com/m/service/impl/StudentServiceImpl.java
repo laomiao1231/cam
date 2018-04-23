@@ -2,6 +2,7 @@ package com.m.service.impl;
 
 import com.m.dao.StudentDao;
 import com.m.dto.StudentDto;
+import com.m.dto.User;
 import com.m.model.Student;
 import com.m.service.StudentService;
 import com.m.service.impl.base.BaseServiceImpl;
@@ -45,16 +46,19 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     }
 
     @Override
-    public Student getStudentByAccount(Student student) throws Exception {
-        Student stu = this.studentDao.getStudentByAccount(student.getStudentAccount());
-        student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
-        if(stu == null) {
-            throw new Exception("ÕË»§²»´æÔÚ");
+    public User getStudentByAccount(User user) throws Exception {
+        Student student = this.studentDao.getStudentByAccount(user.getAccount());
+        user.setPassWord(encodeUtil.md5Encode(user.getAccount(), user.getPassWord()));
+        if(student == null) {
+            throw new Exception("æ­¤ç”¨æˆ·ä¸å­˜åœ¨");
         }
-        if(!stu.getStudentPassword().equals(student.getStudentPassword())) {
-            throw new Exception("ÕË»§»òÃÜÂë´íÎó");
+        if(student.getStudentStatus() == 0) {
+            throw new Exception("è¯¥è´¦æˆ·å·²é”å®š");
         }
-        return stu;
+        if(!student.getStudentPassword().equals(user.getPassWord())) {
+            throw new Exception("è´¦æˆ·æˆ–å¯†ç é”™è¯¯");
+        }
+        return user;
     }
 
     @Override

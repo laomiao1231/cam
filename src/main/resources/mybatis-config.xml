@@ -8,8 +8,6 @@
 		<setting name="logImpl" value="STDOUT_LOGGING" />
 	</settings>
 	<typeAliases>
-		<!-- <typeAlias type="org.m.test.User" alias="user"/> -->
-		<!-- 批量指定别名  ，mybatis自动扫描包下的po类，为类名首字母大小写都可以 -->
-		<!-- <package name="org.m.test"/> -->
+
 	</typeAliases>
 </configuration>

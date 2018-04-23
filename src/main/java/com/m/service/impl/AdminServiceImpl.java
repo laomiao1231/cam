@@ -1,6 +1,7 @@
 package com.m.service.impl;
 
 import com.m.dao.AdminDao;
+import com.m.dto.User;
 import com.m.model.Admin;
 import com.m.service.AdminService;
 import com.m.service.impl.base.BaseServiceImpl;
@@ -38,19 +39,19 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     }
 
     @Override
-    public Admin getAdminByAccount(Admin admin) throws Exception{
-        Admin adn = this.adminDao.getAdminByAccount(admin.getAdminAccount());
-        admin.setAdminPassword(encodeUtil.md5Encode(admin.getAdminAccount(), admin.getAdminPassword()));
-        if(adn == null) {
-            throw new Exception("ÕË»§²»´æÔÚ");
+    public User getAdminByAccount(User user) throws Exception{
+        Admin admin = this.adminDao.getAdminByAccount(user.getAccount());
+        user.setPassWord(encodeUtil.md5Encode(user.getAccount(), user.getPassWord()));
+        if(admin == null) {
+            throw new Exception("è¯¥ç”¨æˆ·ä¸å­˜åœ¨");
         }
-        if(adn.getAdminStatus() == 0) {
-            throw new Exception("ÕË»§ÒÑËø¶¨");
+        if(admin.getAdminStatus() == 0) {
+            throw new Exception("è¯¥è´¦æˆ·ä¸å­˜åœ¨");
         }
-        if(!adn.getAdminPassword().equals(admin.getAdminPassword())) {
-            throw new Exception("ÕË»§»òÃÜÂë´íÎó");
+        if(!admin.getAdminPassword().equals(user.getPassWord())) {
+            throw new Exception("è´¦æˆ·æˆ–å¯†ç é”™è¯¯");
         }
-        return adn;
+        return user;
     }
 
     @Override

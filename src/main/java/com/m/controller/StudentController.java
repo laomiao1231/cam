@@ -22,7 +22,6 @@ public class StudentController {
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public String saveStudent(Student student) {
-        student.setDormId(2);
         student.setStudentAccount("1415925080");
         student.setStudentPassword("123456");
         student.setStudentMajor("RJ");
@@ -72,12 +71,6 @@ public class StudentController {
     @ResponseBody
     public String updateStudent(@PathVariable("Id") Integer Id, Student student){
         student.setStudentId(Id);
-        student.setDormId(2);
-        student.setStudentPassword("121318");
-        student.setStudentMajor("RJ");
-        student.setStudentName("mxf");
-        student.setStudentAge(23);
-        student.setStudentSex(0);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -132,26 +125,4 @@ public class StudentController {
         return studentDtoList;
     }
 
-    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public String loginStudent(Student student) {
-        student.setStudentAccount("1415925080");
-        student.setStudentPassword("123456");
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Integer> map = new HashMap<>();
-        String string = null;
-        try {
-            this.studentService.getStudentByAccount(student);
-            map.put("status", 200);
-        } catch (Exception e) {
-            map.put("status", 400);
-        } finally {
-            try {
-                string = mapper.writeValueAsString(map);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        return string;
-    }
 }

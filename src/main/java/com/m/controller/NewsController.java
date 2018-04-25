@@ -2,6 +2,8 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.model.News;
 import com.m.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,16 +94,19 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    public String loadAllNews(@RequestParam("pageNumber") Integer pageNumber,
-                                  @RequestParam("pageSize") Integer pageSize, Map<String,Object> result) {
+    @ResponseBody
+    public PageInfo<News> loadAllNews(@RequestParam(defaultValue = "1", value = "pageNumber") Integer pageNumber,
+                                  @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+        /*Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
         List<News> newsList = this.newsService.loadAll(map);
-        result.put("newsList", newsList);
-        return "news/news_list";
+        PageInfo<News> pageInfo = new PageInfo<>(newsList, pageSize);
+        System.out.println(pageInfo.getList().size());
+        return pageInfo;
     }
 
     @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8",method = RequestMethod.GET)

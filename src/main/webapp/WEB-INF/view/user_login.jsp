@@ -67,7 +67,7 @@
     </script>
 </head>
 <body class="login-bg">
-<div class="container">
+<div class="containers">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 login-top">
             <form id="defaultForm" class="form-horizontal from-layout">

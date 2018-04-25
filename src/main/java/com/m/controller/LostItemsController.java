@@ -31,7 +31,7 @@ public class LostItemsController {
     @ResponseBody
     public String saveLostItems(LostItems lostItems) {
         lostItems.setLostItemsDate(new Date());
-        lostItems.setLostItemsDescribe("Ò»´®Ô¿³×");
+        lostItems.setLostItemsDescribe("Ò»ï¿½ï¿½Ô¿ï¿½ï¿½");
         lostItems.setLostItemsStatus(0);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
@@ -77,7 +77,7 @@ public class LostItemsController {
     public String updateLostItems(@PathVariable("Id") Integer Id, LostItems lostItems) {
         lostItems.setLostItemsId(Id);
         lostItems.setLostItemsDate(new Date());
-        lostItems.setLostItemsDescribe("Ô¿³×");
+        lostItems.setLostItemsDescribe("Ô¿ï¿½ï¿½");
         lostItems.setLostItemsStatus(1);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();

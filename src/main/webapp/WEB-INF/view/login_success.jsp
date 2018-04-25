@@ -33,7 +33,7 @@
                     <a>重置密码</a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath() %>/news/loadAll?pageNumber=1&pageSize=5">查询公告</a>
+                    <a href="<%=request.getContextPath() %>/guide/toNewsList">查询公告</a>
                 </li>
                 <li>
                     <a>设备报修</a>

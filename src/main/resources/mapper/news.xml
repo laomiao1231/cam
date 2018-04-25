@@ -63,7 +63,7 @@
     <select id="loadAll" parameterType="map" resultMap="newsMap">
         select
         <include refid="news_column" />
-        from news limit #{start}, #{end}
+        from news
     </select>
 
     <select id="getByKey" parameterType="java.lang.String" resultMap="newsMap">

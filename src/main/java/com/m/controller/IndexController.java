@@ -87,4 +87,11 @@ public class IndexController {
         return "login_success";
     }
 
+    /**
+     * 跳转公告信息列表
+     * */
+    @RequestMapping("/toNewsList")
+    public String toNewsList() {
+        return "news/news_list";
+    }
 }

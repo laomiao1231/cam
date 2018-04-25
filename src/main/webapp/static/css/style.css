@@ -1,11 +1,11 @@
 .content, .container, #header {
   zoom: 1; }
-  .content:before, .container:before, #header:before, .content:after, .container:after, #header:after {
-    content: "";
-    display: table; }
-  .content:after, .container:after, #header:after {
-    clear: both;
-    overflow: hidden; }
+.content:before, .container:before, #header:before, .content:after, .container:after, #header:after {
+  content: "";
+  display: table; }
+.content:after, .container:after, #header:after {
+  clear: both;
+  overflow: hidden; }
 
 html,
 body {
@@ -28,9 +28,9 @@ body {
 a {
   color: #537ecd;
   text-decoration: none; }
-  a:hover, a:active, a:focus {
-    color: #3868c0;
-    text-decoration: none; }
+a:hover, a:active, a:focus {
+  color: #3868c0;
+  text-decoration: none; }
 
 p {
   font-size: 14px; }
@@ -40,10 +40,10 @@ ol {
   margin: 0;
   padding: 0;
   list-style: none outside none; }
-  ul li,
-  ol li {
-    margin: 0;
-    padding: 0; }
+ul li,
+ol li {
+  margin: 0;
+  padding: 0; }
 
 .clear {
   clear: both; }
@@ -102,20 +102,20 @@ label {
   border: 1px solid #eee;
   border-radius: 0;
   padding: 10px; }
-  .panel .tit {
-    text-align: left;
-    font-size: 14px;
-    font-weight: bold;
-    color: #444; }
+.panel .tit {
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: #444; }
 
 .content {
   width: 1200px;
   margin: 0 auto;
   padding: 0; }
-  @media (max-width: 1200px) {
-    .content {
-      width: 100%;
-      padding: 0 20px; } }
+@media (max-width: 1200px) {
+  .content {
+    width: 100%;
+    padding: 0 20px; } }
 
 .font-pro-m {
   font-size: 26px;
@@ -164,27 +164,27 @@ select {
   border-radius: 1px;
   box-shadow: none;
   font-size: 13px; }
-  input[type="text"]:focus,
-  input[type="file"]:focus,
-  input[type="number"]:focus,
-  input[type="password"]:focus,
-  input[type="date"]:focus,
-  input[type="email"]:focus,
-  textarea:focus,
-  select:focus {
-    outline: 0;
-    border-color: #66afe9;
-    box-shadow: inset 0 0 1px #ddd,0 0 8px #ddd; }
-  input[type="text"]:disabled,
-  input[type="file"]:disabled,
-  input[type="number"]:disabled,
-  input[type="password"]:disabled,
-  input[type="date"]:disabled,
-  input[type="email"]:disabled,
-  textarea:disabled,
-  select:disabled {
-    border-color: #f5f5f5;
-    background: #f5f5f5; }
+input[type="text"]:focus,
+input[type="file"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+  outline: 0;
+  border-color: #66afe9;
+  box-shadow: inset 0 0 1px #ddd,0 0 8px #ddd; }
+input[type="text"]:disabled,
+input[type="file"]:disabled,
+input[type="number"]:disabled,
+input[type="password"]:disabled,
+input[type="date"]:disabled,
+input[type="email"]:disabled,
+textarea:disabled,
+select:disabled {
+  border-color: #f5f5f5;
+  background: #f5f5f5; }
 
 input:read-only {
   border-color: #f5f5f5;
@@ -209,13 +209,13 @@ select {
   height: 34px;
   padding: 5px 15px;
   border-radius: 1px; }
-  select:before {
-    content: '';
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    border-width: 5px;
-    border-color: #000 transparent transparent transparent; }
+select:before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  border-width: 5px;
+  border-color: #000 transparent transparent transparent; }
 
 .error {
   border-top: 1px solid #ff0000 !important;
@@ -225,24 +225,24 @@ select {
 .input-label {
   position: relative;
   margin-bottom: 15px; }
-  .input-label i {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    color: #ccc;
-    font-size: 16px; }
-    .input-label i + input {
-      padding-left: 30px; }
-  .input-label input + i {
-    left: auto;
-    right: 10px;
-    top: 9px;
-    color: #9595ce; }
-  .input-label input[readonly] + i,
-  .input-label input[disabled] + i {
-    color: #ccc; }
-  .input-label div[class^="col-"] {
-    padding-left: 0; }
+.input-label i {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #ccc;
+  font-size: 16px; }
+.input-label i + input {
+  padding-left: 30px; }
+.input-label input + i {
+  left: auto;
+  right: 10px;
+  top: 9px;
+  color: #9595ce; }
+.input-label input[readonly] + i,
+.input-label input[disabled] + i {
+  color: #ccc; }
+.input-label div[class^="col-"] {
+  padding-left: 0; }
 
 .form-control {
   border-radius: 1px; }
@@ -260,22 +260,22 @@ select {
 
 .btn-default {
   font-size: 18px; }
-  .btn-default:hover {
-    opacity: .8; }
+.btn-default:hover {
+  opacity: .8; }
 
 .btn-red {
   background-color: #e64b39;
   color: #fff;
   font-size: 18px; }
-  .btn-red:hover {
-    opacity: .8; }
+.btn-red:hover {
+  opacity: .8; }
 
 .btn-blue {
   background-color: #779aed;
   color: #fff;
   font-size: 18px; }
-  .btn-blue:hover {
-    opacity: .8; }
+.btn-blue:hover {
+  opacity: .8; }
 
 .btn-green {
   background-color: #008a7c;
@@ -284,8 +284,8 @@ select {
   font-size: 16px;
   width: 180px;
   margin-top: 40px; }
-  .btn-green:hover {
-    opacity: .8; }
+.btn-green:hover {
+  opacity: .8; }
 
 .no-border {
   border: none;
@@ -306,8 +306,8 @@ select {
   display: inline-block;
   text-align: center;
   border-radius: 4px; }
-  .go-login:hover, .go-reg:hover {
-    color: #fff; }
+.go-login:hover, .go-reg:hover {
+  color: #fff; }
 
 .go-login {
   background-color: #e64b39; }
@@ -326,8 +326,8 @@ select {
   border-radius: 2px;
   color: #fff;
   font-size: 16px; }
-  .btn-red-small:hover, .btn-gray-small:hover, .btn-green-small:hover {
-    opacity: .8; }
+.btn-red-small:hover, .btn-gray-small:hover, .btn-green-small:hover {
+  opacity: .8; }
 
 .btn-red-small {
   background-color: #e64b39; }
@@ -347,13 +347,13 @@ select {
   color: #bbb;
   font-weight: normal;
   cursor: pointer; }
-  .btn-upload i {
-    font-size: 30px;
-    display: block;
-    text-align: center;
-    padding: 20px 0 0; }
-  .btn-upload + input {
-    display: none; }
+.btn-upload i {
+  font-size: 30px;
+  display: block;
+  text-align: center;
+  padding: 20px 0 0; }
+.btn-upload + input {
+  display: none; }
 
 nav {
   position: absolute;
@@ -365,28 +365,28 @@ nav {
   background: #222d32;
   box-shadow: 0 4px 4px 4px #ccc;
   z-index: 9; }
-  nav .tit {
-    padding: 12px 15px;
-    color: #4c4c4c; }
-    nav .tit i {
-      width: 20px; }
-  nav ul li {
-    padding: 12px 35px;
-    color: #8aa4af;
-    border-bottom: 1px solid #3c494e; }
-    nav ul li i {
-      color: #ccc; }
-    nav ul li a {
-      display: block;
-      color: #8aa4af;
-      font-size: 14px;
-      border-left: 3px solid transparent; }
-      nav ul li a:hover, nav ul li a:active, nav ul li a:focus {
-        color: #e64b39; }
-    nav ul li.active a {
-      border-color: #e64b39;
-      color: #e64b39;
-      font-weight: bold; }
+nav .tit {
+  padding: 12px 15px;
+  color: #4c4c4c; }
+nav .tit i {
+  width: 20px; }
+nav ul li {
+  padding: 12px 35px;
+  color: #8aa4af;
+  border-bottom: 1px solid #3c494e; }
+nav ul li i {
+  color: #ccc; }
+nav ul li a {
+  display: block;
+  color: #8aa4af;
+  font-size: 14px;
+  border-left: 3px solid transparent; }
+nav ul li a:hover, nav ul li a:active, nav ul li a:focus {
+  color: #e64b39; }
+nav ul li.active a {
+  border-color: #e64b39;
+  color: #e64b39;
+  font-weight: bold; }
 
 .box {
   position: relative;
@@ -409,12 +409,12 @@ nav {
 
 .poc {
   padding: 20px;  }
-  .poc .table tbody tr {
-    cursor: pointer; }
-    .poc .table tbody tr:checked {
-      background-color: tan; }
-  .poc a {
-    cursor: pointer; }
+.poc .table tbody tr {
+  cursor: pointer; }
+.poc .table tbody tr:checked {
+  background-color: tan; }
+.poc a {
+  cursor: pointer; }
 
 .visited {
   background-color: tan; }
@@ -422,16 +422,16 @@ nav {
 .grid-search {
   width: 98%;
   padding: 20px; }
-  .grid-search i {
-    padding-right: 5px;
-    color: #779aed; }
-  .grid-search span {
-    display: inline-block;
-    padding: 5px 20px;
-    cursor: pointer;
-    width: 35%; }
-    .grid-search span:hover {
-      background: #eee; }
+.grid-search i {
+  padding-right: 5px;
+  color: #779aed; }
+.grid-search span {
+  display: inline-block;
+  padding: 5px 20px;
+  cursor: pointer;
+  width: 35%; }
+.grid-search span:hover {
+  background: #eee; }
 
 .container {
   width: 100% !important;
@@ -462,22 +462,22 @@ nav {
   width: 100%;
   border-left: 1px solid #eee;
   padding: 20px 20px 20px 260px; }
-  .block-right .left {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    width: 50%;
-    height: 100%;
-    border-left: 1px solid #eee;
-    float: left; }
-  .block-right .right {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    width: 45%;
-    height: 100%;
-    border-left: 1px solid #eee;
-    float: right; }
+.block-right .left {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  height: 100%;
+  border-left: 1px solid #eee;
+  float: left; }
+.block-right .right {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 45%;
+  height: 100%;
+  border-left: 1px solid #eee;
+  float: right; }
 
 .topbar {
   width: 100%;
@@ -510,15 +510,15 @@ nav {
   height: 50px;
   line-height: 50px;
   font-size: 12px; }
-  .footer h6 {
-    line-height: 40px; }
-  .footer ul {
-    float: left;
-    width: 120px; }
-    .footer ul a {
-      color: #fff; }
-      .footer ul a:hover {
-        opacity: .6; }
+.footer h6 {
+  line-height: 40px; }
+.footer ul {
+  float: left;
+  width: 120px; }
+.footer ul a {
+  color: #fff; }
+.footer ul a:hover {
+  opacity: .6; }
 
 .all-right, a {
   color: #aaa;
@@ -535,98 +535,98 @@ nav {
   box-shadow: 0 1px 1px #aaaaaa;
   background-color: #aaaaaa;
   color: #ffffff; }
-  .form .connection {
-    position: relative;
-    margin: 0 80px;
-    padding: 5px 10px;
-    width: 100%; }
-  .form .title {
-    position: relative;
-    display: block;
-    width: 90%;
-    margin: 0 auto 10px;
-    padding: 10px 0;
-    cursor: pointer;
-    border-bottom: 1px solid #666666; }
-  .form .tit-title {
-    position: relative;
-    display: block;
-    width: 90%;
-    margin: 0 auto 10px;
-    padding: 10px 0;
-    cursor: pointer;
-    border-bottom: 1px solid #666666; }
-    .form .tit-title button {
-      color: #666666;
-      font-size: 12px;
-      font-weight: 300;
-      margin: 0 10px; }
-      .form .tit-title button:hover {
-        color: #444444; }
-  .form .subtitle {
-    width: 98%;
-    height: auto;
-    padding: 20px; }
-    .form .subtitle span {
-      position: relative;
-      display: inline-block;
-      padding: 10px 20px;
-      width: 25%; }
-    .form .subtitle .table {
-      width: 90%;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0; }
-    .form .subtitle .lower {
-      width: 50%;
-      margin: 20px auto;
-      padding: 2px 5px;
-      color: #666666; }
-    .form .subtitle .button {
-      width: 70px;
-      margin: 0 10px;
-      padding: 0 5px; }
-    .form .subtitle .input {
-      position: relative;
-      width: 70%;
-      color: #444444;
-      display: inline-block;
-      margin-right: 10px;
-      padding: 5px 20px;
-      float: right; }
-    .form .subtitle .time {
-      position: relative;
-      width: 20%;
-      color: #444444;
-      display: inline-block;
-      margin-right: 10px;
-      padding: 5px 20px;
-      float: left; }
-    .form .subtitle .select {
-      position: relative;
-      width: 30%;
-      color: #444444;
-      display: inline-block;
-      padding: 5px 20px;
-      margin-right: 40%; }
-    .form .subtitle .middle-input {
-      position: relative;
-      width: 60%;
-      display: inline-block;
-      margin-right: 10px;
-      padding: 5px 20px;
-      color: #444444; }
-    .form .subtitle .file-input {
-      background: #aaaaaa;
-      border: none;
-      margin: 0;
-      padding: 0; }
-    .form .subtitle .radio-input {
-      position: relative;
-      display: inline;
-      margin-right: 10px;
-      padding: 5px 5px 20px 0;
-      color: #444444; }
+.form .connection {
+  position: relative;
+  margin: 0 80px;
+  padding: 5px 10px;
+  width: 100%; }
+.form .title {
+  position: relative;
+  display: block;
+  width: 90%;
+  margin: 0 auto 10px;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #666666; }
+.form .tit-title {
+  position: relative;
+  display: block;
+  width: 90%;
+  margin: 0 auto 10px;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #666666; }
+.form .tit-title button {
+  color: #666666;
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0 10px; }
+.form .tit-title button:hover {
+  color: #444444; }
+.form .subtitle {
+  width: 98%;
+  height: auto;
+  padding: 20px; }
+.form .subtitle span {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  width: 25%; }
+.form .subtitle .table {
+  width: 90%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0; }
+.form .subtitle .lower {
+  width: 50%;
+  margin: 20px auto;
+  padding: 2px 5px;
+  color: #666666; }
+.form .subtitle .button {
+  width: 70px;
+  margin: 0 10px;
+  padding: 0 5px; }
+.form .subtitle .input {
+  position: relative;
+  width: 70%;
+  color: #444444;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 20px;
+  float: right; }
+.form .subtitle .time {
+  position: relative;
+  width: 20%;
+  color: #444444;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 20px;
+  float: left; }
+.form .subtitle .select {
+  position: relative;
+  width: 30%;
+  color: #444444;
+  display: inline-block;
+  padding: 5px 20px;
+  margin-right: 40%; }
+.form .subtitle .middle-input {
+  position: relative;
+  width: 60%;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 20px;
+  color: #444444; }
+.form .subtitle .file-input {
+  background: #aaaaaa;
+  border: none;
+  margin: 0;
+  padding: 0; }
+.form .subtitle .radio-input {
+  position: relative;
+  display: inline;
+  margin-right: 10px;
+  padding: 5px 5px 20px 0;
+  color: #444444; }
 
 .search {
   position: relative;
@@ -634,28 +634,28 @@ nav {
   display: inline-block;
   margin-right: 10px;
   float: right; }
-  .search input {
-    width: 70%;
-    display: inline-block;
-    padding: 5px 15px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 1px;
-    box-shadow: none;
-    font-size: 13px; }
-  .search button {
-    width: 20%;
-    display: inline-block;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    padding: 0;
-    margin: 0 10px;
-    border: none;
-    border-radius: 2px;
-    color: #fff;
-    font-size: 16px;
-    background-color: #5599FF; }
+.search input {
+  width: 70%;
+  display: inline-block;
+  padding: 5px 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  box-shadow: none;
+  font-size: 13px; }
+.search button {
+  width: 20%;
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  padding: 0;
+  margin: 0 10px;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 16px;
+  background-color: #5599FF; }
 
 .refresh {
   position: absolute;
@@ -680,65 +680,65 @@ nav {
   height: auto;
   margin: 0 50px;
   padding: 10px; }
-  .content .list-box {
-    width: 29%;
-    height: auto;
-    display: inline-block;
-    margin: 0 20px;
-    padding: 10px;
-    border: 1px solid #666666; }
-    .content .list-box span {
-      position: relative;
-      display: inline-block;
-      margin: 0;
-      padding: 5px 0;
-      width: 46%; }
-    .content .list-box table, .content .list-box tbody, .content .list-box tr, .content .list-box td {
-      border: 1px solid #666666; }
-    .content .list-box table tbody td {
-      text-align: center;
-      width: 20%;
-      margin: 5px;
-      padding: 5px 15px;
-      color: #ffffff; }
-    .content .list-box .line {
-      position: relative;
-      display: inline-block;
-      width: 0;
-      margin-right: 5px;
-      border-bottom: 5px solid transparent;
-      border-top: 5px solid transparent;
-      border-left: 10px solid #666666; }
-    .content .list-box .select {
-      position: relative;
-      width: 50%;
-      color: #444;
-      display: inline-block;
-      padding: 5px 0; }
-    .content .list-box .parallelism {
-      position: relative;
-      width: 100%;
-      height: 165px;
-      margin: 0;
-      padding: 5px;
-      overflow: auto; }
-    .content .list-box .substance {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      margin: 0;
-      padding: 10px;
-      border: 1px solid #666666;
-      overflow: auto; }
-      .content .list-box .substance ul {
-        position: relative;
-        border: none;
-        width: 100%;
-        margin: 0;
-        padding: 0; }
-      .content .list-box .substance li {
-        list-style: none;
-        cursor: pointer; }
+.content .list-box {
+  width: 29%;
+  height: auto;
+  display: inline-block;
+  margin: 0 20px;
+  padding: 10px;
+  border: 1px solid #666666; }
+.content .list-box span {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 5px 0;
+  width: 46%; }
+.content .list-box table, .content .list-box tbody, .content .list-box tr, .content .list-box td {
+  border: 1px solid #666666; }
+.content .list-box table tbody td {
+  text-align: center;
+  width: 20%;
+  margin: 5px;
+  padding: 5px 15px;
+  color: #ffffff; }
+.content .list-box .line {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  margin-right: 5px;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-left: 10px solid #666666; }
+.content .list-box .select {
+  position: relative;
+  width: 50%;
+  color: #444;
+  display: inline-block;
+  padding: 5px 0; }
+.content .list-box .parallelism {
+  position: relative;
+  width: 100%;
+  height: 165px;
+  margin: 0;
+  padding: 5px;
+  overflow: auto; }
+.content .list-box .substance {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #666666;
+  overflow: auto; }
+.content .list-box .substance ul {
+  position: relative;
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding: 0; }
+.content .list-box .substance li {
+  list-style: none;
+  cursor: pointer; }
 
 .drag {
   position: relative;
@@ -747,38 +747,38 @@ nav {
   height: auto;
   margin: 0;
   padding: 0; }
-  .drag button {
-    margin: 15px 0;
-    padding: 5px;
-    color: #444; }
-  .drag .drag-frame {
-    position: relative;
-    width: 200px;
-    height: 40px;
-    margin: 0 95px;
-    display: inline-block;
-    font-size: 36px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px dashed #444;
-    color: #444; }
-  .drag .drag-content {
-    width: 180px;
-    height: auto;
-    margin: 0 auto;
-    font-size: 18px;
-    text-align: center;
-    vertical-align: middle;
-    background-color: #444; }
-  .drag li {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    padding: 0 5px;
-    list-style: none;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 300; }
+.drag button {
+  margin: 15px 0;
+  padding: 5px;
+  color: #444; }
+.drag .drag-frame {
+  position: relative;
+  width: 200px;
+  height: 40px;
+  margin: 0 95px;
+  display: inline-block;
+  font-size: 36px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px dashed #444;
+  color: #444; }
+.drag .drag-content {
+  width: 180px;
+  height: auto;
+  margin: 0 auto;
+  font-size: 18px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #444; }
+.drag li {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0 5px;
+  list-style: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300; }
 
 .list-connection {
   position: relative;
@@ -786,15 +786,13 @@ nav {
   height: auto;
   margin: 0 auto;
   padding: 5px; }
-  .list-connection table, .list-connection tbody, .list-connection tr, .list-connection td {
-    margin: 0 auto;
-    border: 1px solid #666666;
-    width: 90%; }
-  .list-connection table td {
-    text-align: center;
-    width: 25%;
-    margin: 5px;
-    padding: 5px 15px;
-    color: #ffffff; }
-
-/*# sourceMappingURL=style.css.map */
+.list-connection table, .list-connection tbody, .list-connection tr, .list-connection td {
+  margin: 0 auto;
+  border: 1px solid #666666;
+  width: 90%; }
+.list-connection table td {
+  text-align: center;
+  width: 25%;
+  margin: 5px;
+  padding: 5px 15px;
+  color: #ffffff; }

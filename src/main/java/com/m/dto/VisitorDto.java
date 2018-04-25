@@ -1,14 +1,13 @@
-package com.m.model;
+package com.m.dto;
 
 import java.util.Date;
 
-public class Visitor {
+public class VisitorDto {
     private Integer visitorId;
     private String visitorName;
-    private Integer visitorSex;
     private String visitorCompany;
     private Date visitorDate;
-    private Integer staffId;
+    private String staffName;
 
     public Integer getVisitorId() {
         return visitorId;
@@ -24,14 +23,6 @@ public class Visitor {
 
     public void setVisitorName(String visitorName) {
         this.visitorName = visitorName;
-    }
-
-    public Integer getVisitorSex() {
-        return visitorSex;
-    }
-
-    public void setVisitorSex(Integer visitorSex) {
-        this.visitorSex = visitorSex;
     }
 
     public String getVisitorCompany() {
@@ -50,11 +41,11 @@ public class Visitor {
         this.visitorDate = visitorDate;
     }
 
-    public Integer getStaffId() {
-        return staffId;
+    public String getStaffName() {
+        return staffName;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 }

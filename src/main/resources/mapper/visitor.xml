@@ -8,11 +8,23 @@
         <result column="visitor_company" jdbcType="VARCHAR" property="visitorCompany" />
         <result column="visitor_date" jdbcType="TIMESTAMP" property="visitorDate" />
         <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+        <result column="visitor_sex" jdbcType="INTEGER" property="visitorSex" />
         <result column="staff_id" jdbcType="INTEGER" property="staffId" />
     </resultMap>
 
+    <resultMap id="visitorStaffMap" type="com.m.dto.VisitorDto">
+        <id column="visitor_id" jdbcType="INTEGER" property="visitorId" />
+        <result column="visitor_company" jdbcType="VARCHAR" property="visitorCompany" />
+        <result column="visitor_date" jdbcType="TIMESTAMP" property="visitorDate" />
+        <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+        <result column="visitor_sex" jdbcType="INTEGER" property="visitorSex" />
+        <association column="staff_id" property="staffName" javaType="java.lang.String">
+            <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
+        </association>
+    </resultMap>
+
     <sql id="visitor_column">
-        visitor_id, visitor_name, visitor_company, visitor_date, staff_id
+        visitor_id, visitor_name,visitor_sex visitor_company, visitor_date, staff_id
     </sql>
 
     <insert id="save" parameterType="com.m.model.Visitor">
@@ -20,6 +32,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="visitorName != null">
                 visitor_name,
+            </if>
+            <if test="visitorSex != null">
+                visitor_sex,
             </if>
             <if test="visitorCompany != null">
                 visitor_company,
@@ -83,10 +98,10 @@
         where visitor_id = #{visitorId}
     </select>
 
-    <select id="loadAll" parameterType="map" resultMap="visitorMap">
-        select
-        <include refid="visitor_column" />
-        from visitor limit #{start}, #{end}
+    <select id="loadAll" parameterType="map" resultMap="visitorStaffMap">
+         select
+        v.visitor_id, v.visitor_name, v.visitor_company, v.visitor_date,s.staff_name
+        from visitor v left join staff s using(staff_id)
     </select>
     
     <select id="getCount" resultType="int">

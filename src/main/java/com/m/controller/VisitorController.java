@@ -2,6 +2,8 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.model.Visitor;
 import com.m.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,15 +96,17 @@ public class VisitorController {
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<Visitor> loadAllVisitor(@RequestParam("pageNumber") Integer pageNumber,
+    public PageInfo<Visitor> loadAllVisitor(@RequestParam("pageNumber") Integer pageNumber,
                                         @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+       /* Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
         List<Visitor> visitorList = this.visitorService.loadAll(map);
-        return visitorList;
+        PageInfo<Visitor> pageInfo = new PageInfo<>(visitorList, 4);
+        return pageInfo;
     }
 
     @RequestMapping(value = "/getCount", produces = "application/json; charset=utf-8", method = RequestMethod.GET)

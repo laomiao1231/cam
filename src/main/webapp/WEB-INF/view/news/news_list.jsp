@@ -41,7 +41,7 @@
                     <button>查询</button>
                 </div>
             </div>
-            <div class="box poc">
+            <div class="box cam">
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
@@ -51,15 +51,18 @@
                     <tbody>
                     </tbody>
                 </table>
-                <div class="pull-right" id="page_nav">
+                <div class="pull-right" id="page_nav"></div>
+                <div class="pull-right">
                     <div class="page-total-info" id="page_info"></div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 <script type="text/javascript">
+    var pageSize = 5;
     $(function(){
-        to_page(1, 2);
+        to_page(1, pageSize);
         alert("success");
     });
     //ajax 请求函数
@@ -70,13 +73,10 @@
             type:"get",
             success:function(pageInfo){
                 //信息表
-                alert("11111111");
                 build_table_Information(pageInfo);
                 //页码信息
-                alert("2222222222");
                 build_table_info(pageInfo);
                 //页码导航条
-                alert("33333333333")
                 build_table_nav(pageInfo);
             }
         });
@@ -97,10 +97,10 @@
     }
     //创建分页信息
     function build_table_info(pageInfo){
+        alert(pageInfo.pageNum);
         $("#page_info").empty();
-        $("#page_info").append("第"+pageInfo.pageNum+
-                "页;共"+pageInfo.pages+
-                "页;共"+pageInfo.total+"条记录");
+        $("#page_info").append("共"+pageInfo.pages+
+                "页 "+pageInfo.total+"条记录");
     }
     //创建分业条
     function build_table_nav(pageInfo){
@@ -113,10 +113,10 @@
             prePageLi.addClass("disabled");
         }else{
             firstPageLi.click(function(){
-                to_page(1, 2);
+                to_page(1, pageSize);
             });
             prePageLi.click(function(){
-                to_page(pageInfo.pageNum-1, 2);
+                to_page(pageInfo.pageNum-1, pageSize);
             });
         }
 
@@ -127,7 +127,7 @@
             lastPageLi.addClass("disabled");
         }else{//添加点击跳转页面事件
             nextPageLi.click(function(){
-                to_page(pageInfo.pageNum+1, 2);
+                to_page(pageInfo.pageNum+1, pageSize);
             });
             lastPageLi.click(function(){
                 to_page(pageInfo.pages, 2);
@@ -141,7 +141,7 @@
                 numLi.addClass("active");
             }
             numLi.click(function(){
-                to_page(item, 2);
+                to_page(item, pageSize);
             });
             ul.append(numLi);
         });

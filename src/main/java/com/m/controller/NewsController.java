@@ -97,15 +97,15 @@ public class NewsController {
     @ResponseBody
     public PageInfo<News> loadAllNews(@RequestParam(defaultValue = "1", value = "pageNumber") Integer pageNumber,
                                   @RequestParam("pageSize") Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        System.out.println(".......PageHelper"+PageHelper.startPage(pageNumber, pageSize));
         Map<String, Integer> map = new HashMap<>();
         /*Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
         map.put("end", end);*/
-        PageHelper.startPage(pageNumber, pageSize);
         List<News> newsList = this.newsService.loadAll(map);
         PageInfo<News> pageInfo = new PageInfo<>(newsList, pageSize);
-        System.out.println(pageInfo.getList().size());
         return pageInfo;
     }
 

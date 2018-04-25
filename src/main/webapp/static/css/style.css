@@ -407,13 +407,17 @@ nav ul li.active a {
   color: black;
   text-align: center; }
 
-.poc {
-  padding: 20px;  }
-.poc .table tbody tr {
-  cursor: pointer; }
-.poc .table tbody tr:checked {
-  background-color: tan; }
-.poc a {
+.cam {
+  padding: 20px; }
+  .cam a {
+    cursor: pointer; }
+
+.operate {
+  position: relative;
+  width: 30px;
+  margin: 0 auto;
+  text-align: center;
+  display: inline-block;
   cursor: pointer; }
 
 .visited {

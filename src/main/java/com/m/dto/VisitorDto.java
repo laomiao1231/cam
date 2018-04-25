@@ -1,11 +1,15 @@
 package com.m.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class VisitorDto {
     private Integer visitorId;
     private String visitorName;
+    private String visitorSex;
     private String visitorCompany;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date visitorDate;
     private String staffName;
 
@@ -23,6 +27,14 @@ public class VisitorDto {
 
     public void setVisitorName(String visitorName) {
         this.visitorName = visitorName;
+    }
+
+    public String getVisitorSex() {
+        return visitorSex;
+    }
+
+    public void setVisitorSex(String visitorSex) {
+        this.visitorSex = visitorSex;
     }
 
     public String getVisitorCompany() {

@@ -4,12 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.m.dto.VisitorDto;
 import com.m.model.Visitor;
 import com.m.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +22,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("/visitor")
 public class VisitorController {
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @Autowired
     private VisitorService visitorService;
 
@@ -67,8 +78,9 @@ public class VisitorController {
 
     @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String updateVisitor(@PathVariable("Id") Integer Id, @RequestBody Visitor visitor) {
+    public String updateVisitor(@PathVariable("Id") Integer Id, Visitor visitor) {
         visitor.setVisitorId(Id);
+        System.out.println(Id);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -94,25 +106,18 @@ public class VisitorController {
         return visitor;
     }
 
-    @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getVisitorDetails", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<Visitor> loadAllVisitor(@RequestParam("pageNumber") Integer pageNumber,
-                                        @RequestParam("pageSize") Integer pageSize) {
+    public PageInfo<VisitorDto> loadAllVisitor(@RequestParam("pageNumber") Integer pageNumber,
+                                               @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
        /* Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
         map.put("end", end);*/
         PageHelper.startPage(pageNumber, pageSize);
-        List<Visitor> visitorList = this.visitorService.loadAll(map);
-        PageInfo<Visitor> pageInfo = new PageInfo<>(visitorList, 4);
+        List<VisitorDto> visitorList = this.visitorService.getVisitorDetails();
+        PageInfo<VisitorDto> pageInfo = new PageInfo<>(visitorList, 4);
         return pageInfo;
-    }
-
-    @RequestMapping(value = "/getCount", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getCount() {
-        Integer count = this.visitorService.getVisitorCount();
-        return count;
     }
 }

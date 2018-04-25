@@ -2,8 +2,11 @@ package com.m.dao.impl;
 
 import com.m.dao.VisitorDao;
 import com.m.dao.impl.base.BaseDaoImpl;
+import com.m.dto.VisitorDto;
 import com.m.model.Visitor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class VisitorDaoImpl extends BaseDaoImpl<Visitor> implements VisitorDao {
@@ -12,9 +15,15 @@ public class VisitorDaoImpl extends BaseDaoImpl<Visitor> implements VisitorDao {
     }
 
     protected static final String GET_COUNT = ".getCount";
+    protected static final String GET_VISITOR_DETAILS = ".getVisitorDetails";
 
     @Override
     public Integer getVisitorCount() {
         return this.getSqlSession().selectOne(this.getNameSpace()+GET_COUNT);
+    }
+
+    @Override
+    public List<VisitorDto> getVisitorDetails() {
+        return this.getSqlSession().selectList(this.getNameSpace()+GET_VISITOR_DETAILS);
     }
 }

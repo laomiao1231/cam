@@ -24,7 +24,7 @@
     </resultMap>
 
     <sql id="visitor_column">
-        visitor_id, visitor_name,visitor_sex visitor_company, visitor_date, staff_id
+        visitor_id, visitor_name,visitor_sex, visitor_company, visitor_date, staff_id
     </sql>
 
     <insert id="save" parameterType="com.m.model.Visitor">
@@ -49,6 +49,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="visitorName != null">
                 #{visitorName},
+            </if>
+            <if test="visitorSex != null">
+                #{visitorSex},
             </if>
             <if test="visitorCompany != null">
                 #{visitorCompany},
@@ -76,6 +79,9 @@
             <if test="visitorName != null">
                 visitor_name = #{visitorName},
             </if>
+            <if test="visitorSex != null">
+                visitor_sex = #{visitorSex},
+            </if>
             <if test="visitorCompany != null">
                 visitor_company = #{visitorCompany},
             </if>
@@ -98,9 +104,9 @@
         where visitor_id = #{visitorId}
     </select>
 
-    <select id="loadAll" parameterType="map" resultMap="visitorStaffMap">
-         select
-        v.visitor_id, v.visitor_name, v.visitor_company, v.visitor_date,s.staff_name
+    <select id="getVisitorDetails" parameterType="map" resultMap="visitorStaffMap">
+        select
+        v.visitor_id, v.visitor_sex, v.visitor_name, v.visitor_company, v.visitor_date,s.staff_name
         from visitor v left join staff s using(staff_id)
     </select>
     

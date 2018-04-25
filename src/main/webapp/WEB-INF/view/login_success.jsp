@@ -36,7 +36,7 @@
                     <a href="<%=request.getContextPath() %>/guide/toNewsList">查询公告</a>
                 </li>
                 <li>
-                    <a>设备报修</a>
+                    <a href="<%=request.getContextPath() %>/guide/toVisitorList">来访人员管理</a>
                 </li>
             </ul>
         </nav>

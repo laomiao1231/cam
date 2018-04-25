@@ -94,4 +94,12 @@ public class IndexController {
     public String toNewsList() {
         return "news/news_list";
     }
+
+    /**
+     * 跳转来访人员管理界面
+     * */
+    @RequestMapping("/toVisitorList")
+    public String toVisitorList() {
+        return "visitor/visitor_manage";
+    }
 }

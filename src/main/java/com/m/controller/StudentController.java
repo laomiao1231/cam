@@ -2,9 +2,11 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m.dto.StudentDto;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.model.Student;
 import com.m.service.StudentService;
+import com.m.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,18 +18,17 @@ import java.util.Map;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+    protected static final String ACCOUNT_SUFFIX = "14412";
+    protected static final String PASSWORD = "123456";
+
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String saveStudent(Student student) {
-        student.setStudentAccount("1415925080");
-        student.setStudentPassword("123456");
-        student.setStudentMajor("RJ");
-        student.setStudentName("mx");
-        student.setStudentAge(23);
-        student.setStudentSex(0);
+        student.setStudentPassword(PASSWORD);
+        student.setStudentAccount(ACCOUNT_SUFFIX+RandomUtil.Suffix());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -35,6 +36,7 @@ public class StudentController {
             this.studentService.save(student);
             map.put("status", 200);
         }catch (Exception e){
+            e.printStackTrace();
             map.put("status", 400);
         }finally {
             try {
@@ -67,7 +69,7 @@ public class StudentController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String updateStudent(@PathVariable("Id") Integer Id, Student student){
         student.setStudentId(Id);
@@ -112,17 +114,26 @@ public class StudentController {
         return string;
     }
 
+    @RequestMapping(value = "/get/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public Student getStudentById(@PathVariable("Id") Integer Id) {
+        Student student = this.studentService.getById(Id);
+        return student;
+    }
+
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<StudentDto> loadAllStudent(@RequestParam("pageNumber") Integer pageNumber,
-                                           @RequestParam("pageSize") Integer pageSize) {
+    public PageInfo<Student> loadAllStudent(@RequestParam("pageNumber") Integer pageNumber,
+                                               @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+       /* Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
-        List<StudentDto> studentDtoList = this.studentService.loadStudentDetail(map);
-        return studentDtoList;
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Student> studentList = this.studentService.loadAll(map);
+        PageInfo<Student> pageInfo = new PageInfo<>(studentList);
+        return pageInfo;
     }
 
 }

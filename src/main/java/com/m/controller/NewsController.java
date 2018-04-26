@@ -7,22 +7,31 @@ import com.github.pagehelper.PageInfo;
 import com.m.model.News;
 import com.m.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
 @RequestMapping("/news")
 public class NewsController {
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @Autowired
     private NewsService newsService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String saveNews(News news) {
-        news.setNewsTitle("test");
-        news.setNewsContent("this is test");
+    public String saveNews(News news) throws Exception {
+        news.setNewsTime(new Date());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -62,12 +71,10 @@ public class NewsController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String updateNews(@PathVariable("Id") Integer Id, News news) {
         news.setNewsId(Id);
-        news.setNewsTitle("update");
-        news.setNewsContent("this is a update");
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;

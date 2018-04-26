@@ -126,4 +126,36 @@ public class IndexController {
     public String toAdminManage() {
         return "admin/admin_manage";
     }
+
+    /**
+     * 跳转公告添加页面
+     * */
+    @RequestMapping("/toNewsAdd")
+    public String toNewsAdd() {
+        return "news/news_add";
+    }
+
+    /**
+     * 跳转公告管理界面
+     * */
+    @RequestMapping("/toNewsManage")
+    public String toNewsManage() {
+        return "news/news_manage";
+    }
+
+    /**
+     * 跳转学生添加界面
+     * */
+    @RequestMapping("/toStudentAdd")
+    public String toStudentAdd() {
+        return "student/student_add";
+    }
+
+    /**
+     * 跳转学生管理界面
+     * */
+    @RequestMapping("/toStudentManage")
+    public String toStudentManage() {
+        return "student/student_manage";
+    }
 }

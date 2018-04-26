@@ -18,13 +18,19 @@
     </resultMap>
 
     <resultMap id="studentMap" type="com.m.model.Student">
+        <id column="student_id" jdbcType="INTEGER" property="studentId" />
         <result column="student_name" jdbcType="VARCHAR" property="studentName" />
         <result column="student_account" jdbcType="VARCHAR" property="studentAccount" />
         <result column="student_password" jdbcType="VARCHAR" property="studentPassword" />
+        <result column="student_age" jdbcType="INTEGER" property="studentAge" />
+        <result column="student_sex" jdbcType="INTEGER" property="studentSex" />
+        <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
+        <result column="student_class" jdbcType="VARCHAR" property="studentClass" />
+        <result column="student_status" jdbcType="VARCHAR" property="studentStatus" />
     </resultMap>
 
     <sql id="student_column">
-        student_id, student_name, student_age, student_sex, student_account, student_password, student_major
+        student_id, student_name, student_age, student_sex, student_account, student_password, student_major, student_class, student_status
     </sql>
 
     <insert id="save" parameterType="com.m.model.Student">
@@ -33,7 +39,7 @@
             <if test="studentName != null">
                 student_name,
             </if>
-            <if test="dormId != null">
+            <if test="dormitoryId != null">
                 dormitory_id,
             </if>
             <if test="studentAge != null">
@@ -51,12 +57,18 @@
             <if test="studentMajor != null">
                 student_major,
             </if>
+            <if test="studentClass != null">
+                student_class,
+            </if>
+            <if test="studentStatus != null">
+                student_status,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="studentName != null">
                 #{studentName},
             </if>
-            <if test="dormId != null">
+            <if test="dormitoryId != null">
                 #{dormId},
             </if>
             <if test="studentAge != null">
@@ -73,6 +85,12 @@
             </if>
             <if test="studentMajor != null">
                 #{studentMajor},
+            </if>
+            <if test="studentClass != null">
+                #{studentClass},
+            </if>
+            <if test="studentStatus != null">
+                #{studentStatus}
             </if>
         </trim>
     </insert>
@@ -105,6 +123,9 @@
             <if test="studentMajor != null">
                 student_major = #{studentMajor},
             </if>
+            <if test="studentClass != null">
+                student_class = #{studentClass},
+            </if>
         </set>
         <where>
             student_id= #{studentId}
@@ -117,11 +138,24 @@
         where student_id = #{studentId}
     </update>
 
-    <select id="loadAll" parameterType="map" resultMap="studentDetailMap">
+   <!-- <select id="loadAll" parameterType="map" resultMap="studentDetMap">
         select
         stu.*, dorm.dormitory_code, dorm.dormitory_building
         from student stu left join dormitory dorm using(dormitory_id)
         limit #{start}, #{end}
+    </select>-->
+
+    <select id="loadAll" parameterType="map" resultMap="studentMap">
+        select
+        <include refid="student_column"/>
+        from student
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="studentMap">
+        select
+        <include refid="student_column" />
+        from student
+        where student_id = #{studentId}
     </select>
 
     <select id="getByAccount" parameterType="java.lang.String" resultMap="studentMap">

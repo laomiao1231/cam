@@ -21,7 +21,10 @@
                 news_title,
             </if>
             <if test="newsContent != null">
-                news_content
+                news_content,
+            </if>
+            <if test="newsTime != null">
+                news_time
             </if>
         </trim>
         <trim prefix="value (" suffix=")" suffixOverrides=")">
@@ -29,7 +32,10 @@
                 #{newsTitle},
             </if>
             <if test="newsContent != null">
-                #{newsContent}
+                #{newsContent},
+            </if>
+            <if test="newsTime != null">
+                #{newsTime}
             </if>
         </trim>
     </insert>
@@ -45,12 +51,16 @@
         update news
         <set>
             <if test="newsTitle != null">
-                news_title = #{newsTitle}
+                news_title = #{newsTitle},
             </if>
             <if test="newsContent != null">
-                news_content = #{newsContent}
+                news_content = #{newsContent},
+            </if>
+            <if test="newsTime != null">
+                news_time = #{newsTime}
             </if>
         </set>
+        where news_id = #{newsId}
     </update>
 
     <select id="getById" parameterType="int" resultMap="newsMap">

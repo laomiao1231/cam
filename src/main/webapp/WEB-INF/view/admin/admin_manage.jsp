@@ -157,7 +157,7 @@
     $(document).on("click",".delete_btn",function(){
         var Id=$(this).attr("del-id");
         //弹出确认框
-        if(confirm("确认删除来访者信息吗？")){
+        if(confirm("确认删除该管理员信息吗？")){
             //确认删除，发送ajax请求
             $.ajax({
                 url:"<%=request.getContextPath() %>/admin/remove/"+Id,

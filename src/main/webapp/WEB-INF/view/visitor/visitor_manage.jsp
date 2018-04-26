@@ -45,7 +45,7 @@
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>来访人姓名</td><td>性别</td><td>所属单位</td><td>时间</td><td>宿管员姓名</td><td colspan="2">操作</td>
+                        <td>来访人姓名</td><td>性别</td><td>所属单位</td><td>时间</td><td>宿管员姓名</td><td>操作</td>
                     </tr>
                     </thead>
                     <tbody>

@@ -20,6 +20,7 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
     protected static final String PASSWORD = "123456";
+
     @Autowired
     private AdminService adminService;
 

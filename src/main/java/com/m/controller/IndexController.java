@@ -98,8 +98,32 @@ public class IndexController {
     /**
      * 跳转来访人员管理界面
      * */
-    @RequestMapping("/toVisitorList")
+    @RequestMapping("/toVisitorManage")
     public String toVisitorList() {
         return "visitor/visitor_manage";
+    }
+
+    /**
+     * 跳转来访人员添加页面
+     * */
+    @RequestMapping("/toVisitorAdd")
+    public String toVisitorAdd() {
+        return "visitor/visitor_add";
+    }
+
+    /**
+     * 跳转管理员添加界面
+     * */
+    @RequestMapping("/toAdminAdd")
+    public String toAdminAdd() {
+        return "admin/admin_add";
+    }
+
+    /**
+     * 跳转管理员管理界面
+     * */
+    @RequestMapping("/toAdminManage")
+    public String toAdminManage() {
+        return "admin/admin_manage";
     }
 }

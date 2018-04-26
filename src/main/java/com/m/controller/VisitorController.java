@@ -34,9 +34,9 @@ public class VisitorController {
 
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String saveVisitor(@RequestBody Visitor visitor) {
-        System.out.println("**************");
-        System.out.println(visitor);
+    public String saveVisitor(Visitor visitor) {
+        visitor.setVisitorDate(new Date());
+        visitor.setStaffId(1);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;

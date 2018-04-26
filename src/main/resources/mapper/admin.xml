@@ -84,7 +84,7 @@
     <select id="loadAll" parameterType="map" resultMap="adminMap">
         select
         <include refid="admin_column" />
-        from admin limit #{start}, #{end}
+        from admin
     </select>
     
     <select id="getByAccount" parameterType="java.lang.String" resultMap="adminMap">

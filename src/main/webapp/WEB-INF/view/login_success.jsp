@@ -36,7 +36,16 @@
                     <a href="<%=request.getContextPath() %>/guide/toNewsList">查询公告</a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath() %>/guide/toVisitorList">来访人员管理</a>
+                    <a href="<%=request.getContextPath() %>/guide/toVisitorManage">来访人员管理</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toVisitorAdd">来访人员添加</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toAdminAdd">管理员添加</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toAdminManage">管理员管理</a>
                 </li>
             </ul>
         </nav>

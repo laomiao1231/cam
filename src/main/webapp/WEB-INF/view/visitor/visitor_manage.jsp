@@ -104,17 +104,18 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="update_btn">修改</button>
+                    <button type="button" class="btn btn-gray-small" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-green-small" id="update_btn">修改</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
     <script type="text/javascript">
-        var totalRecord,pageNum;
+        var pageNum;
+        var pageSize = 5;
         $(function(){
-            to_page(1, 2);
+            to_page(1, pageSize);
             alert("success");
         });
         //ajax 请求函数
@@ -147,7 +148,7 @@
                 var update=$("<div></div>").addClass("operate edit_btn")
                         .append("<i class='fa fa-edit'></i>");
                 update.attr("edit-id", visitor.visitorId);
-                var remove=$("<div><div>").addClass("operate")
+                var remove=$("<div><div>").addClass("operate delete_btn")
                         .append("<i class='fa fa-trash'></i>");
                 remove.attr("del-id", visitor.visitorId);
                 update.appendTo(operateTd);
@@ -166,7 +167,6 @@
             $("#page_info").empty();
             $("#page_info").append("共"+pageInfo.pages+
                     "页 "+pageInfo.total+"条记录");
-            totalRecord=pageInfo.total;
             pageNum=pageInfo.pageNum;
         }
         //创建分业条
@@ -180,10 +180,10 @@
                 prePageLi.addClass("disabled");
             }else{
                 firstPageLi.click(function(){
-                    to_page(1, 2);
+                    to_page(1, pageSize);
                 });
                 prePageLi.click(function(){
-                    to_page(pageInfo.pageNum-1, 2);
+                    to_page(pageInfo.pageNum-1, pageSize);
                 });
             }
 
@@ -218,7 +218,6 @@
         }
         //确定修改按钮，给修改按钮加事件
         $(document).on("click",".edit_btn",function(){
-            alert("asfjsfgka");
             $('#ModalUpdate').modal({
                 backdrop:"static"//点击背景不删除
             });
@@ -232,26 +231,39 @@
                 type:"get",
                 success:function(result){
                     console.log(result);
-                    $("#ModalUpdate input[name='visitorName']").val(result.visitorName);
+                    $("#update_name").val(result.visitorName);
                     $("#ModalUpdate input[name='visitorSex']").val([result.visitorSex]);
-                    $("#ModalUpdate input[name='visitorCompany']").val(result.visitorCompany);
-                    $("#ModalUpdate input[name='visitorDate']").val(result.visitorDate);
+                    $("#update_company").val(result.visitorCompany);
+                    $("#update_date").val(result.visitorDate);
                     $("#update_btn").attr("edit-id",result.visitorId);
                 }
             })
         }
         $("#update_btn").click(function(){
-            alert("aaaaaaa");
             $.ajax({
                 url:"<%=request.getContextPath() %>/visitor/update/"+$(this).attr("edit-id"),
                 type:"POST",
                 data:$("#ModalUpdate form").serialize(),
-                success:function(result){
-                    alert(result.msg);
+                success:function(){
                     $("#ModalUpdate").modal("hide");
                     to_page(pageNum, pageSize);
                 }
             });
+        });
+        //删除
+        $(document).on("click",".delete_btn",function(){
+            var Id=$(this).attr("del-id");
+            //弹出确认框
+            if(confirm("确认删除来访者信息吗？")){
+                //确认删除，发送ajax请求
+                $.ajax({
+                    url:"<%=request.getContextPath() %>/visitor/remove/"+Id,
+                    type:"get",
+                    success:function(){
+                        to_page(pageNum, pageSize)
+                    }
+                })
+            }
         });
     </script>
 </body>

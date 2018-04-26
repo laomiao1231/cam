@@ -2,6 +2,8 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.model.Admin;
 import com.m.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,15 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    protected static final String PASSWORD = "123456";
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String saveAdmin(Admin admin) {
-        admin.setAdminStatus(1);
-        admin.setAdminAccount("1440333");
-        admin.setAdminPassword("123456");
+        admin.setAdminPower(2);
+        admin.setAdminPassword(PASSWORD);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -103,25 +105,35 @@ public class AdminController {
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<Admin> loadAllAdmin(@RequestParam("pageNumber") Integer pageNumber,
+    public PageInfo<Admin> loadAllAdmin(@RequestParam("pageNumber") Integer pageNumber,
                                     @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+        /*Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
         List<Admin> adminList = this.adminService.loadAll(map);
-        return adminList;
+        PageInfo<Admin> pageInfo = new PageInfo<>(adminList, 3);
+        return pageInfo;
     }
 
-    @RequestMapping(value = "/enable/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/change/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public String enableAdmin(@PathVariable("Id") Integer Id) {
+    public String changeAdmin(@PathVariable("Id") Integer Id) {
+        Admin admin = this.adminService.getById(Id);
+        Map<String, Integer> temp_map = new HashMap<>();
+        temp_map.put("Id", Id);
+        if(admin.getAdminStatus() == 1) {
+            temp_map.put("state", 0);
+        }else {
+            temp_map.put("state", 1);
+        }
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
         try{
-            this.changeStatus(Id, 1);
+            this.adminService.changeAdminStatus(temp_map);
             map.put("status",200);
         }catch (Exception e){
             map.put("status",400);
@@ -135,33 +147,6 @@ public class AdminController {
         return string;
     }
 
-    @RequestMapping(value = "/disable/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public String disableAdmin(@PathVariable("Id") Integer Id) {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Integer> map = new HashMap<>();
-        String string = null;
-        try{
-            this.changeStatus(Id, 0);
-            map.put("status",200);
-        }catch (Exception e){
-            map.put("status",400);
-        }finally {
-            try {
-                string = mapper.writeValueAsString(map);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        return string;
-    }
-
-    private void changeStatus(Integer Id, Integer state) {
-        Map<String, Integer> map = new HashMap<>();
-        map.put("Id", Id);
-        map.put("state", state);
-        this.adminService.changeAdminStatus(map);
-    }
 
     @RequestMapping(value = "/logout", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody

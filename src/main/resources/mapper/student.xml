@@ -26,6 +26,7 @@
         <result column="student_sex" jdbcType="INTEGER" property="studentSex" />
         <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
         <result column="student_class" jdbcType="VARCHAR" property="studentClass" />
+        <result column="student_power" jdbcType="VARCHAR" property="studentPower" />
         <result column="student_status" jdbcType="VARCHAR" property="studentStatus" />
     </resultMap>
 

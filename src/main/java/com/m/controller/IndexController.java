@@ -158,4 +158,38 @@ public class IndexController {
     public String toStudentManage() {
         return "student/student_manage";
     }
+
+    /**
+     * 跳转失物招领信息添加界面
+     * */
+    @RequestMapping("/toLostItemsAdd")
+    public String toLostItemsAdd() {
+        return "lostItems/lostItems_add";
+    }
+
+    /**
+     * 跳转失物招领信息管理界面
+     * */
+    @RequestMapping("/toLostItemsManage")
+    public String toLostItemsManage() {
+        return "lostItems/lostItems_manage";
+    }
+
+    /**
+     * 跳转宿舍添加界面
+     * */
+    @RequestMapping("/toDormitoryAdd")
+    public String toDormitoryAdd() {
+        return "dormitory/dormitory_add";
+    }
+
+    /**
+     * 跳转宿舍管理界面
+     * */
+    @RequestMapping("/toDormitoryManage")
+    public String toDormitoryManage() {
+        return "dormitory/dormitory_manage";
+    }
+
+
 }

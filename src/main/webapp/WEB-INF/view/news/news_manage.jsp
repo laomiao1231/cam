@@ -46,7 +46,7 @@
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>编号</td><td>标题</td><td>发布时间</td><td>操作</td>
+                        <td>标题</td><td>发布时间</td><td>操作</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -128,7 +128,6 @@
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
         $.each(list,function(index,news){
-            var newsIdTd=$("<td></td>").append(news.newsId);
             var newsTitleTd=$("<td></td>").append(news.newsTitle);
             var newsTimeTd=$("<td></td>").append(news.newsTime);
             var operateTd=$("<td></td>");
@@ -140,8 +139,7 @@
             remove.attr("del-id", news.newsId);
             update.appendTo(operateTd);
             remove.appendTo(operateTd);
-            $("<tr></tr>").append(newsIdTd)
-                    .append(newsTitleTd)
+            $("<tr></tr>").append(newsTitleTd)
                     .append(newsTimeTd)
                     .append(operateTd)
                     .appendTo("#Information_table tbody");

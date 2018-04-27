@@ -10,6 +10,7 @@ public class Student {
     private String studentMajor;
     private Integer dormitoryId;
     private String studentClass;
+    private Integer studentPower;
     private Integer studentStatus;
 
     public Integer getStudentId() {
@@ -82,6 +83,14 @@ public class Student {
 
     public void setStudentClass(String studentClass) {
         this.studentClass = studentClass;
+    }
+
+    public Integer getStudentPower() {
+        return studentPower;
+    }
+
+    public void setStudentPower(Integer studentPower) {
+        this.studentPower = studentPower;
     }
 
     public Integer getStudentStatus() {

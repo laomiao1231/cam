@@ -7,6 +7,7 @@ public class Staff {
     private String staffName;
     private Integer staffSex;
     private Integer staffAge;
+    private Integer staffPower;
     private Integer staffStatus;
 
     public Integer getStaffId() {
@@ -55,6 +56,14 @@ public class Staff {
 
     public void setStaffAge(Integer staffAge) {
         this.staffAge = staffAge;
+    }
+
+    public Integer getStaffPower() {
+        return staffPower;
+    }
+
+    public void setStaffPower(Integer staffPower) {
+        this.staffPower = staffPower;
     }
 
     public Integer getStaffStatus() {

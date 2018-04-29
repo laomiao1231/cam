@@ -29,6 +29,10 @@ public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffSer
         if(!staff.getStaffPassword().equals(user.getPassWord())) {
             throw new Exception("账户或密码错误");
         }
+        user.setId(staff.getStaffId());
+        user.setAccount(staff.getStaffAccount());
+        user.setIdentity("staff");
+        user.setPower(staff.getStaffPower());
         return user;
     }
 

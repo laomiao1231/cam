@@ -20,16 +20,14 @@
         $(function() {
             $("#submitButton").click(function () {
                 var submitData = $("#password").val();
-                alert(submitData);
-                /*$.ajax({
-                    url: '<%=request.getContextPath() %>/news/save',
-                    data: submitData,
-                    type: "POST",
+                $.ajax({
+                    url: '<%=request.getContextPath() %>/guide/changePassword',
+                    data: "password="+submitData,
+                    type: "get",
                     success: function (result) {
                         //请求成功时
-                        if(result.status == "200") {
-                            alert("添加成功")
-                            window.location.href="<%=request.getContextPath() %>/guide/toNewsAdd";
+                        if(result.status == "00") {
+                            alert("添加成功");
                         }else {
                             alert("添加失败");
                         }
@@ -38,7 +36,7 @@
                         //请求失败时
                         alert("未知错误");
                     }
-                })*/
+                })
             })
         })
     </script>

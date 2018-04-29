@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: mxw
-  Date: 2018/4/26
-  Time: 20:35
+  Date: 2018/4/29
+  Time: 13:42
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,14 +24,14 @@
                 var submitData = decodeURIComponent(data, true);
                 //submitData是解码后的表单数据，结果同上
                 $.ajax({
-                    url: '<%=request.getContextPath() %>/student/save',
+                    url: '<%=request.getContextPath() %>/staff/save',
                     data: submitData,
                     type: "POST",
                     success: function (result) {
                         //请求成功时
                         if(result.status == "200") {
                             alert("添加成功")
-                            window.location.href="<%=request.getContextPath() %>/guide/toStudentAdd";
+                            window.location.href="<%=request.getContextPath() %>/guide/toStaffAdd";
                         }else {
                             alert("添加失败");
                         }
@@ -70,47 +70,33 @@
     <div class="block-right">
         <form class="form-horizontal" role="form" id="defaultForm">
             <div class="form-group">
-                <label class="col-sm-2 control-label">学生姓名</label>
+                <label class="col-sm-2 control-label">宿管员姓名</label>
                 <div class="col-sm-10">
-                    <input type="text" name="studentName" class="form-control" placeholder="请输入名字">
+                    <input type="text" name="staffName" class="form-control" placeholder="请输入名字">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">性别</label>
                 <div class="col-sm-10">
                     <label class="radio-inline col-sm-2">
-                        <input type="radio" name="studentSex" value="1">男
+                        <input type="radio" name="staffSex" value="1">男
                     </label>
                     <label class="radio-inline col-sm-2">
-                        <input type="radio" name="studentSex" value="0">女
+                        <input type="radio" name="staffSex" value="0">女
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">年龄</label>
                 <div class="col-sm-10">
-                    <input type="text" name="studentAge" class="form-control"
+                    <input type="text" name="staffAge" class="form-control"
                            placeholder="请输入年龄">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">专业</label>
-                <div class="col-sm-10">
-                    <input type="text" name="studentMajor" class="form-control"
-                           placeholder="请输入专业">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">班级</label>
-                <div class="col-sm-10">
-                    <input type="text" name="studentClass" class="form-control"
-                           placeholder="请输入班级">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">账户状态</label>
                 <div class="col-sm-10">
-                    <select id="city" name="studentStatus" class="form-control">
+                    <select id="city" name="staffStatus" class="form-control">
                         <option value="1">可用</option>
                         <option value="0">禁用</option>
                     </select>
@@ -142,41 +128,27 @@
                         validating: 'glyphicon glyphicon-refresh'
                     },
                     fields: {
-                        studentName: {
+                        staffName: {
                             validators: {
                                 notEmpty: {
-                                    message: '学生姓名不能为空'
+                                    message: '宿管员姓名不能为空'
                                 }
                             }
                         },
-                        studentSex: {
+                        staffSex: {
                             validators: {
                                 notEmpty: {
                                     message: '性别不能为空'
                                 }
                             }
                         },
-                        studentAge: {
+                        staffAge: {
                             validators: {
                                 notEmpty: {
                                     message: '年龄不能为空'
                                 },
                                 digits: {
                                     message: '值必须是数字'
-                                },
-                            }
-                        },
-                        studentMajor: {
-                            validators: {
-                                notEmpty: {
-                                    message: '专业不能为空'
-                                }
-                            }
-                        },
-                        studentClass: {
-                            validators: {
-                                notEmpty: {
-                                    message: '班级不能为空'
                                 }
                             }
                         }

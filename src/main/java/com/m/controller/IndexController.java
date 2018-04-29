@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,12 +43,17 @@ public class IndexController {
      * */
     @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> login(User user) {
+    public Map<String, Object> login(User user, HttpServletRequest request) {
+        System.out.println(user.getAccount());
+        System.out.println(user.getIdentity());
+        System.out.println(user.getPassWord());
         Map<String,Object> resultMap = new HashMap<>();
+        HttpSession session = request.getSession();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
                 this.adminService.getAdminByAccount(user);
                 resultMap.put("status", "00");
+                session.setAttribute("user", user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -57,6 +63,7 @@ public class IndexController {
             try {
                 this.staffService.getStaffByAccount(user);
                 resultMap.put("status", "00");
+                session.setAttribute("user", user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -66,6 +73,7 @@ public class IndexController {
             try {
                 this.studentService.getStudentByAccount(user);
                 resultMap.put("status", "00");
+                session.setAttribute("user", user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -81,11 +89,14 @@ public class IndexController {
     /**
      * 用户修改密码
      * */
-    @RequestMapping(value = "/changePassword", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
+    @RequestMapping(value = "/changePassword", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> changePassword(@RequestParam("password") String password, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         user.setPassWord(password);
+        System.out.println("/**********************/");
+        System.out.println(password);
+        System.out.println(user.getAccount());
         Map<String,Object> resultMap = new HashMap<>();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
@@ -235,5 +246,21 @@ public class IndexController {
     @RequestMapping("/toChangePassword")
     public String toChangePassword() {
         return "change_password";
+    }
+
+    /**
+     * 跳转宿管员添加界面
+     * */
+    @RequestMapping("/toStaffAdd")
+    public String toStaffAdd() {
+        return "staff/staff_add";
+    }
+
+    /**
+     * 跳转宿管员管理界面
+     * */
+    @RequestMapping("/toStaffManage")
+    public String toStaffManage() {
+        return "staff/staff_manage";
     }
 }

@@ -111,7 +111,7 @@ public class StudentController {
         map.put("end", end);*/
         PageHelper.startPage(pageNumber, pageSize);
         List<Student> studentList = this.studentService.loadAll(map);
-        PageInfo<Student> pageInfo = new PageInfo<>(studentList);
+        PageInfo<Student> pageInfo = new PageInfo<>(studentList,5);
         return pageInfo;
     }
 

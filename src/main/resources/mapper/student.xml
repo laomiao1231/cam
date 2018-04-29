@@ -31,7 +31,7 @@
     </resultMap>
 
     <sql id="student_column">
-        student_id, student_name, student_age, student_sex, student_account, student_password, student_major, student_class, student_status
+        student_id, student_name, student_age, student_sex, student_account, student_password, student_major, student_class, student_power, student_status
     </sql>
 
     <insert id="save" parameterType="com.m.model.Student">
@@ -161,7 +161,7 @@
 
     <select id="getByAccount" parameterType="java.lang.String" resultMap="studentMap">
         select
-        student_name, student_account, student_password
+        student_name, student_account, student_password, student_id, student_power
         from student
         <where>
             student_account = #{Account}

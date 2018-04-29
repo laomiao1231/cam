@@ -1,6 +1,7 @@
 package com.m.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.m.dto.User;
 import com.m.model.Admin;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,53 +13,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AdminLoginInterceptor implements HandlerInterceptor {
-    /**
-     * Handlerִ�����֮������������
-     */
+
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception exc)
             throws Exception {
 
     }
 
-    /**
-     * Handlerִ��֮��ModelAndView����֮ǰ�����������
-     */
+
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
                            Object handler, ModelAndView modelAndView) throws Exception {
     }
 
     /**
-     * Handlerִ��֮ǰ�����������
+     * 拦截访问
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
-        //��ȡ�����URL
+        //请求访问的URL
         String url = request.getRequestURI();
-        //URL:login�ǹ�����;���demo�ǳ���user-login.jsp�ǿ��Թ������ʵģ�������URL���������ؿ���
-        if(url.indexOf("admin/login")>=0){
+        if(url.indexOf("guide/index")>=0){
             return true;
         }
-        //��ȡSession
         HttpSession session = request.getSession();
-        Admin admin = (Admin)session.getAttribute("admin");
-        if(admin != null){
+        User user = (User)session.getAttribute("user");
+        if(user != null){
             return true;
         }
-        //����������
+        //拦截跳转
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String,Object> map = new HashMap<>();
-            map.put("success","false");
-            map.put("msg","xxxx");
-            response.getWriter().write(mapper.writeValueAsString(map));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            response.sendError(500);
-        }
         return false;
     }
 }

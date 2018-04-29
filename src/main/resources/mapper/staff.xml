@@ -11,10 +11,11 @@
         <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
         <result column="staff_sex" jdbcType="INTEGER" property="staffSex" />
         <result column="staff_age" jdbcType="INTEGER" property="staffAge" />
+        <result column="staff_power" jdbcType="INTEGER" property="staffPower" />
     </resultMap>
 
     <sql id="staff_column">
-        staff_id, staff_account, staff_password, staff_name, staff_sex, staff_age, staff_status
+        staff_id, staff_account, staff_password, staff_name, staff_sex, staff_age, staff_status, staff_power
     </sql>
 
     <insert id="save" parameterType="com.m.model.Staff">
@@ -122,6 +123,6 @@
     <select id="loadAll" parameterType="map" resultMap="staffMap">
         select
         <include refid="staff_column" />
-        from staff limit #{start}, #{end}
+        from staff
     </select>
 </mapper>

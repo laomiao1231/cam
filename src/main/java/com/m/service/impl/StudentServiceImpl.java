@@ -58,6 +58,10 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
         if(!student.getStudentPassword().equals(user.getPassWord())) {
             throw new Exception("账户或密码错误");
         }
+        user.setId(student.getStudentId());
+        user.setAccount(student.getStudentAccount());
+        user.setIdentity("student");
+        user.setPower(student.getStudentPower());
         return user;
     }
 

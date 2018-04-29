@@ -8,7 +8,7 @@ public class User {
     private String passWord;
     private String account;
     private String Identity;
-    private String power;
+    private Integer power;
 
     public Integer getId() {
         return Id;
@@ -42,11 +42,11 @@ public class User {
         Identity = identity;
     }
 
-    public String getPower() {
+    public Integer getPower() {
         return power;
     }
 
-    public void setPower(String power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
 }

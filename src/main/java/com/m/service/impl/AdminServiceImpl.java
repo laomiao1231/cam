@@ -51,6 +51,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         if(!admin.getAdminPassword().equals(user.getPassWord())) {
             throw new Exception("账户或密码错误");
         }
+        user.setId(admin.getAdminId());
+        user.setAccount(admin.getAdminAccount());
+        user.setIdentity("admin");
+        user.setPower(admin.getAdminPower());
         return user;
     }
 

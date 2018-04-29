@@ -71,6 +71,12 @@
                 <li>
                     <a href="<%=request.getContextPath() %>/guide/toDormitoryManage">宿舍管理</a>
                 </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toStaffAdd">宿管员添加</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toStaffManage">宿管员管理</a>
+                </li>
             </ul>
         </nav>
         <div class="block-right">

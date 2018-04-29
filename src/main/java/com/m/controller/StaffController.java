@@ -2,9 +2,12 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.dto.User;
 import com.m.model.Staff;
 import com.m.service.StaffService;
+import com.m.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +20,17 @@ import java.util.Map;
 @Controller
 @RequestMapping("/staff")
 public class StaffController {
+    protected static final String ACCOUNT_SUFFIX = "1698";
+    protected static final String PASSWORD = "123456";
+
     @Autowired
     private StaffService staffService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String saveStaff(Staff staff) {
+        staff.setStaffPassword(PASSWORD);
+        staff.setStaffAccount(ACCOUNT_SUFFIX+ RandomUtil.Suffix());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -62,16 +70,10 @@ public class StaffController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String updateStaff(@PathVariable("Id") Integer Id, Staff staff) {
         staff.setStaffId(Id);
-        staff.setStaffAccount("300188");
-        staff.setStaffPassword("123456");
-        staff.setStaffName("mcf");
-        staff.setStaffSex(0);
-        staff.setStaffAge(35);
-        staff.setStaffStatus(1);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -99,15 +101,17 @@ public class StaffController {
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<Staff> loadAllStaff(@RequestParam("pageNumber") Integer pageNumber,
+    public PageInfo<Staff> loadAllStaff(@RequestParam("pageNumber") Integer pageNumber,
                                     @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+        /*Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
         List<Staff> staffList = this.staffService.loadAll(map);
-        return staffList;
+        PageInfo<Staff> pageInfo = new PageInfo<>(staffList, 5);
+        return pageInfo;
     }
 
 }

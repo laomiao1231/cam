@@ -93,32 +93,6 @@ public class StudentController {
         return string;
     }
 
-    @RequestMapping(value = "/changePassword/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public String changeStudentPassword(@PathVariable("Id") Integer Id,
-                                        @RequestParam("password") String password, HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        user.setId(Id);
-        user.setPassWord(password);
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Integer> map = new HashMap<>();
-        String string = null;
-        try {
-            this.studentService.changeStudentPassword(user);
-            map.put("status", 200);
-        }catch (Exception e){
-            map.put("status", 400);
-            e.printStackTrace();
-        }finally {
-            try {
-                string = mapper.writeValueAsString(map);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        return string;
-    }
-
     @RequestMapping(value = "/get/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public Student getStudentById(@PathVariable("Id") Integer Id) {

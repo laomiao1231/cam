@@ -7,9 +7,7 @@ import com.m.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -85,39 +83,36 @@ public class IndexController {
      * */
     @RequestMapping(value = "/changePassword", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> changePassword(HttpServletRequest request) {
+    public Map<String, Object> changePassword(@RequestParam("password") String password, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
+        user.setPassWord(password);
         Map<String,Object> resultMap = new HashMap<>();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
-                this.adminService.getAdminByAccount(user);
+                this.adminService.changeAdminPassword(user);
                 resultMap.put("status", "00");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
-                resultMap.put("errorMessage", e.getMessage());
             }
         }else if(user.getIdentity().equals(ID_STAFF)) {
             try {
-                this.staffService.getStaffByAccount(user);
+                this.staffService.changeStaffPassword(user);
                 resultMap.put("status", "00");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
-                resultMap.put("errorMessage", e.getMessage());
             }
         }else if(user.getIdentity().equals(ID_STUDENT)) {
             try {
-                this.studentService.getStudentByAccount(user);
+                this.studentService.changeStudentPassword(user);
                 resultMap.put("status", "00");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
-                resultMap.put("errorMessage", e.getMessage());
             }
         }else {
             resultMap.put("status", "01");
-            resultMap.put("errorMessage", "请为账户选择合适的身份");
         }
         return resultMap;
     }

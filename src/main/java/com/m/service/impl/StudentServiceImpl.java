@@ -74,4 +74,10 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
         }
         this.studentDao.changeStudentPassword(user);
     }
+
+    @Override
+    public List<Student> loadNoDorm() {
+        List<Student> studentList = this.studentDao.loadNoDorm();
+        return studentList;
+}
 }

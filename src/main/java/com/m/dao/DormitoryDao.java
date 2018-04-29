@@ -13,4 +13,5 @@ public interface DormitoryDao extends BaseDao<Dormitory> {
     Integer getDormitoryPersonnel(Integer dormId);
     Integer getDormitoryFull(Integer dormId);
     DormitoryDto getDormitoryPersonnelDetail(Integer dormId);
+    List<Dormitory> loadUsableDorm();
 }

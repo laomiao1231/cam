@@ -25,6 +25,14 @@
         </collection>
     </resultMap>
 
+    <resultMap id="dormitoryMap" type="com.m.model.Dormitory">
+        <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+        <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
+        <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
+        <result column="dormitory_personnel" jdbcType="INTEGER" property="dormitoryPersonnel" />
+        <result column="dormitory_full" jdbcType="INTEGER" property="dormitoryFull" />
+    </resultMap>
+
     <sql id="dormitory_column">
         dormitory_id, dormitory_code, dormitory_building, dormitory_personnel, dormitory_full
     </sql>
@@ -117,13 +125,19 @@
     </select>
     
     <select id="getFull" parameterType="int" resultType="int">
-        select dormitory_full from dormitory where dormitory_id= #{dormId};
+        select dormitory_full from dormitory where dormitory_id= #{dormId}
     </select>
     
     <select id="getPersonnelDetail" parameterType="int" resultMap="dorm_stu_Map">
         select
         stu.student_name, stu.student_major, stu.student_sex, dorm.dormitory_code, dorm.dormitory_building
         from dormitory dorm left join student stu using(dormitory_id)
-        where dorm.dormitory_id = #{dromId};
+        where dorm.dormitory_id = #{dromId}
+    </select>
+    <select id="loadUsableDorm" resultMap="dormitoryMap">
+        select * from (select
+        d.dormitory_id, d.dormitory_code, dormitory_building, d.dormitory_full, count(*) as dormitory_personnel
+        from student right join dormitory d using(dormitory_id) group by d.dormitory_id) as temp_dormitory
+		where dormitory_full > dormitory_personnel limit 8
     </select>
 </mapper>

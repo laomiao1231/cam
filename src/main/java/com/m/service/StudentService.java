@@ -12,4 +12,5 @@ public interface StudentService extends BaseService<Student> {
     List<StudentDto> loadStudentDetail(Map<String,Integer> map);
     User getStudentByAccount(User user) throws Exception;
     void changeStudentPassword(User user);
+    List<Student> loadNoDorm();
 }

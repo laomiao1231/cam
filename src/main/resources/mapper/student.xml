@@ -167,4 +167,11 @@
             student_account = #{Account}
         </where>
     </select>
+
+    <select id="loadNoDorm" parameterType="map" resultMap="studentMap">
+        select
+        student_id, student_name, student_sex, student_major, student_class
+        from student
+        where dormitory_id is null and student_status = 1
+    </select>
 </mapper>

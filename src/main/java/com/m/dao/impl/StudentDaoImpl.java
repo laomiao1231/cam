@@ -18,6 +18,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
 
     protected static final String GET_BY_ACCOUNT = ".getByAccount";
     protected static final String CHANGE_PASSWORD = ".changePassword";
+    protected static final String LOAD_NO_DORM=".loadNoDorm";
 
     @Override
     public List<StudentDto> loadStudentDetail(Map<String, Integer> map) {
@@ -32,5 +33,10 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     @Override
     public void changeStudentPassword(User user) {
         this.getSqlSession().update(this.getNameSpace()+CHANGE_PASSWORD, user);
+    }
+
+    @Override
+    public List<Student> loadNoDorm() {
+        return this.getSqlSession().selectList(this.getNameSpace() + LOAD_NO_DORM);
     }
 }

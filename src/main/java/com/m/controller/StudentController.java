@@ -115,4 +115,14 @@ public class StudentController {
         return pageInfo;
     }
 
+    @RequestMapping(value = "/loadNoDorm", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Student> loadStudentNoDorm(@RequestParam("pageNumber") Integer pageNumber,
+                                               @RequestParam("pageSize") Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Student> studentList = this.studentService.loadNoDorm();
+        PageInfo<Student> pageInfo = new PageInfo<>(studentList, 5);
+        return pageInfo;
+    }
+
 }

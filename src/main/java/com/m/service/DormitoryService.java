@@ -13,4 +13,5 @@ public interface DormitoryService extends BaseService<Dormitory> {
     Integer getDormitoryPersonnel(Integer dormId);
     Integer getDormitoryFull(Integer dormId);
     DormitoryDto getDormitoryPersonnelDetail(Integer dormId);
+    List<Dormitory> loadUsableDorm();
 }

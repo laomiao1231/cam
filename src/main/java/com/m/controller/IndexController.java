@@ -263,4 +263,11 @@ public class IndexController {
     public String toStaffManage() {
         return "staff/staff_manage";
     }
+    /**
+     * 跳转宿舍分配界面
+     * */
+    @RequestMapping("/toDormitoryAllot")
+    public String toDormitoryAllot() {
+        return "student/student_allot_dorm_list";
+    }
 }

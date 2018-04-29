@@ -18,6 +18,7 @@ public class DormitoryDaoImpl extends BaseDaoImpl<Dormitory> implements Dormitor
     protected static final String GET_PERSONNEL = ".getPersonnel";
     protected static final String GET_FULL = ".getFull";
     protected static final String GET_PERSONNEL_DETAIL = ".getPersonnelDetail";
+    protected static final String LOAD_USABLE_DORM = ".loadUsableDorm";
 
     @Override
     public DormitoryDto getDormitoryManageById(Integer Id) {
@@ -42,5 +43,10 @@ public class DormitoryDaoImpl extends BaseDaoImpl<Dormitory> implements Dormitor
     @Override
     public DormitoryDto getDormitoryPersonnelDetail(Integer dormId) {
         return this.getSqlSession().selectOne(this.getNameSpace()+GET_PERSONNEL_DETAIL, dormId);
+    }
+
+    @Override
+    public List<Dormitory> loadUsableDorm() {
+        return this.getSqlSession().selectList(this.getNameSpace()+LOAD_USABLE_DORM);
     }
 }

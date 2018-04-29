@@ -119,33 +119,28 @@ public class DormitoryController {
 
     @RequestMapping(value = "/allot", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public String allotDormitory(){
-        ObjectMapper mapper = new ObjectMapper();
+    public Map<String,String> allotDormitory(@RequestParam("stuId") Integer stuId,
+                                             @RequestParam("dormId") Integer dormId){
         Map<String,String> map = new HashMap<>();
-        String string = null;
         Student student = new Student();
-        student.setStudentId(2);
-        Integer dormId = 2;
-        Integer personnel = this.dormitoryService.getDormitoryPersonnel(dormId);
-        Integer full = this.dormitoryService.getDormitoryFull(dormId);
-        if(full > personnel) {
-            try {
-                this.studentService.update(student);
-                map.put("status", "200");
-            }catch (Exception e){
-                map.put("status", "400");
-            }
-        } else {
-            map.put("status", "该宿舍已满员");
-        }
+        student.setStudentId(stuId);
+        student.setDormitoryId(dormId);
         try {
-            string = mapper.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
+            this.studentService.update(student);
+            map.put("status", "200");
+        } catch (Exception e) {
             e.printStackTrace();
+            map.put("status", "400");
         }
-        return string;
+        return map;
     }
 
+    @RequestMapping(value = "/loadUsableDorm", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Dormitory> loadUsableDormitory() {
+        List<Dormitory> dormitoryList = this.dormitoryService.loadUsableDorm();
+        return dormitoryList;
+    }
     @RequestMapping(value = "/getPersonnelDetail", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public DormitoryDto getDormitoryPersonnelDetail() {

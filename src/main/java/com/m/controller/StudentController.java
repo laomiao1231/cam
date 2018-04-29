@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.m.dto.User;
 import com.m.model.Student;
 import com.m.service.StudentService;
 import com.m.util.RandomUtil;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,17 +95,20 @@ public class StudentController {
 
     @RequestMapping(value = "/changePassword/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public String changeStudentPassword(@PathVariable("Id") Integer Id, Student student) {
-        student.setStudentId(Id);
-        student.setStudentPassword("121212");
+    public String changeStudentPassword(@PathVariable("Id") Integer Id,
+                                        @RequestParam("password") String password, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        user.setId(Id);
+        user.setPassWord(password);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
         try {
-            this.studentService.changeStudentPassword(student);
+            this.studentService.changeStudentPassword(user);
             map.put("status", 200);
         }catch (Exception e){
             map.put("status", 400);
+            e.printStackTrace();
         }finally {
             try {
                 string = mapper.writeValueAsString(map);

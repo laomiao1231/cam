@@ -6,4 +6,5 @@ import com.m.service.base.BaseService;
 
 public interface StaffService extends BaseService<Staff> {
     User getStaffByAccount(User user) throws Exception;
+    void changeStaffPassword(User user);
 }

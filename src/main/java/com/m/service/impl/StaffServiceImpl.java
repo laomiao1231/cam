@@ -31,4 +31,14 @@ public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffSer
         }
         return user;
     }
+
+    @Override
+    public void changeStaffPassword(User user) {
+        try {
+            user.setPassWord(encodeUtil.md5Encode(user.getAccount(), user.getPassWord()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.staffDao.changeStaffPassword(user);
+    }
 }

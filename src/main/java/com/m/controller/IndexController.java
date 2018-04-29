@@ -5,11 +5,13 @@ import com.m.service.AdminService;
 import com.m.service.StaffService;
 import com.m.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +45,48 @@ public class IndexController {
     @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> login(User user) {
-        System.out.println("ssssssssssssss");
+        Map<String,Object> resultMap = new HashMap<>();
+        if(user.getIdentity().equals(ID_ADMIN)) {
+            try {
+                this.adminService.getAdminByAccount(user);
+                resultMap.put("status", "00");
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultMap.put("status", "01");
+                resultMap.put("errorMessage", e.getMessage());
+            }
+        }else if(user.getIdentity().equals(ID_STAFF)) {
+            try {
+                this.staffService.getStaffByAccount(user);
+                resultMap.put("status", "00");
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultMap.put("status", "01");
+                resultMap.put("errorMessage", e.getMessage());
+            }
+        }else if(user.getIdentity().equals(ID_STUDENT)) {
+            try {
+                this.studentService.getStudentByAccount(user);
+                resultMap.put("status", "00");
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultMap.put("status", "01");
+                resultMap.put("errorMessage", e.getMessage());
+            }
+        }else {
+            resultMap.put("status", "01");
+            resultMap.put("errorMessage", "请为账户选择合适的身份");
+        }
+        return resultMap;
+    }
+
+    /**
+     * 用户修改密码
+     * */
+    @RequestMapping(value = "/changePassword", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> changePassword(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
         Map<String,Object> resultMap = new HashMap<>();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
@@ -191,5 +234,11 @@ public class IndexController {
         return "dormitory/dormitory_manage";
     }
 
-
+    /**
+     * 跳转密码重置界面
+     * */
+    @RequestMapping("/toChangePassword")
+    public String toChangePassword() {
+        return "change_password";
+    }
 }

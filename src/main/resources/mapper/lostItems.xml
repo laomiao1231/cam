@@ -24,7 +24,7 @@
                 lost_items_describe,
             </if>
             <if test="lostItemsStatus != null">
-                lost_items_status,
+                lost_items_status
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -35,7 +35,7 @@
                 #{lostItemsDescribe},
             </if>
             <if test="lostItemsStatus != null">
-                #{lostItemsStatus},
+                #{lostItemsStatus}
             </if>
         </trim>
     </insert>
@@ -57,7 +57,7 @@
                 lost_items_describe = #{lostItemsDescribe},
             </if>
             <if test="lostItemsStatus != null">
-                lost_items_status = #{lostItemsStatus},
+                lost_items_status = #{lostItemsStatus}
             </if>
         </set>
         <where>
@@ -74,7 +74,7 @@
     <select id="loadAll" parameterType="map" resultMap="lostItemsMap">
         select
         <include refid="lostItems_column" />
-        from lost_items limit #{start}, #{end}
+        from lost_items
     </select>
 
     <select id="getByKey" parameterType="java.lang.String" resultMap="lostItemsMap">

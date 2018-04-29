@@ -3,6 +3,7 @@ package com.m.dao.impl;
 import com.m.dao.StudentDao;
 import com.m.dao.impl.base.BaseDaoImpl;
 import com.m.dto.StudentDto;
+import com.m.dto.User;
 import com.m.model.Student;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     }
 
     @Override
-    public void changeStudentPassword(Student student) {
-        this.getSqlSession().update(this.getNameSpace()+CHANGE_PASSWORD, student);
+    public void changeStudentPassword(User user) {
+        this.getSqlSession().update(this.getNameSpace()+CHANGE_PASSWORD, user);
     }
 }

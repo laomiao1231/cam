@@ -133,10 +133,10 @@
         </where>
     </update>
 
-    <update id="changePassword" parameterType="com.m.model.Student">
+    <update id="changePassword" parameterType="com.m.dto.User">
         update student
-        set student_password = #{studentPassword}
-        where student_id = #{studentId}
+        set student_password = #{passWord}
+        where student_id = #{Id}
     </update>
 
    <!-- <select id="loadAll" parameterType="map" resultMap="studentDetMap">

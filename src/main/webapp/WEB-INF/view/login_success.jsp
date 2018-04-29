@@ -30,7 +30,7 @@
         <nav>
             <ul>
                 <li>
-                    <a>重置密码</a>
+                    <a href="<%=request.getContextPath()%>/guide/toChangePassword">重置密码</a>
                 </li>
                 <li>
                     <a href="<%=request.getContextPath() %>/guide/toNewsList">查询公告</a>
@@ -58,6 +58,18 @@
                 </li>
                 <li>
                     <a href="<%=request.getContextPath() %>/guide/toStudentManage">学生管理</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toLostItemsAdd">失物招领信息添加</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toLostItemsManage">失物招领信息管理</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toDormitoryAdd">宿舍添加</a>
+                </li>
+                <li>
+                    <a href="<%=request.getContextPath() %>/guide/toDormitoryManage">宿舍管理</a>
                 </li>
             </ul>
         </nav>

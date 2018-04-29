@@ -2,6 +2,8 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.dto.DormitoryDto;
 import com.m.model.Dormitory;
 import com.m.model.Student;
@@ -23,14 +25,9 @@ public class DormitoryController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String saveDormitory(Dormitory dormitory) {
-        dormitory.setDormitoryBuilding("12#");
-        dormitory.setDormitoryCode("633");
-        dormitory.setDormitoryFull(6);
-        dormitory.setDormitoryPersonnel(2);
-        dormitory.setDormitoryStaffId(4);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -38,6 +35,7 @@ public class DormitoryController {
             this.dormitoryService.save(dormitory);
             map.put("status", 200);
         }catch (Exception e){
+            e.printStackTrace();
             map.put("status", 400);
         }finally {
             try {
@@ -106,15 +104,17 @@ public class DormitoryController {
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<DormitoryDto> loadAllDormitory(@RequestParam("pageNumber") Integer pageNumber,
+    public PageInfo<DormitoryDto> loadAllDormitory(@RequestParam("pageNumber") Integer pageNumber,
                                             @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+       /* Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber, pageSize);
         List<DormitoryDto> dormitoryDtoList = this.dormitoryService.loadAllDormitory(map);
-        return dormitoryDtoList;
+        PageInfo<DormitoryDto> pageInfo = new PageInfo<>(dormitoryDtoList);
+        return pageInfo;
     }
 
     @RequestMapping(value = "/allot", produces = "application/json; charset=utf-8", method = RequestMethod.GET)

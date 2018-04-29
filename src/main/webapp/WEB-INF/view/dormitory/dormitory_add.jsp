@@ -88,7 +88,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="reset" class="btn btn-gray-small">取消</button>
+                    <button type="submit" class="btn btn-green-small" id="submitButton">发布</button>
                 </div>
             </div>
         </form>

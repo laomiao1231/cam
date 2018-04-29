@@ -45,7 +45,7 @@
                 dormitory_full,
             </if>
             <if test="dormitoryStaffId != null">
-                staffId
+                staff_id
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -62,7 +62,7 @@
                 #{dormitoryFull},
             </if>
             <if test="dormitoryStaffId != null">
-                #{dormitoryStaffId},
+                #{dormitoryStaffId}
             </if>
         </trim>
     </insert>
@@ -103,8 +103,10 @@
     
     <select id="loadAll" parameterType="map" resultMap="dormitoryDtoMap">
         select
-        <include refid="dormitory_column" />
-        from dormitory limit #{start}, #{end}
+        s.staff_name, d.dormitory_id, d.dormitory_code, d.dormitory_building,
+        d.dormitory_full, count(*) as dormitory_personnel
+        from student right join dormitory d using(dormitory_id)
+        left join staff s using(staff_id) group by d.dormitory_id
     </select>
     
     <select id="getPersonnel" parameterType="int" resultType="int">

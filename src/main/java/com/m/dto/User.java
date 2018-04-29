@@ -4,9 +4,19 @@ package com.m.dto;
  * Created by mxw on 2018/4/22.
  */
 public class User {
+    private Integer Id;
     private String passWord;
     private String account;
     private String Identity;
+    private String power;
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public String getPassWord() {
         return passWord;
@@ -30,5 +40,13 @@ public class User {
 
     public void setIdentity(String identity) {
         Identity = identity;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
     }
 }

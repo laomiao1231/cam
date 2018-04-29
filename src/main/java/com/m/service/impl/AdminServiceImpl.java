@@ -63,4 +63,14 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public Integer getAdminCount() {
         return this.adminDao.getAdminCount();
     }
+
+    @Override
+    public void changeAdminPassword(User user) {
+        try {
+            user.setPassWord(encodeUtil.md5Encode(user.getAccount(), user.getPassWord()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.adminDao.changeAdminPassword(user);
+    }
 }

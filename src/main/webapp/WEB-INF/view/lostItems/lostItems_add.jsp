@@ -61,7 +61,20 @@
         </ul>
     </nav>
     <div class="block-right">
-
+        <form class="form-horizontal" id="defaultForm">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">物品描述</label>
+                <div class="col-sm-10">
+                    <textarea name="lostItemsDescribe" class="form-control" rows="15" style="resize:none" placeholder="请输入内容"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="reset" class="btn btn-gray-small">取消</button>
+                    <button type="submit" class="btn btn-green-small" id="submitButton">发布</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

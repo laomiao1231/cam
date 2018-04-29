@@ -75,6 +75,12 @@
         where admin_id = #{Id}
     </update>
 
+    <update id="changePassword" parameterType="com.m.dto.User">
+        update admin
+        set admin_password = #{passWord}
+        where admin_id = #{Id}
+    </update>
+
     <select id="getById" parameterType="int" resultMap="adminMap">
         select
         <include refid="admin_column" />

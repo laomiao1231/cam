@@ -2,20 +2,25 @@ package com.m.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.m.model.LostItems;
 import com.m.service.LostItemsService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,14 +29,20 @@ import java.util.Map;
 @Controller
 @RequestMapping("/lostItems")
 public class LostItemsController {
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
     @Autowired
     private LostItemsService lostItemsService;
 
-    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String saveLostItems(LostItems lostItems) {
         lostItems.setLostItemsDate(new Date());
-        lostItems.setLostItemsDescribe("һ��Կ��");
         lostItems.setLostItemsStatus(0);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
@@ -72,13 +83,11 @@ public class LostItemsController {
         return string;
     }
 
-    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String updateLostItems(@PathVariable("Id") Integer Id, LostItems lostItems) {
         lostItems.setLostItemsId(Id);
-        lostItems.setLostItemsDate(new Date());
-        lostItems.setLostItemsDescribe("Կ��");
-        lostItems.setLostItemsStatus(1);
+        System.out.println(lostItems.getLostItemsDate());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -106,15 +115,17 @@ public class LostItemsController {
 
     @RequestMapping(value = "/loadAll", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<LostItems> loadAllLostItems(@RequestParam("pageNumber") Integer pageNumber,
-                                            @RequestParam("pageSize") Integer pageSize) {
+    public PageInfo<LostItems> loadAllLostItems(@RequestParam("pageNumber") Integer pageNumber,
+                                                @RequestParam("pageSize") Integer pageSize) {
         Map<String, Integer> map = new HashMap<>();
-        Integer start = (pageNumber-1)*pageSize;
+       /* Integer start = (pageNumber-1)*pageSize;
         Integer end = pageSize;
         map.put("start", start);
-        map.put("end", end);
+        map.put("end", end);*/
+        PageHelper.startPage(pageNumber,pageSize);
         List<LostItems> lostItemsList = this.lostItemsService.loadAll(map);
-        return lostItemsList;
+        PageInfo<LostItems> pageInfo = new PageInfo<>(lostItemsList, 3);
+        return pageInfo;
     }
 
     @RequestMapping(value = "/upload", produces = "application/json; charset=utf-8", method = RequestMethod.POST)

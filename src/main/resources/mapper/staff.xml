@@ -95,6 +95,12 @@
         </where>
     </update>
 
+    <update id="changePassword" parameterType="com.m.dto.User">
+        update staff
+        set staff_password = #{passWord}
+        where staff_id = #{Id}
+    </update>
+
     <select id="getById" parameterType="int" resultMap="staffMap">
         select
         <include refid="staff_column" />

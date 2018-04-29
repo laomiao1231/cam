@@ -62,12 +62,12 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     }
 
     @Override
-    public void changeStudentPassword(Student student) {
+    public void changeStudentPassword(User user) {
         try {
-            student.setStudentPassword(encodeUtil.md5Encode(student.getStudentAccount(), student.getStudentPassword()));
+            user.setPassWord(encodeUtil.md5Encode(user.getAccount(), user.getPassWord()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.studentDao.changeStudentPassword(student);
+        this.studentDao.changeStudentPassword(user);
     }
 }

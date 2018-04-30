@@ -13,6 +13,7 @@
     <div class="topbar">
         <div class="col-lg-12 text-center">
             公寓管理系统
+            <span style="float: right"><a href="<%=request.getContextPath() %>/guide/logout" style="font-size: 14px;color: white">退出</a></span>
         </div>
     </div>
 </header>
@@ -33,9 +34,9 @@
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <span>查询公告</span>
+                <span>查询宿舍</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
+                    <input type="text" name="id" placeholder="请输入宿舍编号">
                     <button>查询</button>
                 </div>
             </div>

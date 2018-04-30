@@ -35,6 +35,9 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
         if(url.indexOf("guide/index")>=0){
             return true;
         }
+        if(url.indexOf("guide/login")>=0){
+            return true;
+        }
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if(user != null){
@@ -43,6 +46,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
         //拦截跳转
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
+        request.getRequestDispatcher("/WEB-INF/view/user_login.jsp").forward(request, response);
         return false;
     }
 }

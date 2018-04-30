@@ -50,6 +50,7 @@
     <div class="topbar">
         <div class="col-lg-12 text-center">
             公寓管理系统
+            <span style="float: right"><a href="<%=request.getContextPath() %>/guide/logout" style="font-size: 14px;color: white">退出</a></span>
         </div>
     </div>
 </header>
@@ -68,6 +69,9 @@
         </ul>
     </nav>
     <div class="block-right">
+        <div class="col-lg-12 text-center">
+            <h2>学生信息添加</h2>
+        </div>
         <form class="form-horizontal" role="form" id="defaultForm">
             <div class="form-group">
                 <label class="col-sm-2 control-label">学生姓名</label>

@@ -38,8 +38,8 @@
             <div class="box grid-search">
                 <span>查询公告</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
-                    <button>查询</button>
+                    <input type="text" name="key" id="key" placeholder="请输入关键字">
+                    <button id="submitButton">查询</button>
                 </div>
             </div>
             <div class="box cam">
@@ -245,6 +245,11 @@
                 }
             })
         }
+    });
+
+    $("#submitButton").click(function() {
+        var key = $("#key").val();
+
     });
 </script>
 </body>

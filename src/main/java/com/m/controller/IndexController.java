@@ -1,5 +1,7 @@
 package com.m.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m.dto.User;
 import com.m.service.AdminService;
 import com.m.service.StaffService;
@@ -44,9 +46,6 @@ public class IndexController {
     @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> login(User user, HttpServletRequest request) {
-        System.out.println(user.getAccount());
-        System.out.println(user.getIdentity());
-        System.out.println(user.getPassWord());
         Map<String,Object> resultMap = new HashMap<>();
         HttpSession session = request.getSession();
         if(user.getIdentity().equals(ID_ADMIN)) {
@@ -94,9 +93,6 @@ public class IndexController {
     public Map<String, Object> changePassword(@RequestParam("password") String password, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         user.setPassWord(password);
-        System.out.println("/**********************/");
-        System.out.println(password);
-        System.out.println(user.getAccount());
         Map<String,Object> resultMap = new HashMap<>();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
@@ -126,6 +122,15 @@ public class IndexController {
             resultMap.put("status", "01");
         }
         return resultMap;
+    }
+
+    /**
+     * 用户退出
+     * */
+    @RequestMapping(value = "/logout", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    public String logoutAdmin(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        return "user_login";
     }
 
     /**
@@ -263,11 +268,21 @@ public class IndexController {
     public String toStaffManage() {
         return "staff/staff_manage";
     }
+
     /**
      * 跳转宿舍分配界面
      * */
     @RequestMapping("/toDormitoryAllot")
     public String toDormitoryAllot() {
         return "student/student_allot_dorm_list";
+    }
+
+    /**
+     * 跳转公告关键字查询页面
+     * */
+    @RequestMapping("/toNewsKeyList")
+    public String toNewsKeyList(@RequestParam("key") String key, Map<String,Object> map) {
+        map.put("key", key);
+        return "news/news_key_list";
     }
 }

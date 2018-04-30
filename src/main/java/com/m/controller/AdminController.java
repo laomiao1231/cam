@@ -149,21 +149,4 @@ public class AdminController {
         return string;
     }
 
-
-    @RequestMapping(value = "/logout", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public String logoutAdmin(HttpServletRequest request) {
-        request.getSession().removeAttribute("admin");
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Integer> map = new HashMap<>();
-        map.put("status", 200);
-        String string = null;
-        try {
-            string = mapper.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return string;
-    }
-
 }

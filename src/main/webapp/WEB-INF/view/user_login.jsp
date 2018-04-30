@@ -54,6 +54,7 @@
                         if(result.status == "00") {
                             window.location.href="<%=request.getContextPath() %>/guide/loggedIn"
                         }else {
+                            alert("sfsdfsd");
                             alert(result.errorMessage);
                         }
                     },
@@ -125,7 +126,7 @@
                                 }
                             }
                         },
-                        password: {
+                        passWord: {
                             validators: {
                                 notEmpty: {
                                     message: '密码不能为空'

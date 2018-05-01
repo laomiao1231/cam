@@ -125,4 +125,13 @@ public class StudentController {
         return pageInfo;
     }
 
+    @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Student> getStudentByKey(@RequestParam("pageNumber") Integer pageNumber,
+                                               @RequestParam("pageSize") Integer pageSize, @RequestParam("keyWord") String keyWord) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Student> studentList = this.studentService.getByKey(keyWord);
+        PageInfo<Student> pageInfo = new PageInfo<>(studentList, 5);
+        return pageInfo;
+    }
 }

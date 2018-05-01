@@ -285,4 +285,40 @@ public class IndexController {
         map.put("key", key);
         return "news/news_key_list";
     }
+
+    /**
+     * 跳转来访者关键字查询
+     * */
+    @RequestMapping("/toVisitorKeyList")
+    public String toVisitorKeyList(@RequestParam("key") String key, Map<String,Object> map) {
+        map.put("key", key);
+        return "visitor/visitor_key_list";
+    }
+
+    /**
+     * 跳转学生关键字查询
+     * */
+    @RequestMapping("/toStudentKeyList")
+    public String toStudentList(@RequestParam("key") String key, Map<String,Object> map) {
+        map.put("key", key);
+        return "student/student_key_list";
+    }
+
+    /**
+     * 跳转宿舍管理员关键字查询
+     * */
+    @RequestMapping("/toStaffKeyList")
+    public String toStaffList(@RequestParam("key") String key, Map<String,Object> map) {
+        map.put("key", key);
+        return "staff/staff_key_list";
+    }
+
+    /**
+     * 跳转失物招领信息关键字查询
+     * */
+    @RequestMapping("/toLostItemsKeyList")
+    public String toLostItemsList(@RequestParam("key") String key, Map<String,Object> map) {
+        map.put("key", key);
+        return "lostItems/lostItems_key_list";
+    }
 }

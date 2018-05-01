@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mxw
-  Date: 2018/4/30
-  Time: 11:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/static/css/style.css"/>
     <link href="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -40,13 +34,13 @@
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <h3>公告关于“*${key}*”搜索结果</h3>
+                <h3>失物招领信息关于“*${key}*”搜索结果</h3>
             </div>
             <div class="box cam">
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>标题</td><td>发布时间</td><td>操作</td>
+                        <td>失物招领信息描述</td><td>发布时间</td><td>物品状态</td><td>操作</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,24 +65,26 @@
                     <!-- form 表单 -->
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">标题</label>
+                            <label  class="col-sm-2 control-label">失物招领信息描述</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsTitle" class="form-control" id="update_title">
+                                <input type="text" name="lostItemsDescribe" class="form-control" id="update_describe">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">内容</label>
+                            <label  class="col-sm-2 control-label">发布时间</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsContent" class="form-control" id="update_content">
+                                <input type="text" name="lostItemsDate" class="form-control" id="update_date">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">来访时间</label>
+                            <label class="col-sm-2 control-label">状态</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsTime" class="form-control" id="update_date">
-                                <span class="help-block"></span>
+                                <select id="status" name="lostItemsStatus" class="form-control">
+                                    <option value="1">已认领</option>
+                                    <option value="0">未认领</option>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -101,7 +97,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     var pageNum;
     var pageSize = 5;
@@ -112,7 +107,7 @@
     //ajax 请求函数
     function to_page(pageNumber, pageSize){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/getByKey",
+            url:"<%=request.getContextPath() %>/lostItems/getByKey",
             data:"pageNumber="+pageNumber+"&pageSize="+pageSize+"&keyWord="+keyWord,
             type:"get",
             success:function(pageInfo){
@@ -129,20 +124,22 @@
     function build_table_Information(pageInfo){
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
-        $.each(list,function(index,news){
-            var newsTitleTd=$("<td></td>").append(news.newsTitle);
-            var newsTimeTd=$("<td></td>").append(news.newsTime);
+        $.each(list,function(index,lostItems){
+            var lostItemsDescribeTd=$("<td></td>").append(lostItems.lostItemsDescribe);
+            var lostItemsDateTd=$("<td></td>").append(lostItems.lostItemsDate);
+            var lostItemsStatusTd=$("<td></td>").append(lostItems.lostItemsStatus==1?'已认领':'未认领');
             var operateTd=$("<td></td>");
             var update=$("<div></div>").addClass("operate edit_btn")
                     .append("<i class='fa fa-edit'></i>");
-            update.attr("edit-id", news.newsId);
+            update.attr("edit-id", lostItems.lostItemsId);
             var remove=$("<div><div>").addClass("operate delete_btn")
                     .append("<i class='fa fa-trash'></i>");
-            remove.attr("del-id", news.newsId);
+            remove.attr("del-id", lostItems.lostItemsId);
             update.appendTo(operateTd);
             remove.appendTo(operateTd);
-            $("<tr></tr>").append(newsTitleTd)
-                    .append(newsTimeTd)
+            $("<tr></tr>").append(lostItemsDescribeTd)
+                    .append(lostItemsDateTd)
+                    .append(lostItemsStatusTd)
                     .append(operateTd)
                     .appendTo("#Information_table tbody");
         });
@@ -212,20 +209,20 @@
 
     function getEditData(Id){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/get/"+Id,
+            url:"<%=request.getContextPath() %>/lostItems/get/"+Id,
             type:"get",
             success:function(result){
                 console.log(result);
-                $("#update_title").val(result.newsTitle);
-                $("#update_content").val(result.newsContent);
-                $("#update_date").val(result.newsTime);
-                $("#update_btn").attr("edit-id",result.newsId);
+                $("#update_describe").val(result.lostItemsDescribe);
+                $("#update_date").val(result.lostItemsDate);
+                $("#ModalUpdate select").val([result.lostItemsStatus]);
+                $("#update_btn").attr("edit-id",result.lostItemsId);
             }
         })
     }
     $("#update_btn").click(function(){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/update/"+$(this).attr("edit-id"),
+            url:"<%=request.getContextPath() %>/lostItems/update/"+$(this).attr("edit-id"),
             type:"POST",
             data:$("#ModalUpdate form").serialize(),
             success:function(){
@@ -238,9 +235,9 @@
     $(document).on("click",".delete_btn",function(){
         var Id=$(this).attr("del-id");
         //弹出确认框
-        if(confirm("确认删除此公告信息吗？")){
+        if(confirm("确认删除此失物招领信息吗？")){
             $.ajax({
-                url:"<%=request.getContextPath() %>/news/remove/"+Id,
+                url:"<%=request.getContextPath() %>/lostItems/remove/"+Id,
                 type:"get",
                 success:function(){
                     to_page(pageNum, pageSize)
@@ -251,3 +248,4 @@
 </script>
 </body>
 </html>
+

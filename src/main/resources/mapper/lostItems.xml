@@ -81,6 +81,6 @@
         select
         <include refid="lostItems_column" />
         from lost_items
-        where lost_items_describe like "%"#{lost_itms_describe}"%"
+        where lost_items_describe like "%"#{describe}"%"
     </select>
 </mapper>

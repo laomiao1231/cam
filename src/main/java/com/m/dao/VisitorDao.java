@@ -9,4 +9,5 @@ import java.util.List;
 public interface VisitorDao extends BaseDao<Visitor> {
     Integer getVisitorCount();
     List<VisitorDto> getVisitorDetails();
+    List<Visitor> getByKey(String keyWord);
 }

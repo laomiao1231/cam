@@ -134,10 +134,18 @@
         from dormitory dorm left join student stu using(dormitory_id)
         where dorm.dormitory_id = #{dromId}
     </select>
+
     <select id="loadUsableDorm" resultMap="dormitoryMap">
         select * from (select
         d.dormitory_id, d.dormitory_code, dormitory_building, d.dormitory_full, count(*) as dormitory_personnel
         from student right join dormitory d using(dormitory_id) group by d.dormitory_id) as temp_dormitory
 		where dormitory_full > dormitory_personnel limit 8
+    </select>
+
+    <select id="getByKey" parameterType="java.lang.String" resultMap="dormitoryMap">
+        select
+        <include refid="dormitory_column" />
+        from dormitory
+        where dormitory_code like "%"#{code}"%"
     </select>
 </mapper>

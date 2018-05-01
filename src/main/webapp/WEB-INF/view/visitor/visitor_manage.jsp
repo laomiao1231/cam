@@ -38,8 +38,8 @@
             <div class="box grid-search">
                 <span>查询来访者</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
-                    <button>查询</button>
+                    <input type="text" name="key" id="key" placeholder="请输入姓名">
+                    <button id="submitButton">查询</button>
                 </div>
             </div>
             <div class="box cam">
@@ -117,7 +117,6 @@
         var pageSize = 5;
         $(function(){
             to_page(1, pageSize);
-            alert("success");
         });
         //ajax 请求函数
         function to_page(pageNumber, pageSize){
@@ -265,6 +264,11 @@
                     }
                 })
             }
+        });
+
+        $("#submitButton").click(function() {
+            var key = $("#key").val();
+            window.location.href="<%=request.getContextPath() %>/guide/toVisitorKeyList?key="+key;
         });
     </script>
 </body>

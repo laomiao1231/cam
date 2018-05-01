@@ -174,4 +174,11 @@
         from student
         where dormitory_id is null and student_status = 1
     </select>
+
+    <select id="getByKey" parameterType="java.lang.String" resultMap="studentMap">
+        select
+        <include refid="student_column" />
+        from student
+        where student_name like "%"#{name}"%"
+    </select>
 </mapper>

@@ -125,4 +125,10 @@
         <include refid="staff_column" />
         from staff
     </select>
+    <select id="getByKey" parameterType="java.lang.String" resultMap="staffMap">
+        select
+        <include refid="staff_column" />
+        from staff
+        where staff_name like "%"#{name}"%"
+    </select>
 </mapper>

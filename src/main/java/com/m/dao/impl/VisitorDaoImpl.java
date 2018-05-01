@@ -16,6 +16,7 @@ public class VisitorDaoImpl extends BaseDaoImpl<Visitor> implements VisitorDao {
 
     protected static final String GET_COUNT = ".getCount";
     protected static final String GET_VISITOR_DETAILS = ".getVisitorDetails";
+    protected static final String GET_BY_KEY = ".getByKey";
 
     @Override
     public Integer getVisitorCount() {
@@ -25,5 +26,10 @@ public class VisitorDaoImpl extends BaseDaoImpl<Visitor> implements VisitorDao {
     @Override
     public List<VisitorDto> getVisitorDetails() {
         return this.getSqlSession().selectList(this.getNameSpace()+GET_VISITOR_DETAILS);
+    }
+
+    @Override
+    public List<Visitor> getByKey(String keyWord) {
+        return this.getSqlSession().selectList(this.getNameSpace()+GET_BY_KEY, keyWord);
     }
 }

@@ -249,7 +249,7 @@
 
     $("#submitButton").click(function() {
         var key = $("#key").val();
-
+        window.location.href="<%=request.getContextPath() %>/guide/toNewsKeyList?key="+key;
     });
 </script>
 </body>

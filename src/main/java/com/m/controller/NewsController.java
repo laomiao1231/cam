@@ -118,8 +118,11 @@ public class NewsController {
 
     @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8",method = RequestMethod.GET)
     @ResponseBody
-    public List<News> getNewsByKey(@RequestParam("keyWord") String keyWord) {
+    public PageInfo<News> getNewsByKey(@RequestParam(defaultValue = "1", value = "pageNumber") Integer pageNumber,
+                                   @RequestParam("pageSize") Integer pageSize,@RequestParam("keyWord") String keyWord) {
+        PageHelper.startPage(pageNumber,pageSize);
         List<News> newsList = this.newsService.getByKey(keyWord);
-        return newsList;
+        PageInfo<News> pageInfo = new PageInfo<>(newsList, 5);
+        return pageInfo;
     }
 }

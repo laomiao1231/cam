@@ -79,5 +79,11 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     public List<Student> loadNoDorm() {
         List<Student> studentList = this.studentDao.loadNoDorm();
         return studentList;
-}
+    }
+
+    @Override
+    public List<Student> getByKey(String keyWord) {
+        List<Student> studentList = this.studentDao.getByKey(keyWord);
+        return studentList;
+    }
 }

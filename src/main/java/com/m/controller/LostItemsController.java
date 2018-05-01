@@ -155,8 +155,11 @@ public class LostItemsController {
 
     @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
-    public List<LostItems> getLostItemsByKey(@RequestParam("keyWord") String keyWord) {
+    public PageInfo<LostItems> getLostItemsByKey(@RequestParam("pageNumber") Integer pageNumber,
+                                             @RequestParam("pageSize") Integer pageSize, @RequestParam("keyWord") String keyWord) {
+        PageHelper.startPage(pageNumber,pageSize);
         List<LostItems> lostItemsList = this.lostItemsService.getByKey(keyWord);
-        return lostItemsList;
+        PageInfo<LostItems> pageInfo = new PageInfo<>(lostItemsList, 5);
+        return pageInfo;
     }
 }

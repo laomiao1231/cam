@@ -13,4 +13,5 @@ public interface StudentService extends BaseService<Student> {
     User getStudentByAccount(User user) throws Exception;
     void changeStudentPassword(User user);
     List<Student> loadNoDorm();
+    List<Student> getByKey(String keyWord);
 }

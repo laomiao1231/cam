@@ -115,4 +115,11 @@
         from visitor
         where 1 = 1
     </select>
+
+    <select id="getByKey" parameterType="java.lang.String" resultMap="visitorMap">
+        select
+        v.visitor_id, v.visitor_sex, v.visitor_name, v.visitor_company, v.visitor_date,s.staff_name
+        from visitor v left join staff s using(staff_id)
+        where visitor_name like "%"#{name}"%"
+    </select>
 </mapper>

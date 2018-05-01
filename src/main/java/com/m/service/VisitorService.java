@@ -9,4 +9,5 @@ import java.util.List;
 public interface VisitorService extends BaseService<Visitor> {
     Integer getVisitorCount();
     List<VisitorDto> getVisitorDetails();
+    List<Visitor> getByKey(String keyWord);
 }

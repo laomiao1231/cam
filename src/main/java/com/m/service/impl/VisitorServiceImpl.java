@@ -24,4 +24,10 @@ public class VisitorServiceImpl extends BaseServiceImpl<Visitor> implements Visi
     public List<VisitorDto> getVisitorDetails() {
         return this.visitorDao.getVisitorDetails();
     }
+
+    @Override
+    public List<Visitor> getByKey(String keyWord) {
+        List<Visitor> visitorList = this.visitorDao.getByKey(keyWord);
+        return visitorList;
+    }
 }

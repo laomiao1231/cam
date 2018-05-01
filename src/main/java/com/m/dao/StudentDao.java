@@ -13,4 +13,5 @@ public interface StudentDao extends BaseDao<Student> {
     Student getStudentByAccount(String Account);
     void changeStudentPassword(User user);
     List<Student> loadNoDorm();
+    List<Student> getByKey(String keyWord);
 }

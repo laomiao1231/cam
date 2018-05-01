@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mxw
-  Date: 2018/4/30
-  Time: 11:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/static/css/style.css"/>
     <link href="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -40,13 +34,13 @@
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <h3>公告关于“*${key}*”搜索结果</h3>
+                <h3>宿舍管理员关于“*${key}*”搜索结果</h3>
             </div>
             <div class="box cam">
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>标题</td><td>发布时间</td><td>操作</td>
+                        <td>宿管员账户</td><td>宿管员姓名</td><td>性别</td><td>年龄</td><td>操作</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,23 +65,34 @@
                     <!-- form 表单 -->
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">标题</label>
+                            <label  class="col-sm-2 control-label">宿管员账户</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsTitle" class="form-control" id="update_title">
+                                <p type="text" name="staffAccount" class="form-control" id="update_account"></p>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">内容</label>
+                            <label  class="col-sm-2 control-label">宿管员姓名</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsContent" class="form-control" id="update_content">
+                                <input type="text" name="staffName" class="form-control" id="update_name">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">来访时间</label>
+                            <label  class="col-sm-2 control-label">性别</label>
                             <div class="col-sm-10">
-                                <input type="text" name="newsTime" class="form-control" id="update_date">
+                                <label class="radio-inline">
+                                    <input type="radio" name="staffSex" id="update_gender1" value="1">男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="staffSex" id="update_gender2" value="0"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="staffAge" class="form-control" id="update_age">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -101,7 +106,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     var pageNum;
     var pageSize = 5;
@@ -112,7 +116,7 @@
     //ajax 请求函数
     function to_page(pageNumber, pageSize){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/getByKey",
+            url:"<%=request.getContextPath() %>/staff/getByKey",
             data:"pageNumber="+pageNumber+"&pageSize="+pageSize+"&keyWord="+keyWord,
             type:"get",
             success:function(pageInfo){
@@ -125,24 +129,28 @@
             }
         });
     }
-    //创建员工表
+    //创建表
     function build_table_Information(pageInfo){
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
-        $.each(list,function(index,news){
-            var newsTitleTd=$("<td></td>").append(news.newsTitle);
-            var newsTimeTd=$("<td></td>").append(news.newsTime);
+        $.each(list,function(index,staff){
+            var staffAccountTd=$("<td></td>").append(staff.staffAccount);
+            var staffNameTd=$("<td></td>").append(staff.staffName);
+            var staffSexTd=$("<td></td>").append(staff.staffSex==1?'男':'女');
+            var staffAgeTd=$("<td></td>").append(staff.staffAge);
             var operateTd=$("<td></td>");
             var update=$("<div></div>").addClass("operate edit_btn")
                     .append("<i class='fa fa-edit'></i>");
-            update.attr("edit-id", news.newsId);
+            update.attr("edit-id", staff.staffId);
             var remove=$("<div><div>").addClass("operate delete_btn")
                     .append("<i class='fa fa-trash'></i>");
-            remove.attr("del-id", news.newsId);
+            remove.attr("del-id", staff.staffId);
             update.appendTo(operateTd);
             remove.appendTo(operateTd);
-            $("<tr></tr>").append(newsTitleTd)
-                    .append(newsTimeTd)
+            $("<tr></tr>").append(staffAccountTd)
+                    .append(staffNameTd)
+                    .append(staffSexTd)
+                    .append(staffAgeTd)
                     .append(operateTd)
                     .appendTo("#Information_table tbody");
         });
@@ -152,7 +160,7 @@
         $("#page_info").empty();
         $("#page_info").append("共"+pageInfo.pages+
                 "页 "+pageInfo.total+"条记录");
-        pageNum = pageInfo.pageNum;
+        pageNum=pageInfo.pageNum;
     }
     //创建分业条
     function build_table_nav(pageInfo){
@@ -179,10 +187,10 @@
             lastPageLi.addClass("disabled");
         }else{//添加点击跳转页面事件
             nextPageLi.click(function(){
-                to_page(pageInfo.pageNum+1, pageSize);
+                to_page(pageInfo.pageNum+1, 2);
             });
             lastPageLi.click(function(){
-                to_page(pageInfo.pages, pageSize);
+                to_page(pageInfo.pages, 2);
             });
         }
 
@@ -193,7 +201,7 @@
                 numLi.addClass("active");
             }
             numLi.click(function(){
-                to_page(item, pageSize);
+                to_page(item, 2);
             });
             ul.append(numLi);
         });
@@ -212,20 +220,20 @@
 
     function getEditData(Id){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/get/"+Id,
+            url:"<%=request.getContextPath() %>/staff/get/"+Id,
             type:"get",
-            success:function(result){
-                console.log(result);
-                $("#update_title").val(result.newsTitle);
-                $("#update_content").val(result.newsContent);
-                $("#update_date").val(result.newsTime);
-                $("#update_btn").attr("edit-id",result.newsId);
+            success:function(result) {
+                $("#update_account").text(result.staffAccount);
+                $("#update_name").val(result.staffName);
+                $("#ModalUpdate input[name='staffSex']").val([result.staffSex]);
+                $("#update_age").val(result.staffAge);
+                $("#update_btn").attr("edit-id",result.staffId);
             }
         })
     }
     $("#update_btn").click(function(){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/update/"+$(this).attr("edit-id"),
+            url:"<%=request.getContextPath() %>/staff/update/"+$(this).attr("edit-id"),
             type:"POST",
             data:$("#ModalUpdate form").serialize(),
             success:function(){
@@ -238,9 +246,10 @@
     $(document).on("click",".delete_btn",function(){
         var Id=$(this).attr("del-id");
         //弹出确认框
-        if(confirm("确认删除此公告信息吗？")){
+        if(confirm("确认删除此宿管员信息吗？")){
+            //确认删除，发送ajax请求
             $.ajax({
-                url:"<%=request.getContextPath() %>/news/remove/"+Id,
+                url:"<%=request.getContextPath() %>/staff/remove/"+Id,
                 type:"get",
                 success:function(){
                     to_page(pageNum, pageSize)

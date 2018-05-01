@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mxw
-  Date: 2018/4/27
-  Time: 19:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,10 +33,10 @@
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <span>查询公告</span>
+                <span>查询失物招领信息</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
-                    <button>查询</button>
+                    <input type="text" name="key" id="key" placeholder="请输入信息关键字">
+                    <button id="submitButton">查询</button>
                 </div>
             </div>
             <div class="box cam">
@@ -253,6 +246,11 @@
                 }
             })
         }
+    });
+
+    $("#submitButton").click(function() {
+        var key = $("#key").val();
+        window.location.href="<%=request.getContextPath() %>/guide/toLostItemsKeyList?key="+key;
     });
 </script>
 </body>

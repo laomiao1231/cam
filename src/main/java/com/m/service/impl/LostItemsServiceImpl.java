@@ -16,6 +16,7 @@ public class LostItemsServiceImpl extends BaseServiceImpl<LostItems> implements 
 
     @Override
     public List<LostItems> getByKey(String keyWord) {
-        return this.lostItemsDao.getByKey(keyWord);
+        List<LostItems> lostItemsList = this.lostItemsDao.getByKey(keyWord);
+        return lostItemsList;
     }
 }

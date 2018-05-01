@@ -120,4 +120,14 @@ public class VisitorController {
         PageInfo<VisitorDto> pageInfo = new PageInfo<>(visitorList, 4);
         return pageInfo;
     }
+
+    @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Visitor> getVisitorByKey(@RequestParam("pageNumber") Integer pageNumber,
+                                               @RequestParam("pageSize") Integer pageSize, @RequestParam("keyWord") String keyWord) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Visitor> visitorList = this.visitorService.getByKey(keyWord);
+        PageInfo<Visitor> pageInfo = new PageInfo<>(visitorList, 5);
+        return pageInfo;
+    }
 }

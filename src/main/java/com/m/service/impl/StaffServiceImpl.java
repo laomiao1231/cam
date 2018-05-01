@@ -9,6 +9,8 @@ import com.m.util.EncodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffService {
     @Autowired
@@ -44,5 +46,11 @@ public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffSer
             e.printStackTrace();
         }
         this.staffDao.changeStaffPassword(user);
+    }
+
+    @Override
+    public List<Staff> getByKey(String keyWord) {
+        List<Staff> staffList = this.staffDao.getByKey(keyWord);
+        return staffList;
     }
 }

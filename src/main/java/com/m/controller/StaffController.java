@@ -114,4 +114,14 @@ public class StaffController {
         return pageInfo;
     }
 
+    @RequestMapping(value = "/getByKey", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Staff> getStaffByKey(@RequestParam("pageNumber") Integer pageNumber,
+                                        @RequestParam("pageSize") Integer pageSize, @RequestParam("keyWord") String keyWord) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Staff> staffList = this.staffService.getByKey(keyWord);
+        PageInfo<Staff> pageInfo = new PageInfo<>(staffList, 5);
+        return pageInfo;
+    }
+
 }

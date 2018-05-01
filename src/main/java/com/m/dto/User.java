@@ -1,8 +1,5 @@
 package com.m.dto;
 
-/**
- * Created by mxw on 2018/4/22.
- */
 public class User {
     private Integer Id;
     private String passWord;

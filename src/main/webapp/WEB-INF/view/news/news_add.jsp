@@ -54,20 +54,11 @@
     </div>
 </header>
 <div class="container">
-    <nav>
-        <ul>
-            <li>
-                <a>重置密码</a>
-            </li>
-            <li>
-                <a>查询公告</a>
-            </li>
-            <li>
-                <a>设备报修</a>
-            </li>
-        </ul>
-    </nav>
+    <%@include file="../common/menu.jsp"%>
     <div class="block-right">
+        <div class="col-lg-12 text-center">
+            <h2>公告信息添加</h2>
+        </div>
         <form class="form-horizontal" role="form" id="defaultForm">
             <div class="form-group">
                 <label class="col-sm-2 control-label">公告标题</label>

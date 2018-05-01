@@ -72,11 +72,6 @@ public class DormitoryController {
     @ResponseBody
     public String updateDormitory(@PathVariable("Id") Integer Id, Dormitory dormitory) {
         dormitory.setDormitoryId(Id);
-        dormitory.setDormitoryBuilding("12#");
-        dormitory.setDormitoryCode("635");
-        dormitory.setDormitoryFull(8);
-        dormitory.setDormitoryPersonnel(2);
-        dormitory.setDormitoryStaffId(3);
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;

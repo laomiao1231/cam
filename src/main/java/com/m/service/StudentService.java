@@ -14,4 +14,5 @@ public interface StudentService extends BaseService<Student> {
     void changeStudentPassword(User user);
     List<Student> loadNoDorm();
     List<Student> getByKey(String keyWord);
+    StudentDto getDetail(Integer Id);
 }

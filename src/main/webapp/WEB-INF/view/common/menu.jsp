@@ -73,7 +73,13 @@
                 <a href="<%=request.getContextPath()%>/guide/toChangePassword">重置密码</a>
             </li>
             <li>
+                <a href="<%=request.getContextPath() %>/student/getDetail/${userInfo.id}">个人信息</a>
+            </li>
+            <li>
                 <a href="<%=request.getContextPath() %>/guide/toNewsList">查询公告</a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath() %>/guide/toLostItemsList">查询失物招领信息</a>
             </li>
         </ul>
     </nav>

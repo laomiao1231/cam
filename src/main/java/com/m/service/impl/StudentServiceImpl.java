@@ -1,5 +1,6 @@
 package com.m.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.m.dao.StudentDao;
 import com.m.dto.StudentDto;
 import com.m.dto.User;
@@ -85,5 +86,11 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
     public List<Student> getByKey(String keyWord) {
         List<Student> studentList = this.studentDao.getByKey(keyWord);
         return studentList;
+    }
+
+    @Override
+    public StudentDto getDetail(Integer Id) {
+        StudentDto studentDto = this.studentDao.getDetail(Id);
+        return studentDto;
     }
 }

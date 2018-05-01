@@ -2,10 +2,9 @@ package com.m.model;
 
 public class Dormitory {
     private Integer dormitoryId;
-    private String dormitoryCode; //宿舍编号
-    private String dormitoryBuilding; //所在楼宇
-    private Integer dormitoryPersonnel; //实际人数
-    private Integer dormitoryFull; //满员
+    private String dormitoryCode;
+    private String dormitoryBuilding;
+    private Integer dormitoryFull;
     private Integer dormitoryStaffId;
 
     public Integer getDormitoryId() {
@@ -30,14 +29,6 @@ public class Dormitory {
 
     public void setDormitoryBuilding(String dormitoryBuilding) {
         this.dormitoryBuilding = dormitoryBuilding;
-    }
-
-    public Integer getDormitoryPersonnel() {
-        return dormitoryPersonnel;
-    }
-
-    public void setDormitoryPersonnel(Integer dormitoryPersonnel) {
-        this.dormitoryPersonnel = dormitoryPersonnel;
     }
 
     public Integer getDormitoryFull() {

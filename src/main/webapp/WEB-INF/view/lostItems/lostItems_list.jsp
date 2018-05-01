@@ -1,10 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: mxw
+  Date: 2018/5/1
+  Time: 21:26
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>login success</title>
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/static/css/style.css"/>
     <link href="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.css" rel="stylesheet">
     <script src="<%=request.getContextPath() %>/static/jquery/jquery-3.3.1.min.js"></script>
@@ -23,17 +28,17 @@
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <span>查询公告</span>
+                <span>查询失物招领信息</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
-                    <button>查询</button>
+                    <input type="text" name="key" id="key" placeholder="请输入信息关键字">
+                    <button id="submitButton">查询</button>
                 </div>
             </div>
             <div class="box cam">
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>标题</td><td>发布时间</td>
+                        <td>失物招领信息描述</td><td>发布时间</td><td>物品状态</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,6 +53,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var pageNum;
     var pageSize = 5;
     $(function(){
         to_page(1, pageSize);
@@ -55,7 +61,7 @@
     //ajax 请求函数
     function to_page(pageNumber, pageSize){
         $.ajax({
-            url:"<%=request.getContextPath() %>/news/loadAll",
+            url:"<%=request.getContextPath() %>/lostItems/loadAll",
             data:"pageNumber="+pageNumber+"&pageSize="+pageSize,
             type:"get",
             success:function(pageInfo){
@@ -72,20 +78,22 @@
     function build_table_Information(pageInfo){
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
-        $.each(list,function(index,news){
-            var newsTitleTd=$("<td></td>").append(news.newsTitle);
-            var newsTimeTd=$("<td></td>").append(news.newsTime);
-            $("<tr></tr>").append(newsTitleTd)
-                    .append(newsTimeTd)
+        $.each(list,function(index,lostItems){
+            var lostItemsDescribeTd=$("<td></td>").append(lostItems.lostItemsDescribe);
+            var lostItemsDateTd=$("<td></td>").append(lostItems.lostItemsDate);
+            var lostItemsStatusTd=$("<td></td>").append(lostItems.lostItemsStatus==1?'已认领':'未认领');
+            $("<tr></tr>").append(lostItemsDescribeTd)
+                    .append(lostItemsDateTd)
+                    .append(lostItemsStatusTd)
                     .appendTo("#Information_table tbody");
         });
     }
     //创建分页信息
     function build_table_info(pageInfo){
-        alert(pageInfo.pageNum);
         $("#page_info").empty();
         $("#page_info").append("共"+pageInfo.pages+
                 "页 "+pageInfo.total+"条记录");
+        pageNum = pageInfo.pageNum;
     }
     //创建分业条
     function build_table_nav(pageInfo){
@@ -115,7 +123,7 @@
                 to_page(pageInfo.pageNum+1, pageSize);
             });
             lastPageLi.click(function(){
-                to_page(pageInfo.pages, 2);
+                to_page(pageInfo.pages, pageSize);
             });
         }
 
@@ -134,6 +142,58 @@
         ul.append(nextPageLi).append(lastPageLi);
         ul.appendTo("#page_nav");
     }
-    </script>
+    //确定修改按钮，给修改按钮加事件
+    $(document).on("click",".edit_btn",function(){
+        $('#ModalUpdate').modal({
+            backdrop:"static"//点击背景不删除
+        });
+        //发送ajax请求
+        getEditData($(this).attr("edit-id"));
+    });
+
+    function getEditData(Id){
+        $.ajax({
+            url:"<%=request.getContextPath() %>/lostItems/get/"+Id,
+            type:"get",
+            success:function(result){
+                console.log(result);
+                $("#update_describe").val(result.lostItemsDescribe);
+                $("#update_date").val(result.lostItemsDate);
+                $("#ModalUpdate select").val([result.lostItemsStatus]);
+                $("#update_btn").attr("edit-id",result.lostItemsId);
+            }
+        })
+    }
+    $("#update_btn").click(function(){
+        $.ajax({
+            url:"<%=request.getContextPath() %>/lostItems/update/"+$(this).attr("edit-id"),
+            type:"POST",
+            data:$("#ModalUpdate form").serialize(),
+            success:function(){
+                $("#ModalUpdate").modal("hide");
+                to_page(pageNum, pageSize);
+            }
+        });
+    });
+    //删除
+    $(document).on("click",".delete_btn",function(){
+        var Id=$(this).attr("del-id");
+        //弹出确认框
+        if(confirm("确认删除此失物招领信息吗？")){
+            $.ajax({
+                url:"<%=request.getContextPath() %>/lostItems/remove/"+Id,
+                type:"get",
+                success:function(){
+                    to_page(pageNum, pageSize)
+                }
+            })
+        }
+    });
+
+    $("#submitButton").click(function() {
+        var key = $("#key").val();
+        window.location.href="<%=request.getContextPath() %>/guide/toLostItemsKeyList?key="+key;
+    });
+</script>
 </body>
 </html>

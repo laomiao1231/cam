@@ -13,7 +13,9 @@
         <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
         <association column="dormitory_id" property="dormitory" javaType="com.m.model.Dormitory">
             <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
-            <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
+            <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />      </association>
+        <association column="staff_id" property="staff" javaType="com.m.model.Staff">
+            <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
         </association>
     </resultMap>
 
@@ -180,5 +182,13 @@
         <include refid="student_column" />
         from student
         where student_name like "%"#{name}"%"
+    </select>
+
+    <select id="getDetail" parameterType="int" resultMap="studentDetailMap">
+        select
+        s.student_name,s.student_major,s.student_class,d.dormitory_code,d.dormitory_building,sf.staff_name
+        from student s left join dormitory d using(dormitory_id)
+        left join staff sf using(staff_id)
+        where s.student_id = #{Id}
     </select>
 </mapper>

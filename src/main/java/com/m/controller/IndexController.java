@@ -47,12 +47,13 @@ public class IndexController {
     @ResponseBody
     public Map<String, Object> login(User user, HttpServletRequest request) {
         Map<String,Object> resultMap = new HashMap<>();
+        User temp_user = new User();
         HttpSession session = request.getSession();
         if(user.getIdentity().equals(ID_ADMIN)) {
             try {
-                this.adminService.getAdminByAccount(user);
+                temp_user = this.adminService.getAdminByAccount(user);
                 resultMap.put("status", "00");
-                session.setAttribute("user", user);
+                session.setAttribute("user", temp_user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -60,9 +61,9 @@ public class IndexController {
             }
         }else if(user.getIdentity().equals(ID_STAFF)) {
             try {
-                this.staffService.getStaffByAccount(user);
+                temp_user = this.staffService.getStaffByAccount(user);
                 resultMap.put("status", "00");
-                session.setAttribute("user", user);
+                session.setAttribute("user", temp_user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -70,9 +71,9 @@ public class IndexController {
             }
         }else if(user.getIdentity().equals(ID_STUDENT)) {
             try {
-                this.studentService.getStudentByAccount(user);
+                temp_user = this.studentService.getStudentByAccount(user);
                 resultMap.put("status", "00");
-                session.setAttribute("user", user);
+                session.setAttribute("user", temp_user);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultMap.put("status", "01");
@@ -227,6 +228,14 @@ public class IndexController {
     @RequestMapping("/toLostItemsManage")
     public String toLostItemsManage() {
         return "lostItems/lostItems_manage";
+    }
+
+    /**
+     * 跳转失物招领信息管理界面
+     * */
+    @RequestMapping("/toLostItemsList")
+    public String toLostItemsList() {
+        return "lostItems/lostItems_list";
     }
 
     /**

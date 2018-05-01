@@ -20,6 +20,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     protected static final String CHANGE_PASSWORD = ".changePassword";
     protected static final String LOAD_NO_DORM=".loadNoDorm";
     protected static final String GET_BY_KEY = ".getByKey";
+    protected static final String GET_DETAIL = ".getDetail";
 
     @Override
     public List<StudentDto> loadStudentDetail(Map<String, Integer> map) {
@@ -44,5 +45,10 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     @Override
     public List<Student> getByKey(String keyWord) {
         return this.getSqlSession().selectList(this.getNameSpace()+GET_BY_KEY, keyWord);
+    }
+
+    @Override
+    public StudentDto getDetail(Integer Id) {
+        return this.getSqlSession().selectOne(this.getNameSpace()+GET_DETAIL, Id);
     }
 }

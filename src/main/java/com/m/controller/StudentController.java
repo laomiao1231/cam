@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.m.dto.StudentDto;
 import com.m.dto.User;
 import com.m.model.Student;
 import com.m.service.StudentService;
@@ -133,5 +134,12 @@ public class StudentController {
         List<Student> studentList = this.studentService.getByKey(keyWord);
         PageInfo<Student> pageInfo = new PageInfo<>(studentList, 5);
         return pageInfo;
+    }
+
+    @RequestMapping(value = "/getDetail/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    public String getStudentDetailById(@PathVariable("Id") Integer Id, Map<String,Object> map) {
+        StudentDto studentDto = this.studentService.getDetail(Id);
+        map.put("studentDetail", studentDto);
+        return "student/student_detail";
     }
 }

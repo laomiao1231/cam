@@ -9,6 +9,9 @@
     <link href="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.css" rel="stylesheet">
     <script src="<%=request.getContextPath() %>/static/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/static/bootstrap/date/bootstrap-datetimepicker.min.css">
+    <script src="<%=request.getContextPath() %>/static/bootstrap/date/bootstrap-datetimepicker.js"></script>
+    <script src="<%=request.getContextPath() %>/static/bootstrap/date/bootstrap-datetimepicker.zh-CN.js"></script>
 </head>
 <body>
 <header id="header">
@@ -252,6 +255,18 @@
                     }
                 })
             }
+        });
+
+        $("#update_date").datetimepicker({
+            format: "yyyy-mm-dd HH:mm",
+            autoclose: true,
+            todayBtn: true,
+            todayHighlight: true,
+            showMeridian: true,
+            pickerPosition: "bottom-left",
+            language: 'zh-CN',//中文，需要引用zh-CN.js包
+            startView: 2,//月视图
+            minView: 2//日期时间选择器所能够提供的最精确的时间选择视图
         });
 
         $("#submitButton").click(function() {

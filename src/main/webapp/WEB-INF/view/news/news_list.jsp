@@ -33,7 +33,7 @@
                 <table class="table table-bordered tb-gray" id="Information_table">
                     <thead>
                     <tr>
-                        <td>编号</td><td>标题</td><td>发布时间</td>
+                        <td>标题</td><td>发布时间</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,6 @@
     var pageSize = 5;
     $(function(){
         to_page(1, pageSize);
-        alert("success");
     });
     //ajax 请求函数
     function to_page(pageNumber, pageSize){
@@ -74,7 +73,6 @@
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
         $.each(list,function(index,news){
-            var newsIdTd=$("<td></td>").append(news.newsId);
             var newsTitleTd=$("<td></td>").append(news.newsTitle);
             var newsTimeTd=$("<td></td>").append(news.newsTime);
             $("<tr></tr>").append(newsIdTd)

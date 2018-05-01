@@ -19,9 +19,18 @@ public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffSer
     private StaffDao staffDao;
 
     @Override
+    public void save(Staff staff) {
+        try {
+            staff.setStaffPassword(encodeUtil.md5Encode(staff.getStaffAccount(), staff.getStaffPassword()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.save(staff);
+    }
+    @Override
     public User getStaffByAccount(User user) throws Exception {
         Staff staff = this.staffDao.getStaffByAccount(user.getAccount());
-        staff.setStaffPassword(encodeUtil.md5Encode(user.getAccount(),user.getPassWord()));
+        user.setPassWord(encodeUtil.md5Encode(user.getAccount(),user.getPassWord()));
         if(staff == null) {
             throw new Exception("账户不存在");
         }

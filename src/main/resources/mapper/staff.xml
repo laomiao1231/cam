@@ -114,7 +114,7 @@
     <select id="getByAccount" parameterType="java.lang.String" resultMap="staffMap">
         select
         <include refid="staff_column" />
-        from student
+        from staff
         <where>
             staff_account = #{staffAccount}
         </where>

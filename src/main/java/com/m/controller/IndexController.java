@@ -321,4 +321,12 @@ public class IndexController {
         map.put("key", key);
         return "lostItems/lostItems_key_list";
     }
+
+    /**
+     * 跳转公告详情页
+     * */
+    @RequestMapping("/toGetNewsDetail")
+    public String toGetNewsDetail() {
+        return "news/news_detail";
+    }
 }

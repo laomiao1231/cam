@@ -161,7 +161,7 @@
 
     <select id="getByAccount" parameterType="java.lang.String" resultMap="studentMap">
         select
-        student_name, student_account, student_password, student_id, student_power
+        <include refid="student_column" />
         from student
         <where>
             student_account = #{Account}

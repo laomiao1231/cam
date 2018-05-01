@@ -116,7 +116,9 @@
         $("#Information_table tbody").empty();
         var list=pageInfo.list;
         $.each(list,function(index,news){
-            var newsTitleTd=$("<td></td>").append(news.newsTitle);
+            var newsTitleTd=$("<td></td>");
+            var href_link = ($("<a></a>").append(news.newsTitle).attr("href","<%=request.getContextPath() %>/news/getDetail/"+news.newsId));
+            href_link.appendTo(newsTitleTd);
             var newsTimeTd=$("<td></td>").append(news.newsTime);
             var operateTd=$("<td></td>");
             var update=$("<div></div>").addClass("operate edit_btn")
@@ -234,6 +236,12 @@
             })
         }
     });
+
+    /*$(document).on("click","#detail",function(){
+        var Id=$(this).attr("detail-id");
+        alert(Id);
+        $("#detail").href="<%=request.getContextPath() %>/news/get/"+Id;
+    });*/
 
     $("#submitButton").click(function() {
         var key = $("#key").val();

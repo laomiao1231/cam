@@ -54,7 +54,6 @@
                         if(result.status == "00") {
                             window.location.href="<%=request.getContextPath() %>/guide/loggedIn"
                         }else {
-                            alert("sfsdfsd");
                             alert(result.errorMessage);
                         }
                     },

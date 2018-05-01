@@ -125,4 +125,11 @@ public class NewsController {
         PageInfo<News> pageInfo = new PageInfo<>(newsList, 5);
         return pageInfo;
     }
+
+    @RequestMapping(value = "/getDetail/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    public String getNewsDetailById(@PathVariable("Id") Integer Id,Map<String,Object> map) {
+        News news = this.newsService.getById(Id);
+        map.put("news", news);
+        return "news/news_detail";
+    }
 }

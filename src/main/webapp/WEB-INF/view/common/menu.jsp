@@ -25,6 +25,12 @@
             <li>
                 <a href="<%=request.getContextPath() %>/guide/toStaffManage">宿舍管理员信息管理</a>
             </li>
+            <li>
+                <a href="<%=request.getContextPath() %>/guide/toNewsManage">公告管理</a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath() %>/guide/toNewsAdd">公告添加</a>
+            </li>
         </ul>
     </nav>
 </c:if>
@@ -34,12 +40,6 @@
         <ul>
             <li>
                 <a href="<%=request.getContextPath()%>/guide/toChangePassword">重置密码</a>
-            </li>
-            <li>
-                <a href="<%=request.getContextPath() %>/guide/toNewsManage">公告管理</a>
-            </li>
-            <li>
-                <a href="<%=request.getContextPath() %>/guide/toNewsAdd">公告添加</a>
             </li>
             <li>
                 <a href="<%=request.getContextPath() %>/guide/toVisitorManage">来访人员管理</a>

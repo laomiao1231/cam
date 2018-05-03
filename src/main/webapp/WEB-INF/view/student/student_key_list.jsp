@@ -10,22 +10,13 @@
 </head>
 <body>
 <input type="hidden" id="key" value="${key}">
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
         <div class="content">
             <div class="box grid-search">
-                <span>查询学生</span>
-                <div class="box grid-search">
-                    <h3>学生关于“*${key}*”搜索结果</h3>
-                </div>
+                <h3>学生关于“*${key}*”搜索结果</h3>
             </div>
             <div class="box cam">
                 <table class="table table-bordered tb-gray" id="Information_table">

@@ -124,4 +124,33 @@ public class StaffController {
         return pageInfo;
     }
 
+    @RequestMapping(value = "/change/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public String changeAdmin(@PathVariable("Id") Integer Id) {
+        Staff staff = this.staffService.getById(Id);
+        Map<String, Integer> temp_map = new HashMap<>();
+        temp_map.put("Id", Id);
+        if(staff.getStaffStatus() == 1) {
+            temp_map.put("state", 0);
+        }else {
+            temp_map.put("state", 1);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Integer> map = new HashMap<>();
+        String string = null;
+        try{
+            this.staffService.changeStaffStatus(temp_map);
+            map.put("status",200);
+        }catch (Exception e){
+            map.put("status",400);
+        }finally {
+            try {
+                string = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return string;
+    }
+
 }

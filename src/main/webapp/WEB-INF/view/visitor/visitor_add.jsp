@@ -50,7 +50,7 @@
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
         <div class="col-lg-12 text-center">
-            <h2>系统管理员信息添加</h2>
+            <h2>来访人员信息添加</h2>
         </div>
         <form class="form-horizontal" id="defaultForm">
             <div class="form-group">

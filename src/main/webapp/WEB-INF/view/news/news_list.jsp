@@ -11,13 +11,7 @@
     <script src="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
@@ -25,8 +19,8 @@
             <div class="box grid-search">
                 <span>查询公告</span>
                 <div class="search">
-                    <input type="text" name="id" placeholder="请输入关键字">
-                    <button>查询</button>
+                    <input type="text" name="key" id="key" placeholder="请输入关键字">
+                    <button id="submitButton">查询</button>
                 </div>
             </div>
             <div class="box cam">
@@ -82,7 +76,6 @@
     }
     //创建分页信息
     function build_table_info(pageInfo){
-        alert(pageInfo.pageNum);
         $("#page_info").empty();
         $("#page_info").append("共"+pageInfo.pages+
                 "页 "+pageInfo.total+"条记录");
@@ -134,6 +127,11 @@
         ul.append(nextPageLi).append(lastPageLi);
         ul.appendTo("#page_nav");
     }
+    //关键字查找
+    $("#submitButton").click(function() {
+        var key = $("#key").val();
+        window.location.href="<%=request.getContextPath() %>/guide/toNewsKeyList?key="+key;
+    });
     </script>
 </body>
 </html>

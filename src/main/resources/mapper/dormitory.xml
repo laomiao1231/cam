@@ -14,7 +14,7 @@
         </association>
     </resultMap>
 
-    <resultMap id="dorm_stu_Map" type="com.m.dto.DormitoryDto">
+    <resultMap id="dormitoryStudentMap" type="com.m.dto.DormitoryDto">
         <result column="dormitory_code" jdbcType="VARCHAR" property="dormitoryCode" />
         <result column="dormitory_building" jdbcType="VARCHAR" property="dormitoryBuilding" />
         <collection property="studentList" ofType="com.m.model.Student">
@@ -22,6 +22,8 @@
             <result column="student_name" jdbcType="VARCHAR" property="studentName" />
             <result column="student_sex" jdbcType="INTEGER" property="studentSex" />
             <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
+            <result column="student_age" jdbcType="INTEGER" property="studentAge" />
+            <result column="student_class" jdbcType="INTEGER" property="studentClass" />
         </collection>
     </resultMap>
 
@@ -34,7 +36,7 @@
     </resultMap>
 
     <sql id="dormitory_column">
-        dormitory_id, dormitory_code, dormitory_building, dormitory_personnel, dormitory_full
+        dormitory_id, dormitory_code, dormitory_building, dormitory_full
     </sql>
 
     <insert id="save" parameterType="com.m.model.Dormitory">
@@ -45,9 +47,6 @@
             </if>
             <if test="dormitoryBuilding != null">
                 dormitory_building,
-            </if>
-            <if test="dormitoryPersonnel != null">
-                dormitory_personnel,
             </if>
             <if test="dormitoryFull != null">
                 dormitory_full,
@@ -62,9 +61,6 @@
             </if>
             <if test="dormitoryBuilding != null">
                 #{dormitoryBuilding},
-            </if>
-            <if test="dormitoryPersonnel != null">
-                #{dormitoryPersonnel},
             </if>
             <if test="dormitoryFull != null">
                 #{dormitoryFull},
@@ -128,14 +124,14 @@
         select dormitory_full from dormitory where dormitory_id= #{dormId}
     </select>
     
-    <select id="getPersonnelDetail" parameterType="int" resultMap="dorm_stu_Map">
+    <select id="getPersonnelDetail" parameterType="int" resultMap="dormitoryStudentMap">
         select
-        stu.student_name, stu.student_major, stu.student_sex, dorm.dormitory_code, dorm.dormitory_building
+        stu.student_name, stu.student_major, stu.student_sex, stu.student_class, dorm.dormitory_code, dorm.dormitory_building
         from dormitory dorm left join student stu using(dormitory_id)
         where dorm.dormitory_id = #{dromId}
     </select>
 
-    <select id="loadUsableDorm" resultMap="dormitoryMap">
+    <select id="loadUsableDorm" resultMap="dormitoryStudentMap">
         select * from (select
         d.dormitory_id, d.dormitory_code, dormitory_building, d.dormitory_full, count(*) as dormitory_personnel
         from student right join dormitory d using(dormitory_id) group by d.dormitory_id) as temp_dormitory

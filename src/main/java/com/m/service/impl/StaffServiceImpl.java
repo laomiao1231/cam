@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffService {
@@ -61,5 +62,10 @@ public class StaffServiceImpl extends BaseServiceImpl<Staff> implements StaffSer
     public List<Staff> getByKey(String keyWord) {
         List<Staff> staffList = this.staffDao.getByKey(keyWord);
         return staffList;
+    }
+
+    @Override
+    public void changeStaffStatus(Map<String, Integer> map) {
+        this.staffDao.changeStaffStatus(map);
     }
 }

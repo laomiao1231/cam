@@ -46,13 +46,7 @@
     </script>
 </head>
 <body>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">

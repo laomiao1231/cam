@@ -5,14 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.m.dto.DormitoryDto;
+import com.m.dto.User;
 import com.m.model.Dormitory;
 import com.m.model.Student;
 import com.m.service.DormitoryService;
 import com.m.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +30,9 @@ public class DormitoryController {
 
     @RequestMapping(value = "/save", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    public String saveDormitory(Dormitory dormitory) {
+    public String saveDormitory(Dormitory dormitory, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        dormitory.setDormitoryStaffId(user.getId());
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Integer> map = new HashMap<>();
         String string = null;
@@ -136,11 +141,10 @@ public class DormitoryController {
         List<Dormitory> dormitoryList = this.dormitoryService.loadUsableDorm();
         return dormitoryList;
     }
-    @RequestMapping(value = "/getPersonnelDetail", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    public DormitoryDto getDormitoryPersonnelDetail() {
-        Integer dormId = 2;
+    @RequestMapping(value = "/getPersonnelDetail/{Id}", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+    public String getDormitoryPersonnelDetail(@PathVariable("Id") Integer dormId, Map<String,Object> map) {
         DormitoryDto dormitoryDto = this.dormitoryService.getDormitoryPersonnelDetail(dormId);
-        return dormitoryDto;
+        map.put("dormitoryDetail",dormitoryDto);
+        return "dormitory/dormitory_student_detail";
     }
 }

@@ -141,6 +141,12 @@
         where student_id = #{Id}
     </update>
 
+    <update id="changeStatus" parameterType="map">
+        update student
+        set student_status = #{state}
+        where student_id = #{Id}
+    </update>
+
    <!-- <select id="loadAll" parameterType="map" resultMap="studentDetMap">
         select
         stu.*, dorm.dormitory_code, dorm.dormitory_building

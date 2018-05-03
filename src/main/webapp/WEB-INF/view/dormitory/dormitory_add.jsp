@@ -39,13 +39,7 @@
     </script>
 </head>
 <body>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
@@ -72,15 +66,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">宿舍管理员</label>
-                <div class="col-sm-10">
-                    <input type="text" name="dormitoryStaffId" class="form-control" placeholder="请输入账户">
-                </div>
-            </div>
-            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="reset" class="btn btn-gray-small">取消</button>
-                    <button type="submit" class="btn btn-green-small" id="submitButton">发布</button>
+                    <button type="submit" class="btn btn-green-small" id="submitButton">添加</button>
                 </div>
             </div>
         </form>
@@ -107,6 +95,9 @@
                             validators: {
                                 notEmpty: {
                                     message: '宿舍编号不能为空'
+                                },
+                                digits: {
+                                    message: '值必须是数字'
                                 }
                             }
                         },
@@ -114,6 +105,9 @@
                             validators: {
                                 notEmpty: {
                                     message: '所属公寓不能为空'
+                                },
+                                digits: {
+                                    message: '值必须是数字'
                                 }
                             }
                         },
@@ -131,6 +125,9 @@
                             validators: {
                                 notEmpty: {
                                     message: '宿舍管理员不能为空'
+                                },
+                                digits: {
+                                    message: '值必须是数字'
                                 }
                             }
                         },

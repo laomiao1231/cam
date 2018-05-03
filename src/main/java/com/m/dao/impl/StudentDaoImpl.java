@@ -21,6 +21,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     protected static final String LOAD_NO_DORM=".loadNoDorm";
     protected static final String GET_BY_KEY = ".getByKey";
     protected static final String GET_DETAIL = ".getDetail";
+    protected static final String CHANGE_STATUS = ".changeStatus";
 
     @Override
     public List<StudentDto> loadStudentDetail(Map<String, Integer> map) {
@@ -50,5 +51,10 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     @Override
     public StudentDto getDetail(Integer Id) {
         return this.getSqlSession().selectOne(this.getNameSpace()+GET_DETAIL, Id);
+    }
+
+    @Override
+    public void changeStudentStatus(Map<String, Integer> map) {
+        this.getSqlSession().update(this.getNameSpace()+CHANGE_STATUS, map);
     }
 }

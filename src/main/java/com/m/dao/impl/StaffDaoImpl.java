@@ -7,11 +7,13 @@ import com.m.model.Staff;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     protected static final String CHANGE_PASSWORD = ".changePassword";
     protected static final String GET_BY_KEY = ".getByKey";
+    protected static final String CHANGE_STATUS = ".changeStatus";
 
     public StaffDaoImpl() {
         this.setNameSpace("com.m.dao.StaffDao");
@@ -32,5 +34,10 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     @Override
     public List<Staff> getByKey(String keyWord) {
         return this.getSqlSession().selectList(this.getNameSpace()+GET_BY_KEY, keyWord);
+    }
+
+    @Override
+    public void changeStaffStatus(Map<String, Integer> map) {
+        this.getSqlSession().update(this.getNameSpace()+CHANGE_STATUS, map);
     }
 }

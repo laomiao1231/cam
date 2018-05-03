@@ -8,16 +8,13 @@
 </head>
 <body>
 <c:set var="studentInfo" value="${requestScope.studentDetail}"/>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
+        <div class="col-lg-12 text-center">
+            <h2>我的个人中心</h2>
+        </div>
         <div class="content">
                 <table class="table table-bordered tb-gray" >
                     <thead>

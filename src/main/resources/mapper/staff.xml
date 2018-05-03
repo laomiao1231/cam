@@ -102,6 +102,12 @@
         where staff_id = #{Id}
     </update>
 
+    <update id="changeStatus" parameterType="map">
+        update staff
+        set staff_status = #{state}
+        where staff_id = #{Id}
+    </update>
+
     <select id="getById" parameterType="int" resultMap="staffMap">
         select
         <include refid="staff_column" />

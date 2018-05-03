@@ -11,13 +11,7 @@
     <script src="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
@@ -147,12 +141,22 @@
             var studentMajorTd=$("<td></td>").append(student.studentMajor);
             var studentClassTd=$("<td></td>").append(student.studentClass);
             var operateTd=$("<td></td>");
+            var changeStatus;
+            if(student.studentStatus == 1){
+                changeStatus=$("<div></div>").addClass("operate change_btn")
+                        .append("<i class='fa fa-toggle-on'></i>");
+            }else {
+                changeStatus=$("<div></div>").addClass("operate change_btn")
+                        .append("<i class='fa fa fa-toggle-off'></i>");
+            }
+            changeStatus.attr("change-id", student.studentId);
             var update=$("<div></div>").addClass("operate edit_btn")
                     .append("<i class='fa fa-edit'></i>");
             update.attr("edit-id", student.studentId);
             var remove=$("<div><div>").addClass("operate delete_btn")
                     .append("<i class='fa fa-trash'></i>");
             remove.attr("del-id", student.studentId);
+            changeStatus.appendTo(operateTd);
             update.appendTo(operateTd);
             remove.appendTo(operateTd);
             $("<tr></tr>").append(studentAccountTd)
@@ -262,6 +266,20 @@
             //确认删除，发送ajax请求
             $.ajax({
                 url:"<%=request.getContextPath() %>/student/remove/"+Id,
+                type:"get",
+                success:function(){
+                    to_page(pageNum, pageSize)
+                }
+            })
+        }
+    });
+    //更改状态
+    $(document).on("click",".change_btn",function(){
+        var Id=$(this).attr("change-id");
+        //弹出确认框
+        if(confirm("确认更改该账户状态吗？")){
+            $.ajax({
+                url:"<%=request.getContextPath() %>/student/change/"+Id,
                 type:"get",
                 success:function(){
                     to_page(pageNum, pageSize)

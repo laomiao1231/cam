@@ -9,14 +9,7 @@
     <script src="<%=request.getContextPath() %>/static/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<header id="header">
-    <div class="topbar">
-        <div class="col-lg-12 text-center">
-            公寓管理系统
-            <span style="float: right"><a href="<%=request.getContextPath() %>/guide/logout" style="font-size: 14px;color: white">退出</a></span>
-        </div>
-    </div>
-</header>
+<%@include file="../common/common_header.jsp"%>
 <div class="container">
     <%@include file="../common/menu.jsp"%>
     <div class="block-right">
@@ -133,8 +126,12 @@
             var remove=$("<div><div>").addClass("operate delete_btn")
                     .append("<i class='fa fa-trash'></i>");
             remove.attr("del-id", dormitory.dormitoryId);
+            var detail=$("<div><div>").addClass("operate detail_btn")
+                    .append("<i class='fa fa-th-list'></i>");
+            detail.attr("detail-id", dormitory.dormitoryId);
             update.appendTo(operateTd);
             remove.appendTo(operateTd);
+            detail.appendTo(operateTd);
             $("<tr></tr>").append(dormitoryCodeTd)
                     .append(dormitoryBuildingTd)
                     .append(dormitoryFullTd)
@@ -246,6 +243,11 @@
                 }
             })
         }
+    });
+    //详情
+    $(document).on("click",".detail_btn",function(){
+        var Id=$(this).attr("detail-id");
+        window.location.href="<%=request.getContextPath() %>/dormitory/getPersonnelDetail/"+Id;
     });
 </script>
 </body>

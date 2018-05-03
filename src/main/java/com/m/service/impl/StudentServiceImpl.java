@@ -93,4 +93,9 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
         StudentDto studentDto = this.studentDao.getDetail(Id);
         return studentDto;
     }
+
+    @Override
+    public void changeStudentStatus(Map<String, Integer> map) {
+        this.studentDao.changeStudentStatus(map);
+    }
 }

@@ -48,13 +48,16 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	<!--访问拦截-->
-	<!--<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/guide/**"/>
+			<mvc:mapping path="/student/**"/>
+			<mvc:mapping path="/admin/**"/>
+			<mvc:mapping path="/staff/**"/>
 			<mvc:exclude-mapping path="/static/**"/>
 			<bean class="com.m.interceptor.AdminLoginInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 上传文件大小上限，单位为字节（10MB） -->
 		<property name="maxUploadSize" value="10485760" />
